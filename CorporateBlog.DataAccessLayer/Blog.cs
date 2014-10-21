@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace CorporateBlog.DataAccessLayer
 {
-	public abstract class BaseEntity
+	public class Blog
 	{
-		
+		[Key]
+		public Guid BlogId { get; set; }
+		public string Title { get; set; }
+		public string Description { get; set; }
+
+		[Required]
+		public virtual AuthanticationData Blogger { get; set; }
 	}
 }

@@ -10,12 +10,13 @@ namespace CorporateBlog.DataAccessLayer
 {
 	public class UserPersonalData
 	{
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public long UserPersonalDataId { get; set; }
+		[Key]
+		public Guid UserPersonalDataId { get; set; }
 		public string Name { get; set; }
 		public string Surname { get; set; }
 		public int Age { get; set; }
-
+		
+		[Required]
 		public virtual AuthanticationData AuthanticationData { get; set; }
 
 	}

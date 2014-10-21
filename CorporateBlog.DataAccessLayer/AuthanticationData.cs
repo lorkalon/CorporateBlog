@@ -10,11 +10,14 @@ namespace CorporateBlog.DataAccessLayer
 {
 	public class AuthanticationData
     {
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public long AuthanticateDataId { get; set; }
+		[Key]
 		public string Login { get; set; }
+		[Required]
+		public string Email { get; set; }
+		[Required]
 		public string Password { get; set; }
 
 	    public virtual UserPersonalData UserPersonalData { get; set; }
+		public virtual List<Blog> Blogs { get; set; } 
     }
 }
