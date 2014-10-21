@@ -1,0 +1,12 @@
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[Nn]ode_modules/
+[Pp]ackages/
+
+
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.suo
+*.user
