@@ -33,7 +33,7 @@ namespace CorporateBlog.Tests
 				db.AuthanticationDatas.Add(authanticationData);
 				db.SaveChanges();
 
-				Assert.AreNotEqual(db.AuthanticationDatas.FirstOrDefault(data => data.Login == login), null);
+				Assert.IsNotNull(db.AuthanticationDatas.FirstOrDefault(data => data.Login == login));
 			}
 		}
 
@@ -64,30 +64,51 @@ namespace CorporateBlog.Tests
 				db.UsersPersonalsData.Add(user);
 				db.SaveChanges();
 
-				Assert.AreNotEqual(db.UsersPersonalsData.FirstOrDefault(data => data.UserPersonalDataId == guid), null);
+				Assert.IsNotNull(db.UsersPersonalsData.FirstOrDefault(data => data.UserPersonalDataId == guid));
 			}
 		}
 
 		[TestMethod]
-		public void AddBlog()
+		public void AddCategory()
 		{
 			using (var db = new CorporateBlogDbContext())
 			{
 				var guid = Guid.NewGuid();
 
-				var blog = new Blog()
+				var category = new Category()
 					{
-						BlogId = guid,
+						CategoryId = guid,
 						Title = "New blog",
 						Description = "Tralala",
-						Blogger = db.AuthanticationDatas.FirstOrDefault(data => data.Login == login)
+						Author = db.AuthanticationDatas.FirstOrDefault(data => data.Login == login)
 					};
 
-				db.Blogs.Add(blog);
+				db.Categories.Add(category);
 				db.SaveChanges();
-				Assert.AreNotEqual(db.Blogs.FirstOrDefault(data => data.BlogId == guid), null);
+				Assert.IsNotNull(db.Categories.FirstOrDefault(data => data.CategoryId == guid));
 			}
 		}
+
+		[TestMethod]
+		public void AddPost()
+		{
+			using (var db = new CorporateBlogDbContext())
+			{
+				var guid = Guid.NewGuid();
+				var post = new Post()
+					{
+						PostId = guid,
+						Title = "Post1",
+						Content = "Content of post1",
+						Category = db.Categories.FirstOrDefault(category => category.Author.Login == login)
+					};
+
+				db.Posts.Add(post);
+				db.SaveChanges();
+				Assert.IsNotNull(db.Posts.FirstOrDefault(t=>t.PostId == guid));
+			}
+		}
+
 
 		[TestMethod]
 		public void CheckAuthData()
@@ -103,8 +124,10 @@ namespace CorporateBlog.Tests
 
 				Assert.IsNotNull(authData.UserPersonalData);
 				Assert.AreEqual(authData.UserPersonalData.Surname, "Polljakova");
-				Assert.IsNotNull(authData.Blogs);
-				Assert.IsTrue(authData.Blogs.Count > 0);
+				Assert.IsNotNull(authData.Categories);
+				Assert.IsTrue(authData.Categories.Count > 0);
+				Assert.IsNotNull(authData.Categories.First().Posts);
+				Assert.IsTrue(authData.Categories.First().Posts.Count > 0);
 			}
 		}
 	}

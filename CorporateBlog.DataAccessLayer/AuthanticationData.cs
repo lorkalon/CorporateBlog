@@ -18,6 +18,6 @@ namespace CorporateBlog.DataAccessLayer
 		public string Password { get; set; }
 
 	    public virtual UserPersonalData UserPersonalData { get; set; }
-		public virtual List<Blog> Blogs { get; set; } 
+		public virtual List<Category> Categories { get; set; }
     }
 }

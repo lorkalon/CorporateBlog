@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CorporateBlog.DataAccessLayer
 {
-	public class Blog
+	public class Post
 	{
 		[Key]
-		public Guid BlogId { get; set; }
+		public Guid PostId { get; set; }
 		public string Title { get; set; }
-		public string Description { get; set; }
+		public string Content { get; set; }
 
-		[Required]
-		public virtual AuthanticationData Blogger { get; set; }
+		public virtual Category Category { get; set; }
 	}
 }

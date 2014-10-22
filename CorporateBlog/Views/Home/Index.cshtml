@@ -1,0 +1,26 @@
+﻿@{
+	Layout = "../Shared/_Layout.cshtml";
+	ViewBag.Title = "Index";
+}
+
+<div ng-controller="AboutPersons">
+	<h2>Corporate blog</h2>
+	
+	<div>
+		Search: <input ng-model="query">
+	</div>
+	
+	<div>
+		<select ng-model="orderByModel">
+			<option value="name">Name</option>
+			<option value="age">Age</option>
+		</select>
+	</div>
+
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="person in persons|filter:query|orderBy:orderByModel">
+			<span>{{person.name | uppercase}} </span>
+			<p>{{person.about}} </p>
+		</li>
+	</ul>
+</div>
