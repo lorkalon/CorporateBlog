@@ -3,13 +3,33 @@
 	ViewBag.Title = "Index";
 }
 
-<div ng-controller="AboutPersons">
-	<h2>Corporate blog</h2>
-	
-	<div>
-		Search: <input ng-model="query">
+<div class="container-fluid">
+	<div class="row">
+		<h2 class="text-center">Corporate Blog</h2>
 	</div>
-	
+	<div class="row">
+		<div class="col-md-2">
+			<div class="list-group" ng-controller="CategoriesList">
+				<a href="#" class="list-group-item" ng-repeat="category in categories">
+					{{category}}
+				</a>
+			</div>
+		</div>
+		<div class="col-md-10"></div>
+	</div>
+</div>
+
+
+
+
+@*<div ng-controller="AboutPersons">
+	<h2>Corporate blog</h2>
+
+	<div>
+		Search:
+		<input ng-model="query">
+	</div>
+
 	<div>
 		<select ng-model="orderByModel">
 			<option value="name">Name</option>
@@ -24,3 +44,22 @@
 		</li>
 	</ul>
 </div>
+
+<div ng-controller="Swich">
+	<button ng-click="showOne()">One</button>
+	<button ng-click="showTwo()">Two</button>
+	<p>
+		{{paragraph}}
+	</p>
+</div>
+
+<div>
+	<textarea type="text" ng-model="userInfo" ></textarea>
+	<p ng-bind="userInfo">
+	</p>
+</div>
+
+<div ng-controller="TestInjector">
+	<button ng-click="testInjector">Test service</button>
+	<p>{{serviceResponse}}</p>
+</div>*@
