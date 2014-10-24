@@ -3,19 +3,68 @@
 	ViewBag.Title = "Index";
 }
 
+
+
 <div class="container-fluid">
-	<div class="row">
-		<h2 class="text-center">Corporate Blog</h2>
-	</div>
-	<div class="row">
+	<div class="row" ng-controller="CategoriesList">
 		<div class="col-md-2">
-			<div class="list-group" ng-controller="CategoriesList">
-				<a href="#" class="list-group-item" ng-repeat="category in categories">
-					{{category}}
-				</a>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Categories</h3>
+				</div>
+				<div class="panel-body">
+					<div class="list-group">
+						<a href="#" class="list-group-item" ng-repeat="category in categories" ng-click="changeCategory(category)">{{category.title}}
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-10"></div>
+		<div class="col-md-8">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<ul class="nav nav-pills">
+							<li class="active">
+								<a href="#">
+									<span class="glyphicon glyphicon-sort"></span>
+									<span class="glyphicon glyphicon-calendar"></span>
+									<span>Date</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="glyphicon glyphicon-sort"></span>
+									<span class="glyphicon glyphicon-star"></span>
+									<span>Rating</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div class="list-group">
+							<a href="#" class="list-group-item" ng-repeat="post in posts | filter:searchPosts">
+								<h4>{{post.title}}</h4>
+								<p>
+									{{post.content|limitTo: 200 }}...
+								</p>
+								<p class="text-muted"><em>{{post.date}}</em></p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Advanced search</h3>
+				</div>
+				<div class="panel-body">
+					<input type="text" class="form-control" placeholder="" ng-model="searchPosts">
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

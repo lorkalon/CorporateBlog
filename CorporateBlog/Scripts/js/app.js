@@ -1,7 +1,14 @@
 ﻿var app = angular.module('corporateBlog', []);
 
-app.controller("CategoriesList", function($scope) {
-	$scope.categories = ["Company news", "Projects", "Collegues", "Humor", "Other"];
+app.controller("CategoriesList", function($scope, $http) {
+	$http.get('/Scripts/js/sources/categories.json').success(function (data) {
+		$scope.categories = data;
+		$scope.posts = data[0].posts;
+	});
+
+	$scope.changeCategory = function(selectedCategory) {
+		$scope.posts = selectedCategory.posts;
+	};
 });
 
 
