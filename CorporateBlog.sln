@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog", "CorporateBlog\CorporateBlog.csproj", "{CF4AA081-5AF9-4B54-B952-9EF0471509E0}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog.Tests", "CorporateBlog.Tests\CorporateBlog.Tests.csproj", "{FCBF77E3-61E2-4D61-8262-373095E0B50B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFirstExample", "CodeFirstExample\CodeFirstExample.csproj", "{0BD26BC0-0ABC-44BD-B2C4-232E3AD4846B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog.DataAccessLayer", "CorporateBlog.DataAccessLayer\CorporateBlog.DataAccessLayer.csproj", "{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}"
 EndProject
@@ -13,7 +11,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2BF084
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B5C32259-E0F6-4B81-83EA-A72229917FF8}"
+	ProjectSection(SolutionItems) = preProject
+		WE-Palette.css = WE-Palette.css
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CorporateBlog.WebSait", "http://localhost:15773", "{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_15773"
+		Debug.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSait\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15773\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_15773"
+		Release.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSait\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15773\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "CorporateBlog.WebSait\"
 	EndProjectSection
 EndProject
 Global
@@ -22,22 +45,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CF4AA081-5AF9-4B54-B952-9EF0471509E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF4AA081-5AF9-4B54-B952-9EF0471509E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF4AA081-5AF9-4B54-B952-9EF0471509E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF4AA081-5AF9-4B54-B952-9EF0471509E0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCBF77E3-61E2-4D61-8262-373095E0B50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCBF77E3-61E2-4D61-8262-373095E0B50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCBF77E3-61E2-4D61-8262-373095E0B50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCBF77E3-61E2-4D61-8262-373095E0B50B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BD26BC0-0ABC-44BD-B2C4-232E3AD4846B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BD26BC0-0ABC-44BD-B2C4-232E3AD4846B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BD26BC0-0ABC-44BD-B2C4-232E3AD4846B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BD26BC0-0ABC-44BD-B2C4-232E3AD4846B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
