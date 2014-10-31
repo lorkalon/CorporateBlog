@@ -1,0 +1,27 @@
+﻿<div class="container-fluid">
+    <div class="center-block">
+        <blockquote class="bg-success">
+            <p>{{post.title}}</p>
+            <footer>{{post.date}}</footer>
+        </blockquote>
+        <div class="well well-lg">
+            {{post.content}}
+        </div>
+    </div>
+	
+	<div class="center-block" >
+        <h4>Comments</h4>
+
+        <div class="well" ng-repeat="rev in post.reviews">
+            {{rev.body}}
+        </div>
+
+        <form name="reviewPostForm" ng-controller="ReviewPostController as reviewCtrl" ng-submit="reviewPostForm.$valid && reviewCtrl.addReview(post)">
+            <textarea ng-model="reviewCtrl.review.body" required></textarea>
+            <input type="submit" class="btn btn-primary"></input>
+            <div>
+                Form is valid? -  {{reviewPostForm.$valid}}
+            </div>
+        </form>
+	</div>
+</div>

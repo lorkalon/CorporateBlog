@@ -1,26 +1,29 @@
-﻿var blogApp = angular.module('corporateBlogApp', [
-    'ngRoute',
-    'appControllers'
-]);
+﻿(function () {
+    var blogApp = angular.module('corporateBlogApp', [
+        'ngRoute',
+        'appControllers',
+        'directives',
+        'appServices'
+    ]);
 
-blogApp.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/categories', {
-        templateUrl: 'partials/categories.html',
-        controller: 'CategoriesListController'
-    }).
-    when('/account', {
-        templateUrl: 'partials/account.html',
-        controller:'AccountController'
-    }).
-    when('/posts/:postId', {
-        templateUrl: 'partials/postDetails.html',
-        controller: 'PostDetailsController'
-    }).
-    otherwise({
-        redirectTo: "/categories"
-    })
-}]);
-
+    blogApp.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/categories', {
+            templateUrl: 'partials/categories.html',
+            controller: 'CategoriesListController'
+        }).
+        when('/account', {
+            templateUrl: 'partials/account.html',
+            controller: 'AccountController'
+        }).
+        when('/posts/:postId', {
+            templateUrl: 'partials/postDetails.html',
+            controller: 'PostDetailsController'
+        }).
+        otherwise({
+            redirectTo: "/categories"
+        })
+    }]);
+})();
 
 
 

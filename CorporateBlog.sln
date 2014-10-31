@@ -18,25 +18,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WE-Palette.css = WE-Palette.css
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CorporateBlog.WebSait", "http://localhost:15773", "{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CorporateBlog.WebSite", "http://localhost:23329", "{5705CE29-09CC-44DB-A248-69F4192DCACD}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_15773"
-		Debug.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSait\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15773\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_23329"
+		Debug.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_23329\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_15773"
-		Release.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSait\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15773\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_23329"
+		Release.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_23329\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "CorporateBlog.WebSait\"
+		SlnRelativePath = "CorporateBlog.WebSite\"
 	EndProjectSection
 EndProject
 Global
@@ -53,10 +53,10 @@ Global
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{362D9C4F-B60B-47C5-8F2D-0FF32E9E2938}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{21AB12A5-0198-4581-9ED7-EFDD5DC24A51}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
