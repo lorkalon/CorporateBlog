@@ -2,67 +2,81 @@
 
     var controllers = angular.module('appControllers', []);
 
-    var sourceData = [];
+    controllers.controller("HomeController", ['$scope', 'PostsSevice', function ($scope, postsSevice) {
+        postsSevice.getPosts().then(function (response) {
+            var content = response;
 
-    controllers.controller("CategoriesListController", function ($scope, $http, postsSevice) {
-       postsSevice.getPosts.success(function (data) {
-            sourceData = data.slice();
-            $scope.categories = data;
-            $scope.posts = data[0].posts;
-            $scope.selectedCategoryName = data[0].title;
-            $scope.orderParam = 'date';
+            if (content.length == 0) {
+                return;
+            }
+
+            $scope.selectedCategory = content[0].id;
+            $scope.categories = content;
+            $scope.posts = content[0].posts;
         });
 
-
         $scope.selectCategory = function (newCategory) {
-            $scope.selectedCategoryName = newCategory.title;
+            $scope.selectedCategory = newCategory.catgoryId;
             $scope.posts = newCategory.posts;
         };
 
-        $scope.isCategorySelected = function (category) {
-            return $scope.selectedCategoryName == category.title;
+        $scope.isCategorySelected = function (categoryId) {
+            return $scope.selectedCategory == categoryId;
         }
+
+
+        $scope.orderParam = 'date';
+
 
         $scope.switchOrderBy = function (sortBy) {
             $scope.orderParam = sortBy;
         }
-    });
+       
+    }]);
+
 
     controllers.controller("AccountController", function ($scope, $http) {
 
     });
 
-    controllers.controller("PostDetailsController", ['$scope', '$routeParams', function ($scope, $routeParams) {
+    controllers.controller("PostDetailsController", ['$scope', '$routeParams', 'PostsSevice', function ($scope, $routeParams, postService) {
         $scope.postId = $routeParams.postId;
         $scope.post = {};
 
-        sourceData.forEach(function (category) {
-            category.posts.forEach(function (p) {
-                if (p.id == $scope.postId) {
-                    $scope.post = p;
-                }
+        postService.getPosts().then(function (response) {
+            var sourceData = response;
+            sourceData.forEach(function (category) {
+                category.posts.forEach(function (p) {
+                    if (p.id == $scope.postId) {
+                        $scope.post = p;
+                    }
+                });
             });
-
-
         });
 
     }]);
 
 
-    controllers.controller("ReviewPostController", function () {
-        this.review = {};
-        this.addReview = function (post) {
-            post.reviews.push(this.review);
+    controllers.controller("ReviewPostController", ['$scope', function ($scope) {
+        $scope.review = {
+            'author': 'Hanna Shviatsova',
+            'date': '11.03.2014'
+        };
+
+        $scope.addReview = function (post) {
+            post.reviews.push($scope.review);
             console.log(post.title);
-            this.review = {};
+            $scope.review = {
+                'author': 'Hanna Shviatsova',
+                'date': '11.03.2014'
+            };
         }
-    });
+    }]);
 
 
-    controllers.controller("NavbarController", function () {
+    controllers.controller("NavbarController", ['$scope', function ($scope) {
         //Get name from service
-        var navbarScope = this;
-        navbarScope.name = "John";
-        navbarScope.surname = "Dow";
-    });
+        $scope.name = "John";
+        $scope.surname = "Dow";
+    }]);
 })();
