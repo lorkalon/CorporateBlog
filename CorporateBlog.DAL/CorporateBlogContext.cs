@@ -14,10 +14,6 @@ namespace CorporateBlog.DAL
         public CorporateBlogContext()
             : base("CorporateBlogContext")
         {
-        }
-
-        static CorporateBlogContext()
-        {
             Mapper.CreateMap<Article, Common.Article>();
             Mapper.CreateMap<ArticleRate, Common.ArticleRate>();
             Mapper.CreateMap<Category, Common.Category>();

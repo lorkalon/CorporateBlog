@@ -12,32 +12,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WE-Palette.css = WE-Palette.css
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CorporateBlog.WebSite", "http://localhost:23329", "{5705CE29-09CC-44DB-A248-69F4192DCACD}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_23329"
-		Debug.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSite\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_23329\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_23329"
-		Release.AspNetCompiler.PhysicalPath = "CorporateBlog.WebSite\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_23329\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "CorporateBlog.WebSite\"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog.WebApi", "CorporateBlog.WebApi\CorporateBlog.WebApi.csproj", "{19B0FDC8-3105-4465-9D50-BC7A10C5564E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog.DAL", "CorporateBlog.DAL\CorporateBlog.DAL.csproj", "{44F1CEF1-11D8-44C2-999E-F69DD5DF4ACC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog.Common", "CorporateBlog.Common\CorporateBlog.Common.csproj", "{0F0CDA6C-E933-4B14-9DD6-B5D11A9CCA69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDatabase", "TestDatabase\TestDatabase.csproj", "{7AFAC3F8-558E-4884-91FE-821405CD2BC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorporateBlog.BLL", "CorporateBlog.BLL\CorporateBlog.BLL.csproj", "{16B85D13-EFF0-4547-ABA4-F2652F15D653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +28,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{5705CE29-09CC-44DB-A248-69F4192DCACD}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{19B0FDC8-3105-4465-9D50-BC7A10C5564E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19B0FDC8-3105-4465-9D50-BC7A10C5564E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19B0FDC8-3105-4465-9D50-BC7A10C5564E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +40,14 @@ Global
 		{0F0CDA6C-E933-4B14-9DD6-B5D11A9CCA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F0CDA6C-E933-4B14-9DD6-B5D11A9CCA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F0CDA6C-E933-4B14-9DD6-B5D11A9CCA69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AFAC3F8-558E-4884-91FE-821405CD2BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AFAC3F8-558E-4884-91FE-821405CD2BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AFAC3F8-558E-4884-91FE-821405CD2BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AFAC3F8-558E-4884-91FE-821405CD2BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B85D13-EFF0-4547-ABA4-F2652F15D653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B85D13-EFF0-4547-ABA4-F2652F15D653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B85D13-EFF0-4547-ABA4-F2652F15D653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B85D13-EFF0-4547-ABA4-F2652F15D653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
