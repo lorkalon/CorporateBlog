@@ -7,7 +7,7 @@ using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.IRepositories
 {
-    public interface ICommentRateRepository : IGenericRepository<Common.CommentRate, CommentRate>
+    public interface ICommentRateRepository : IGenericRepository<CommentRate>
     {
     }
 }

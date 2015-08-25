@@ -7,7 +7,7 @@ using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.IRepositories
 {
-    public interface IUserInfoRepository : IGenericRepository<Common.UserInfo, UserInfo>
+    public interface IUserInfoRepository : IGenericRepository<UserInfo>
     {
     }
 }

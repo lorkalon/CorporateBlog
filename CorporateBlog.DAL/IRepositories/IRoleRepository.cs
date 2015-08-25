@@ -7,7 +7,7 @@ using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.IRepositories
 {
-    public interface IRoleRepository : IGenericRepository<Common.Role, Role>
+    public interface IRoleRepository : IGenericRepository<Role>
     {
     }
 }

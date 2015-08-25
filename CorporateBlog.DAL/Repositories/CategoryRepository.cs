@@ -1,12 +1,13 @@
 ﻿using System.Data.Entity;
+using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
 using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.Repositories
 {
-    public class CategoryRepository:GenericRepository<Common.Category, Category>, ICategoryRepository
+    public class CategoryRepository:GenericRepository<Category>, ICategoryRepository
     {
-        public CategoryRepository(DbContext context) : base(context)
+        public CategoryRepository(IContextCreator contextCreator) : base(contextCreator)
         {
         }
     }

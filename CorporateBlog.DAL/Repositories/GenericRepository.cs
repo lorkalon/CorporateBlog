@@ -5,82 +5,62 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
 
 namespace CorporateBlog.DAL.Repositories
 {
-    public class GenericRepository<TEntity, TDataEntity> : IGenericRepository<TEntity, TDataEntity>
-        where TEntity : class
+    public class GenericRepository<TDataEntity> : IGenericRepository<TDataEntity>
         where TDataEntity : class
     {
-        private readonly DbContext _context;
         private readonly DbSet<TDataEntity> _dbSet;
+        private readonly DbContext _context;
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(IContextCreator contextCreator)
         {
-            _context = context;
-            _dbSet = _context.Set<TDataEntity>();
+            _context = contextCreator.GetContext;
+            _dbSet = contextCreator.GetContext.Set<TDataEntity>();
         }
 
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
 
-        public void Add(TEntity entity)
+        public void Add(TDataEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity", "Entity cann't be null!");
             }
 
-            var dataEntity = Mapper.Map<TDataEntity>(entity);
-            _dbSet.Add(dataEntity);
+            _dbSet.Add(entity);
         }
 
-        public void Update(TEntity entity)
+        public void Update(TDataEntity entity)
         {
-            var dataEntity = Mapper.Map<TDataEntity>(entity);
-            _dbSet.Attach(dataEntity);
+            _dbSet.Attach(entity);
 
-            var entry = _context.Entry(dataEntity);
+            var entry = _context.Entry(entity);
             entry.State = EntityState.Modified;
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(TDataEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity", "Entity cann't be null!");
             }
 
-            var dataEntity = Mapper.Map<TDataEntity>(entity);
-            _dbSet.Remove(dataEntity);
+            _dbSet.Remove(entity);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TDataEntity> GetPaged()
         {
-            return _dbSet.AsQueryable().Project().To<TEntity>();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<TEntity> GetAllPaged(int page, int pageSize)
+
+        public TDataEntity Get(int id)
         {
-            return _dbSet.AsEnumerable().Skip(pageSize).Take(page).AsQueryable().Project().To<TEntity>();
+            return _dbSet.Find(id);
         }
 
-        public TEntity Get(int id)
-        {
-            return Mapper.Map<TEntity>(_dbSet.Find(id));
-        }
-
-        public int Count()
-        {
-            return _dbSet.Count();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
     }
 }

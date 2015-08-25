@@ -7,7 +7,7 @@ using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.IRepositories
 {
-    public interface IArticleRateRepository:IGenericRepository<Common.ArticleRate, ArticleRate>
+    public interface IArticleRateRepository:IGenericRepository< ArticleRate>
     {
     }
 }

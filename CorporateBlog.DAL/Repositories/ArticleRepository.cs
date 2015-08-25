@@ -1,12 +1,13 @@
 ﻿using System.Data.Entity;
+using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
 using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.Repositories
 {
-    public class ArticleRepository:GenericRepository<Common.Article, Article>, IArticleRepository
+    public class ArticleRepository:GenericRepository<Article>, IArticleRepository
     {
-        public ArticleRepository(DbContext context) : base(context)
+        public ArticleRepository(IContextCreator contextCreator) : base(contextCreator)
         {
         }
     }

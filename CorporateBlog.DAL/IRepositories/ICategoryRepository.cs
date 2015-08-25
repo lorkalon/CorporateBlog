@@ -7,7 +7,7 @@ using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.IRepositories
 {
-    public interface ICategoryRepository : IGenericRepository<Common.Category, Category>
+    public interface ICategoryRepository : IGenericRepository<Category>
     {
     }
 }
