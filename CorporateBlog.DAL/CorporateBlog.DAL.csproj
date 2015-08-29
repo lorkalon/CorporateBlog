@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependeciesResolver.cs" />
     <Compile Include="DbContextProvider\CorporateBlogContextCreator.cs" />
     <Compile Include="DbContextProvider\CorporateBlogContextProvider.cs" />
     <Compile Include="DbContextProvider\IContextProvider.cs" />

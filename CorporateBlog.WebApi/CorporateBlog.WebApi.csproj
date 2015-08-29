@@ -43,7 +43,8 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.WebApi">
+    <Reference Include="Autofac.Integration.WebApi, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -325,7 +326,9 @@
   </ItemGroup>
   <ItemGroup>
     <Fakes Include="Fakes\Microsoft.AspNet.Identity.Core.fakes" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -501,6 +504,10 @@
     <Folder Include="website\styles\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CorporateBlog.BLL\CorporateBlog.BLL.csproj">
+      <Project>{16b85d13-eff0-4547-aba4-f2652f15d653}</Project>
+      <Name>CorporateBlog.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CorporateBlog.DAL\CorporateBlog.DAL.csproj">
       <Project>{44f1cef1-11d8-44c2-999e-f69dd5df4acc}</Project>
       <Name>CorporateBlog.DAL</Name>
