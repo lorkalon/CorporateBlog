@@ -17,12 +17,10 @@ namespace CorporateBlog.WebApi.Controllers
     public class AccountController : ApiController
     {
         private AuthenticationManager _manager;
-        private readonly IArticleService _articleService;
 
-        public AccountController(IArticleService articleService)
+        public AccountController(IUserRegistrationService userRegistrationService)
         {
-            _articleService = articleService;
-            _manager = new AuthenticationManager();
+            _manager = new AuthenticationManager(userRegistrationService);
         }
 
         [AllowAnonymous]
@@ -77,9 +75,5 @@ namespace CorporateBlog.WebApi.Controllers
             return null;
         }
 
-        public void Test()
-        {
-            
-        }
     }
 }

@@ -1,11 +1,19 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using CorporateBlog.BLL.IServices;
 using Microsoft.Owin.Security.OAuth;
 
 namespace CorporateBlog.WebApi.Authentication
 {
     public class CorporateBlogAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        private readonly IUserRegistrationService _userRegistrationService;
+
+        public CorporateBlogAuthorizationServerProvider(IUserRegistrationService userRegistrationService):base()
+        {
+            _userRegistrationService = userRegistrationService;
+        }
+
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -15,7 +23,7 @@ namespace CorporateBlog.WebApi.Authentication
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (var _repo = new AuthenticationManager())
+            using (var _repo = new AuthenticationManager(_userRegistrationService))
             {
                 ApplicationUser user = await _repo.FindUser(context.UserName, context.Password);
 

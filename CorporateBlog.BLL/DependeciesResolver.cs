@@ -9,18 +9,12 @@ using CorporateBlog.BLL.Services;
 
 namespace CorporateBlog.BLL
 {
-    public class DependeciesResolver
+    public static class DependeciesResolver
     {
-        private readonly ContainerBuilder _containerBuilder;
-
-        public DependeciesResolver(ContainerBuilder containerBuilder)
+        public static void Resolve(ContainerBuilder builder)
         {
-            _containerBuilder = containerBuilder;
-        }
-
-        public void RegisterTypes()
-        {
-            _containerBuilder.RegisterType<ArticleService>().As<IArticleService>();
+            builder.RegisterType<ArticleService>().As<IArticleService>();
+            builder.RegisterType<UserRegistrationService>().As<IUserRegistrationService>();
         }
     }
 }

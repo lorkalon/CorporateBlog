@@ -7,7 +7,6 @@ namespace CorporateBlog.DAL.Models
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public int Salt { get; set; }
 
         public int? UserInfoId { get; set; }
         public virtual UserInfo UserInfo { get; set; }

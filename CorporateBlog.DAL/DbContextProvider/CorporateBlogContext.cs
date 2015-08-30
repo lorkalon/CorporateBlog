@@ -10,23 +10,6 @@ namespace CorporateBlog.DAL.DbContextProvider
         public CorporateBlogContext()
             : base("CorporateBlogContext")
         {
-            Mapper.CreateMap<Article, Common.Article>();
-            Mapper.CreateMap<ArticleRate, Common.ArticleRate>();
-            Mapper.CreateMap<Category, Common.Category>();
-            Mapper.CreateMap<Comment, Common.Comment>();
-            Mapper.CreateMap<CommentRate, Common.CommentRate>();
-            Mapper.CreateMap<Role, Common.Role>();
-            Mapper.CreateMap<UserInfo, Common.UserInfo>();
-            Mapper.CreateMap<User, Common.User>();
-
-            Mapper.CreateMap<Common.Article, Article>();
-            Mapper.CreateMap<Common.ArticleRate, ArticleRate>();
-            Mapper.CreateMap<Common.Category, Category>();
-            Mapper.CreateMap<Common.Comment, Comment>();
-            Mapper.CreateMap<Common.CommentRate, CommentRate>();
-            Mapper.CreateMap<Common.Role, Role>();
-            Mapper.CreateMap<Common.UserInfo, UserInfo>();
-            Mapper.CreateMap<Common.User, User>();
         }
 
         public DbSet<User> Users { get; set; }
@@ -40,13 +23,15 @@ namespace CorporateBlog.DAL.DbContextProvider
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Role>()
+                        .HasKey(e => e.Id)
+                        .Property(e => e.Id)
+                        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+
             modelBuilder.Entity<User>()
                         .HasOptional(b => b.UserInfo)
                         .WithRequired(info => info.User);
-
-            modelBuilder.Entity<User>()
-                        .Property(e => e.Id)
-                        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<User>()
                         .Property(user => user.Login)

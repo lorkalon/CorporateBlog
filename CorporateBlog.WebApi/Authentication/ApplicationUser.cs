@@ -14,5 +14,6 @@ namespace CorporateBlog.WebApi.Authentication
 
         public string PasswordHash { get; set; }
        
+        public int RoleId { get; set; }
     }
 }

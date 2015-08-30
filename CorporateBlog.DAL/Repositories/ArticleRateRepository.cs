@@ -5,7 +5,7 @@ using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.Repositories
 {
-    public class ArticleRateRepository: GenericRepository< ArticleRate>, IArticleRateRepository
+    public class ArticleRateRepository: GenericRepository<ArticleRate>, IArticleRateRepository
     {
         public ArticleRateRepository(IContextCreator contextCreator) : base(contextCreator)
         {

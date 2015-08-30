@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using CorporateBlog.DAL.DbContextProvider;
+using CorporateBlog.DAL.Repositories.Filters;
 
 namespace CorporateBlog.DAL.IRepositories
 {
@@ -13,8 +14,9 @@ namespace CorporateBlog.DAL.IRepositories
         void Update(TDataEntity entity);
         
         void Delete(TDataEntity entity);
-        
+
         IEnumerable<TDataEntity> GetPaged();
-       
+
+        IEnumerable<TDataEntity> GetAll();
     }
 }

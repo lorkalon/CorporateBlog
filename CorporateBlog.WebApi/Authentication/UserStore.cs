@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper;
+using CorporateBlog.BLL.IServices;
 using CorporateBlog.DAL;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.Models;
@@ -13,7 +15,12 @@ namespace CorporateBlog.WebApi.Authentication
 {
     public class UserStore : IUserPasswordStore<ApplicationUser, int>
     {
-        private readonly CorporateBlogContext _dbContext = new CorporateBlogContext();
+        private readonly IUserRegistrationService _userRegistrationService;
+        public UserStore(IUserRegistrationService userRegistrationService)
+        {
+            _userRegistrationService = userRegistrationService;
+        }
+
 
         public void Dispose()
         {
@@ -22,13 +29,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task CreateAsync(ApplicationUser user)
         {
-            _dbContext.Users.Add(new User()
-                {
-                    Login = user.UserName,
-                    Password = user.PasswordHash
-                });
-
-            return Task.Run(() => _dbContext.SaveChanges());
+            return Task.Run(() => _userRegistrationService.AddUser(Mapper.Map<Common.User>(user)));
         }
 
         public Task UpdateAsync(ApplicationUser user)
@@ -53,7 +54,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
         {
-            return Task.Run(() => user.PasswordHash);
+            return Task.Run(() => user.PasswordHash = passwordHash);
         }
 
         public Task<string> GetPasswordHashAsync(ApplicationUser user)

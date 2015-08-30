@@ -10,28 +10,21 @@ using CorporateBlog.DAL.Repositories;
 
 namespace CorporateBlog.DAL
 {
-    public class DependeciesResolver
+    public static class DependeciesResolver
     {
-        private readonly ContainerBuilder _containerBuilder;
-
-        public DependeciesResolver(ContainerBuilder containerBuilder)
+        public static void Resolve(ContainerBuilder builder)
         {
-            _containerBuilder = containerBuilder;
-        }
+            builder.RegisterType<CorporateBlogContextCreator>().As<IContextCreator>().InstancePerRequest();
+            builder.RegisterType<CorporateBlogContextProvider>().As<IContextProvider>();
 
-        public void RegisterTypes()
-        {
-            _containerBuilder.RegisterType<CorporateBlogContextCreator>().As<IContextCreator>().InstancePerRequest();
-            _containerBuilder.RegisterType<CorporateBlogContextProvider>().As<IContextProvider>();
-
-            _containerBuilder.RegisterType<ArticleRateRepository>().As<IArticleRateRepository>();
-            _containerBuilder.RegisterType<ArticleRepository>().As<IArticleRepository>();
-            _containerBuilder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
-            _containerBuilder.RegisterType<CommentRateRepository>().As<ICommentRateRepository>();
-            _containerBuilder.RegisterType<CommentRepository>().As<ICommentRepository>();
-            _containerBuilder.RegisterType<RoleRepository>().As<IRoleRepository>();
-            _containerBuilder.RegisterType<UserInfoRepository>().As<IUserInfoRepository>();
-            _containerBuilder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterType<ArticleRateRepository>().As<IArticleRateRepository>();
+            builder.RegisterType<ArticleRepository>().As<IArticleRepository>();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
+            builder.RegisterType<CommentRateRepository>().As<ICommentRateRepository>();
+            builder.RegisterType<CommentRepository>().As<ICommentRepository>();
+            builder.RegisterType<RoleRepository>().As<IRoleRepository>();
+            builder.RegisterType<UserInfoRepository>().As<IUserInfoRepository>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
 
         }
     }

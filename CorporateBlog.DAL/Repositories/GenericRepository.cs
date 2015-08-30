@@ -7,6 +7,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
+using CorporateBlog.DAL.Repositories.Filters;
 
 namespace CorporateBlog.DAL.Repositories
 {
@@ -53,7 +54,12 @@ namespace CorporateBlog.DAL.Repositories
 
         public IEnumerable<TDataEntity> GetPaged()
         {
-            throw new NotImplementedException();
+            return _dbSet.ToList();
+        }
+
+        public IEnumerable<TDataEntity> GetAll()
+        {
+            return _dbSet.ToList();
         }
 
 
