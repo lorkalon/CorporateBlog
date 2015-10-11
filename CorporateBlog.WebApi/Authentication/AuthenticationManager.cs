@@ -24,11 +24,21 @@ namespace CorporateBlog.WebApi.Authentication
             return result;
         }
 
+        public async Task<bool> LoginUser(UserModel userModel)
+        {
+            var result = await _userManager.CheckPasswordAsync(Mapper.Map<ApplicationUser>(userModel), userModel.Password);
+            return result;
+        } 
+
         public async Task<ApplicationUser> FindUser(string userName, string password)
         {
             ApplicationUser user = await _userManager.FindAsync(userName, password);
 
             return user;
+        }
+
+        public async void GenerateEmailConfirmationKey()
+        {
         }
 
         public void Dispose()

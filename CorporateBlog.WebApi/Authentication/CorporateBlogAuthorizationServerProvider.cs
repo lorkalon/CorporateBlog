@@ -21,11 +21,11 @@ namespace CorporateBlog.WebApi.Authentication
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (var _repo = new AuthenticationManager(_userRegistrationService))
+            using (var authenticationManager = new AuthenticationManager(_userRegistrationService))
             {
-                ApplicationUser user = await _repo.FindUser(context.UserName, context.Password);
+                ApplicationUser user = await authenticationManager.FindUser(context.UserName, context.Password);
 
                 if (user == null)
                 {

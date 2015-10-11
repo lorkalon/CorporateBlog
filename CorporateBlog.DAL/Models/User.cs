@@ -12,6 +12,10 @@ namespace CorporateBlog.DAL.Models
         public virtual UserInfo UserInfo { get; set; }
 
         public int RoleId { get; set; }
+
+        public bool IsConfirmed { get; set; }
+        public string ConfirmationKey { get; set; }
+
         public virtual Role Role { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }

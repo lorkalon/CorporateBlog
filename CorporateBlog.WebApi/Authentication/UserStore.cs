@@ -24,7 +24,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         public Task CreateAsync(ApplicationUser user)
@@ -49,7 +49,9 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task<ApplicationUser> FindByNameAsync(string userName)
         {
-            return Task.FromResult<ApplicationUser>(null);
+            Common.User user = _userRegistrationService.FindUser(userName);
+            var applicationUser = Mapper.Map<ApplicationUser>(user);
+            return Task.Run(() => applicationUser);
         }
 
         public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
@@ -59,7 +61,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task<string> GetPasswordHashAsync(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => user.PasswordHash);
         }
 
         public Task<bool> HasPasswordAsync(ApplicationUser user)
