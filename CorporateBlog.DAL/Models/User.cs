@@ -13,8 +13,9 @@ namespace CorporateBlog.DAL.Models
 
         public int RoleId { get; set; }
 
-        public bool IsConfirmed { get; set; }
-        public string ConfirmationKey { get; set; }
+        public bool EmailConfirmed { get; set; }
+
+        public bool Blocked { get; set; }
 
         public virtual Role Role { get; set; }
 

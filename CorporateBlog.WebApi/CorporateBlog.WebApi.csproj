@@ -329,13 +329,16 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\ApplicationUser.cs" />
+    <Compile Include="Authentication\DataProtector.cs" />
     <Compile Include="Authentication\UserStore.cs" />
+    <Compile Include="Services\ConfigurationManagerService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Mappers\ModelsMappers.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authentication\AuthenticationManager.cs" />
     <Compile Include="Authentication\CorporateBlogAuthorizationServerProvider.cs" />
+    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

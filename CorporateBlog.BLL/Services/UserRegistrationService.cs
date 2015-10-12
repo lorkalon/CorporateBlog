@@ -35,11 +35,13 @@ namespace CorporateBlog.BLL.Services
         public void AddUser(Common.User user)
         {
             var mappedUser = Mapper.Map<DAL.Models.User>(user);
-            mappedUser.IsConfirmed = true;
-            mappedUser.ConfirmationKey = Guid.NewGuid().ToString();
+
+            mappedUser.EmailConfirmed = false;
+            mappedUser.Blocked = false;
 
             _userRepository.Add(mappedUser);
             SaveChanges();
+            user.Id = mappedUser.Id;
         }
 
         public Common.User FindUser(string login)

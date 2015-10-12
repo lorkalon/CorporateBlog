@@ -20,16 +20,19 @@ namespace CorporateBlog.WebApi.Mappers
             Mapper.CreateMap<Common.User, DAL.Models.User>();
 
             Mapper.CreateMap<ApplicationUser, Common.User>()
+                .ForMember(t => t.Id, m => m.MapFrom(s => s.Id))
                 .ForMember(t => t.Login, m => m.MapFrom(s => s.UserName))
                 .ForMember(t => t.Password, m => m.MapFrom(s => s.PasswordHash));
 
             Mapper.CreateMap<Common.User, ApplicationUser>()
+               .ForMember(t => t.Id, m => m.MapFrom(s => s.Id))
                .ForMember(t => t.UserName, m => m.MapFrom(s => s.Login))
                .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password));
 
             Mapper.CreateMap<UserModel, ApplicationUser>()
                 .ForMember(t => t.UserName, m => m.MapFrom(s => s.Login))
-                .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password));
+                .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password))
+                .ForMember(t => t.Id, m => m.MapFrom(s => s.Id));
 
 
         }

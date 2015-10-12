@@ -14,6 +14,7 @@ using CorporateBlog.WebApi.App_Start;
 using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Mappers;
 using CorporateBlog.WebApi.Models;
+using CorporateBlog.WebApi.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
@@ -52,16 +53,27 @@ namespace CorporateBlog.WebApi
             }
 
             var authManager = new AuthenticationManager(userRegistrationService);
+            
             ConfigureOAuth(app, userRegistrationService);
             ModelsMappers.RegisterMappers();
-            RegisterAdmin(authManager, userRegistrationService);
 
+            if (!ConfigurationManagerService.DatabaseCreated)
+            {
+                CreateDatabase(authManager, userRegistrationService);
+            }
+        }
+
+        private void CreateDatabase(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
+        {
+            //Add roles
+            RegisterAdmin(authManager, userRegistrationService);
+            ConfigurationManagerService.DatabaseCreated = true;
         }
 
         private async void RegisterAdmin(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
         {
-            var adminName = ConfigurationManager.AppSettings["DefaultAdminName"];
-            var adminPassword = ConfigurationManager.AppSettings["DefaultAdminPassword"];
+            var adminName = ConfigurationManagerService.DefaultAdminName;
+            var adminPassword = ConfigurationManagerService.DefaultAdminPassword;
 
             if (userRegistrationService.FindUser(adminName) == null)
             {
@@ -69,7 +81,7 @@ namespace CorporateBlog.WebApi
                 {
                     Login = adminName,
                     Password = adminPassword,
-                    RoleId = (int) RoleType.Admin
+                    RoleId = (int)RoleType.Admin
                 };
 
                 await authManager.RegisterUser(userModel);

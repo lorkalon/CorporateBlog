@@ -4,11 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Results;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.DAL.Models;
 using CorporateBlog.WebApi.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using AuthenticationManager = CorporateBlog.WebApi.Authentication.AuthenticationManager;
 
 namespace CorporateBlog.WebApi.Controllers
@@ -26,13 +29,23 @@ namespace CorporateBlog.WebApi.Controllers
         [AllowAnonymous]
         [Route("Register")]
         [HttpGet]
-        public async Task<IHttpActionResult> Register([FromUri]UserModel userModel)
+        public string Register()
+        {
+            return "Hello!";
+        }
+
+
+        [AllowAnonymous]
+        [Route("Register")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Register(UserModel userModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            userModel.RoleId = (int)RoleType.Client;
             IdentityResult result = await _manager.RegisterUser(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
@@ -42,6 +55,7 @@ namespace CorporateBlog.WebApi.Controllers
                 return errorResult;
             }
 
+            var token = _manager.GenerateEmailConfirmationTokenAsync(userModel.Id);
             return Ok();
         }
 

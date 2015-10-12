@@ -29,7 +29,10 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task CreateAsync(ApplicationUser user)
         {
-            return Task.Run(() => _userRegistrationService.AddUser(Mapper.Map<Common.User>(user)));
+            var mappedUser = Mapper.Map<Common.User>(user);
+             _userRegistrationService.AddUser(mappedUser);
+         
+            return Task.Run(() => user.Id = mappedUser.Id);
         }
 
         public Task UpdateAsync(ApplicationUser user)

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Net.Cache;
 using System.Threading.Tasks;
+using System.Web.Routing;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.WebApi.Models;
+using CorporateBlog.WebApi.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CorporateBlog.WebApi.Authentication
 {
@@ -16,11 +20,15 @@ namespace CorporateBlog.WebApi.Authentication
         public AuthenticationManager(IUserRegistrationService userRegistrationService)
         {
             _userManager = new UserManager<ApplicationUser, int>(new UserStore(userRegistrationService));
+            _userManager.EmailService = new EmailService();
         }
 
+        
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
-            var result = await _userManager.CreateAsync(Mapper.Map<ApplicationUser>(userModel), userModel.Password);
+            var applicationUser = Mapper.Map<ApplicationUser>(userModel);
+            var result = await _userManager.CreateAsync(applicationUser, userModel.Password);
+            userModel.Id = applicationUser.Id;
             return result;
         }
 
@@ -37,8 +45,9 @@ namespace CorporateBlog.WebApi.Authentication
             return user;
         }
 
-        public async void GenerateEmailConfirmationKey()
+        public async Task<string> GenerateEmailConfirmationTokenAsync(int userId)
         {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(userId);
         }
 
         public void Dispose()
