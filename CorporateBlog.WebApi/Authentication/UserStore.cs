@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Authentication
 {
-    public class UserStore : IUserPasswordStore<ApplicationUser, int>
+    public class UserStore : IUserPasswordStore<ApplicationUser, int>, IUserEmailStore<ApplicationUser, int>
     {
         private readonly IUserRegistrationService _userRegistrationService;
         public UserStore(IUserRegistrationService userRegistrationService)
@@ -47,7 +47,9 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task<ApplicationUser> FindByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            Common.User user = _userRegistrationService.FindUser(userId);
+            var applicationUser = Mapper.Map<ApplicationUser>(user);
+            return Task.Run(() => applicationUser);
         }
 
         public Task<ApplicationUser> FindByNameAsync(string userName)
@@ -68,6 +70,31 @@ namespace CorporateBlog.WebApi.Authentication
         }
 
         public Task<bool> HasPasswordAsync(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetEmailAsync(ApplicationUser user, string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetEmailAsync(ApplicationUser user)
+        {
+            return Task.Run(() => "lorkalon@mail.ru");
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApplicationUser> FindByEmailAsync(string email)
         {
             throw new NotImplementedException();
         }

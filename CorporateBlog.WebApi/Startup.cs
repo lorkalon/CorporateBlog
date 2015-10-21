@@ -39,63 +39,60 @@ namespace CorporateBlog.WebApi
 
             DAL.DependeciesResolver.Resolve(builder);
             BLL.DependeciesResolver.Resolve(builder);
+            builder.RegisterType<UserStore>().As<IUserStore<ApplicationUser, int>>().InstancePerRequest();
+            builder.RegisterType<UserManager<ApplicationUser, int>>().InstancePerRequest();
 
             var container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            IUserRegistrationService userRegistrationService;
+            UserManager<ApplicationUser, int> userManager;
+
 
             using (var scope = config.DependencyResolver.BeginScope())
             {
-                userRegistrationService =
-                    scope.GetService(typeof(IUserRegistrationService)) as IUserRegistrationService;
+                userManager = scope.GetService(typeof(UserManager<ApplicationUser, int>)) as UserManager<ApplicationUser, int>;
             }
 
-            var authManager = new AuthenticationManager(userRegistrationService);
-            
-            ConfigureOAuth(app, userRegistrationService);
+
+            ConfigureOAuth(app, userManager);
             ModelsMappers.RegisterMappers();
 
-            if (!ConfigurationManagerService.DatabaseCreated)
-            {
-                CreateDatabase(authManager, userRegistrationService);
-            }
         }
 
-        private void CreateDatabase(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
-        {
-            //Add roles
-            RegisterAdmin(authManager, userRegistrationService);
-            ConfigurationManagerService.DatabaseCreated = true;
-        }
+        //private void CreateDatabase(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
+        //{
+        //    //Add roles
+        //    RegisterAdmin(authManager, userRegistrationService);
+        //    ConfigurationManagerService.DatabaseCreated = true;
+        //}
 
-        private async void RegisterAdmin(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
-        {
-            var adminName = ConfigurationManagerService.DefaultAdminName;
-            var adminPassword = ConfigurationManagerService.DefaultAdminPassword;
+        //private async void RegisterAdmin(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
+        //{
+        //    var adminName = ConfigurationManagerService.DefaultAdminName;
+        //    var adminPassword = ConfigurationManagerService.DefaultAdminPassword;
 
-            if (userRegistrationService.FindUser(adminName) == null)
-            {
-                var userModel = new UserModel()
-                {
-                    Login = adminName,
-                    Password = adminPassword,
-                    RoleId = (int)RoleType.Admin
-                };
+        //    if (userRegistrationService.FindUser(adminName) == null)
+        //    {
+        //        var userModel = new UserModel()
+        //        {
+        //            Login = adminName,
+        //            Password = adminPassword,
+        //            RoleId = (int)RoleType.Admin
+        //        };
 
-                await authManager.RegisterUser(userModel);
-            }
-        }
+        //        await authManager.RegisterUser(userModel);
+        //    }
+        //}
 
-        public void ConfigureOAuth(IAppBuilder app, IUserRegistrationService userService)
+        public void ConfigureOAuth(IAppBuilder app, UserManager<ApplicationUser, int> userManager)
         {
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new CorporateBlogAuthorizationServerProvider(userService)
+                Provider = new CorporateBlogAuthorizationServerProvider(userManager)
             };
 
             // Token Generation

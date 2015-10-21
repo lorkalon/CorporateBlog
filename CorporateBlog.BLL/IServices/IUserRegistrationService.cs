@@ -13,5 +13,7 @@ namespace CorporateBlog.BLL.IServices
         void AddUser(Common.User user);
 
         Common.User FindUser(string login);
+
+        Common.User FindUser(int userId);
     }
 }

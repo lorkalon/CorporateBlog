@@ -6,14 +6,9 @@ using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Authentication
 {
-    public class ApplicationUser:IUser<int>, IUser<string>
+    public class ApplicationUser:IUser<int>
     {
         public int Id { get; set; }
-
-        string IUser<string>.Id
-        {
-            get { return Id.ToString(); }
-        }
 
         public string UserName { get; set; }
 

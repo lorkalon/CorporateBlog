@@ -54,5 +54,17 @@ namespace CorporateBlog.BLL.Services
 
             return Mapper.Map<Common.User>(dalUSer);
         }
+
+        public Common.User FindUser(int userId)
+        {
+            var dalUSer = _userRepository.FindUser(userId);
+            if (dalUSer == null)
+            {
+                return null;
+            }
+
+            return Mapper.Map<Common.User>(dalUSer);
+            
+        }
     }
 }

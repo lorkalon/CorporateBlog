@@ -11,5 +11,6 @@ namespace CorporateBlog.DAL.IRepositories
     public interface IUserRepository : IGenericRepository<User>
     {
         DAL.Models.User FindUser(string login);
+        DAL.Models.User FindUser(int userId);
     }
 }

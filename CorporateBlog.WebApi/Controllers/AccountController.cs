@@ -9,21 +9,22 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using CorporateBlog.BLL.IServices;
 using CorporateBlog.DAL.Models;
+using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Models;
+using CorporateBlog.WebApi.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using AuthenticationManager = CorporateBlog.WebApi.Authentication.AuthenticationManager;
 
 namespace CorporateBlog.WebApi.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthenticationManager _manager;
+        private readonly UserManager<ApplicationUser, int> _userManager;
 
-        public AccountController(IUserRegistrationService userRegistrationService)
+        public AccountController(UserManager<ApplicationUser, int> userManager)
         {
-            _manager = new AuthenticationManager(userRegistrationService);
+            _userManager = userManager;
         }
 
         [AllowAnonymous]
@@ -45,9 +46,13 @@ namespace CorporateBlog.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            userModel.RoleId = (int)RoleType.Client;
-            IdentityResult result = await _manager.RegisterUser(userModel);
+            var appUser = new ApplicationUser()
+            {
+                RoleId = (int) RoleType.Client,
+                UserName = userModel.Login
+            };
 
+            IdentityResult result = await _userManager.CreateAsync(appUser, userModel.Password);
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)
@@ -55,7 +60,9 @@ namespace CorporateBlog.WebApi.Controllers
                 return errorResult;
             }
 
-            var token = _manager.GenerateEmailConfirmationTokenAsync(userModel.Id);
+            var token = _userManager.GenerateEmailConfirmationTokenAsync(userModel.Id);
+            _userManager.EmailService = new EmailService();
+            await _userManager.SendEmailAsync(appUser.Id, "", "");
             return Ok();
         }
 

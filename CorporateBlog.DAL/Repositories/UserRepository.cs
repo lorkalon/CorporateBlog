@@ -18,5 +18,10 @@ namespace CorporateBlog.DAL.Repositories
         {
             return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Login == login);
         }
+
+        public User FindUser(int userId)
+        {
+            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Id == userId);
+        }
     }
 }

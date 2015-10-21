@@ -1,17 +1,18 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using CorporateBlog.BLL.IServices;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
 
 namespace CorporateBlog.WebApi.Authentication
 {
     public class CorporateBlogAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly IUserRegistrationService _userRegistrationService;
+        private readonly UserManager<ApplicationUser, int> _userManager;
 
-        public CorporateBlogAuthorizationServerProvider(IUserRegistrationService userRegistrationService):base()
+        public CorporateBlogAuthorizationServerProvider(UserManager<ApplicationUser, int> userManager): base()
         {
-            _userRegistrationService = userRegistrationService;
+            _userManager = userManager;
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -23,16 +24,14 @@ namespace CorporateBlog.WebApi.Authentication
         {
             //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (var authenticationManager = new AuthenticationManager(_userRegistrationService))
-            {
-                ApplicationUser user = await authenticationManager.FindUser(context.UserName, context.Password);
+            ApplicationUser user = await _userManager.FindAsync(context.UserName, context.Password);
 
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
             }
+
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
