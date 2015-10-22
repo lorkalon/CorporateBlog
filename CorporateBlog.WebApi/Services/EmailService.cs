@@ -14,9 +14,9 @@ namespace CorporateBlog.WebApi.Services
     {
         public async Task SendAsync(IdentityMessage message)
         {
-            var fromAddress = new MailAddress("annalorkalon@gmail.com");
+            var fromAddress = new MailAddress("itechart.group@gmail.com");
             var toAddress = new MailAddress("lorkalon@mail.ru", "To Name");
-            const string fromPassword = "jarbusha91";
+            const string fromPassword = "itechart";
             const string subject = "Hello!";
             const string body = "Body";
 
