@@ -6,44 +6,51 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
-using SendGrid;
+using System.Net.Mail;
 
 namespace CorporateBlog.WebApi.Services
 {
-    public class EmailService :IIdentityMessageService
+    public class EmailService : IIdentityMessageService
     {
         public async Task SendAsync(IdentityMessage message)
         {
-            var myMessage = new SendGridMessage();
+            var fromAddress = new MailAddress("annalorkalon@gmail.com");
+            var toAddress = new MailAddress("lorkalon@mail.ru", "To Name");
+            const string fromPassword = "jarbusha91";
+            const string subject = "Hello!";
+            const string body = "Body";
 
-            myMessage.AddTo(message.Destination);
-            myMessage.From = new System.Net.Mail.MailAddress("hanna.shviatsova@itechart-group.com", "Hanna Shviatsova");
-            myMessage.Subject = message.Subject;
-            myMessage.Text = message.Body;
-            myMessage.Html = message.Body;
-
-            var credentials = new NetworkCredential(ConfigurationManagerService.EmailServiceAccount,
-                                                    ConfigurationManagerService.EmailServicePassword);
-            try
+            var smtp = new SmtpClient
             {
-                // Create a Web transport for sending email.
-                var transportWeb = new Web(credentials);
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
 
-                // Send the email.
-                if (transportWeb != null)
-                {
-                    await transportWeb.DeliverAsync(myMessage);
-                }
-                else
-                {
-                    //Trace.TraceError("Failed to create Web transport.");
-                    await Task.FromResult(0);
-                }
-            }
-            catch (Exception ex)
+
+            await Task.Run(() => smtp.Send(new MailMessage(fromAddress, toAddress)
             {
-                throw new Exception(ex.Message);
-            }
+                Subject = subject,
+                Body = body
+            }));
+
+
+            //var myMessage = new SendGridMessage();
+
+            //myMessage.AddTo(message.Destination);
+            //myMessage.From = new System.Net.Mail.MailAddress("hanna.shviatsova@itechart-group.com", "Hanna Shviatsova");
+            //myMessage.Subject = message.Subject;
+            //myMessage.Text = message.Body;
+            //myMessage.Html = message.Body;
+
+            //var credentials = new NetworkCredential(ConfigurationManagerService.EmailServiceAccount,
+            //                                        ConfigurationManagerService.EmailServicePassword);
+            //// Create a Web transport for sending email.
+            //var transportWeb = new Web(credentials);
+
+
         }
     }
 }

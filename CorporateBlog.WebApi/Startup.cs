@@ -48,7 +48,6 @@ namespace CorporateBlog.WebApi
 
             UserManager<ApplicationUser, int> userManager;
 
-
             using (var scope = config.DependencyResolver.BeginScope())
             {
                 userManager = scope.GetService(typeof(UserManager<ApplicationUser, int>)) as UserManager<ApplicationUser, int>;
