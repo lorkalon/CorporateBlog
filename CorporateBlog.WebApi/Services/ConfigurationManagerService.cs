@@ -30,14 +30,24 @@ namespace CorporateBlog.WebApi.Services
             get { return ConfigurationManager.AppSettings["DefaultAdminPassword"]; }
         }
 
-        public static string EmailServiceAccount
+        public static string SmtpServiceEmail
         {
-            get { return ConfigurationManager.AppSettings["emailService:Account"]; }
+            get { return ConfigurationManager.AppSettings["smtp:Email"]; }
         }
 
-        public static string EmailServicePassword
+        public static string SmtpServicePassword
         {
-            get { return ConfigurationManager.AppSettings["emailService:Password"]; }
+            get { return ConfigurationManager.AppSettings["smtp:Password"]; }
+        }
+
+        public static string SmtpServiceHost
+        {
+            get { return ConfigurationManager.AppSettings["smtp:Host"]; }
+        }
+
+        public static int SmtpServicePort
+        {
+            get { return Convert.ToInt32(ConfigurationManager.AppSettings["smtp:Port"]); }
         }
     }
 }

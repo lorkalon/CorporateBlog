@@ -16,7 +16,10 @@ using CorporateBlog.WebApi.Mappers;
 using CorporateBlog.WebApi.Models;
 using CorporateBlog.WebApi.Services;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.DataProtection;
+using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
@@ -39,8 +42,8 @@ namespace CorporateBlog.WebApi
 
             DAL.DependeciesResolver.Resolve(builder);
             BLL.DependeciesResolver.Resolve(builder);
-            builder.RegisterType<UserStore>().As<IUserStore<ApplicationUser, int>>().InstancePerRequest();
-            builder.RegisterType<UserManager<ApplicationUser, int>>().InstancePerRequest();
+            builder.RegisterType<UserStore>().As<IUserStore<ApplicationUser, int>>().SingleInstance();
+            builder.RegisterType<UserManager<ApplicationUser, int>>().SingleInstance();
 
             var container = builder.Build();
 
@@ -52,7 +55,6 @@ namespace CorporateBlog.WebApi
             {
                 userManager = scope.GetService(typeof(UserManager<ApplicationUser, int>)) as UserManager<ApplicationUser, int>;
             }
-
 
             ConfigureOAuth(app, userManager);
             ModelsMappers.RegisterMappers();
@@ -91,8 +93,12 @@ namespace CorporateBlog.WebApi
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new CorporateBlogAuthorizationServerProvider(userManager)
+                Provider = new CorporateBlogAuthorizationServerProvider(userManager),
+                AccessTokenProvider = new AuthenticationTokenProvider()
             };
+
+            var provider = new DpapiDataProtectionProvider();
+            userManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(provider.Create("EmailConfirmation"));
 
             // Token Generation
             app.UseOAuthAuthorizationServer(oAuthServerOptions);

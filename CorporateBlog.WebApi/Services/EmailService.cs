@@ -14,42 +14,24 @@ namespace CorporateBlog.WebApi.Services
     {
         public async Task SendAsync(IdentityMessage message)
         {
-            var fromAddress = new MailAddress("itechart.group@gmail.com");
-            var toAddress = new MailAddress("lorkalon@mail.ru", "To Name");
-            const string fromPassword = "itechart";
-            const string subject = "Hello!";
-            const string body = "Body";
+            var fromAddress = new MailAddress(ConfigurationManagerService.SmtpServiceEmail);
+            var toAddress = new MailAddress(message.Destination);
+            var password = ConfigurationManagerService.SmtpServicePassword;
 
             var smtp = new SmtpClient
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
+                Host = ConfigurationManagerService.SmtpServiceHost,
+                Port = ConfigurationManagerService.SmtpServicePort,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                Credentials = new NetworkCredential(fromAddress.Address, password)
             };
-
-
+            
             await Task.Run(() => smtp.Send(new MailMessage(fromAddress, toAddress)
             {
-                Subject = subject,
-                Body = body
+                Subject = message.Subject,
+                Body = message.Body
             }));
-
-
-            //var myMessage = new SendGridMessage();
-
-            //myMessage.AddTo(message.Destination);
-            //myMessage.From = new System.Net.Mail.MailAddress("hanna.shviatsova@itechart-group.com", "Hanna Shviatsova");
-            //myMessage.Subject = message.Subject;
-            //myMessage.Text = message.Body;
-            //myMessage.Html = message.Body;
-
-            //var credentials = new NetworkCredential(ConfigurationManagerService.EmailServiceAccount,
-            //                                        ConfigurationManagerService.EmailServicePassword);
-            //// Create a Web transport for sending email.
-            //var transportWeb = new Web(credentials);
-
 
         }
     }

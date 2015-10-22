@@ -48,7 +48,9 @@ namespace CorporateBlog.WebApi.Controllers
 
             var appUser = new ApplicationUser()
             {
-                RoleId = (int) RoleType.Client,
+                //Email = userModel.Email,
+                Email = "lorkalon@mail.ru",
+                RoleId = (int)RoleType.Client,
                 UserName = userModel.Login
             };
 
@@ -60,12 +62,37 @@ namespace CorporateBlog.WebApi.Controllers
                 return errorResult;
             }
 
-            var token = _userManager.GenerateEmailConfirmationTokenAsync(userModel.Id);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser.Id);
+            var callbackUrl = new Uri(Url.Link("EmailConfirmationRoute", new { userId = appUser.Id, code = token }));
+
             _userManager.EmailService = new EmailService();
-            await _userManager.SendEmailAsync(appUser.Id, "", "");
+            await _userManager.SendEmailAsync(appUser.Id, "Email confirmation",
+                "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
             return Ok();
         }
 
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "EmailConfirmationRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(int userId = 0, string code = "")
+        {
+            if (userId == 0 || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "Invalid confirmation token!");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await _userManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return GetErrorResult(result);
+            }
+        }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
