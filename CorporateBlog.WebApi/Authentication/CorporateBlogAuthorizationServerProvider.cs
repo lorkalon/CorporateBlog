@@ -8,9 +8,9 @@ namespace CorporateBlog.WebApi.Authentication
 {
     public class CorporateBlogAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly UserManager<ApplicationUser, int> _userManager;
+        private readonly ApplicationUserManager _userManager;
 
-        public CorporateBlogAuthorizationServerProvider(UserManager<ApplicationUser, int> userManager): base()
+        public CorporateBlogAuthorizationServerProvider(ApplicationUserManager userManager): base()
         {
             _userManager = userManager;
         }

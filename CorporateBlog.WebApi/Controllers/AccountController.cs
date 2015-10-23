@@ -20,9 +20,9 @@ namespace CorporateBlog.WebApi.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private readonly UserManager<ApplicationUser, int> _userManager;
+        private readonly ApplicationUserManager _userManager;
 
-        public AccountController(UserManager<ApplicationUser, int> userManager)
+        public AccountController(ApplicationUserManager userManager)
         {
             _userManager = userManager;
         }

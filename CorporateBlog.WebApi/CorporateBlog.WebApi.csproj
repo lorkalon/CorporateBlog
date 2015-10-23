@@ -321,6 +321,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\ApplicationUser.cs" />
+    <Compile Include="Authentication\ApplicationUserManager.cs" />
     <Compile Include="Authentication\UserStore.cs" />
     <Compile Include="Services\ConfigurationManagerService.cs" />
     <Compile Include="Controllers\AccountController.cs" />

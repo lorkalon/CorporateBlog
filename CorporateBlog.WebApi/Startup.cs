@@ -42,23 +42,23 @@ namespace CorporateBlog.WebApi
 
             DAL.DependeciesResolver.Resolve(builder);
             BLL.DependeciesResolver.Resolve(builder);
-            builder.RegisterType<UserStore>().As<IUserStore<ApplicationUser, int>>().SingleInstance();
-            builder.RegisterType<UserManager<ApplicationUser, int>>().SingleInstance();
+
+            builder.RegisterType<UserStore>().As<IUserStore<ApplicationUser, int>>();
+            builder.RegisterType<ApplicationUserManager>();
+            builder.RegisterType<DpapiDataProtectionProvider>().SingleInstance();
+            builder.RegisterType<CorporateBlogAuthorizationServerProvider>();
 
             var container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            UserManager<ApplicationUser, int> userManager;
 
             using (var scope = config.DependencyResolver.BeginScope())
             {
-                userManager = scope.GetService(typeof(UserManager<ApplicationUser, int>)) as UserManager<ApplicationUser, int>;
+                var serverProvider = scope.GetService(typeof(CorporateBlogAuthorizationServerProvider)) as CorporateBlogAuthorizationServerProvider;
+                ConfigureOAuth(app, serverProvider);
+                ModelsMappers.RegisterMappers();
             }
-
-            ConfigureOAuth(app, userManager);
-            ModelsMappers.RegisterMappers();
-
         }
 
         //private void CreateDatabase(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
@@ -86,20 +86,17 @@ namespace CorporateBlog.WebApi
         //    }
         //}
 
-        public void ConfigureOAuth(IAppBuilder app, UserManager<ApplicationUser, int> userManager)
+        public void ConfigureOAuth(IAppBuilder app, CorporateBlogAuthorizationServerProvider serverProvider)
         {
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new CorporateBlogAuthorizationServerProvider(userManager),
+                Provider = serverProvider,
                 AccessTokenProvider = new AuthenticationTokenProvider()
             };
-
-            var provider = new DpapiDataProtectionProvider();
-            userManager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(provider.Create("EmailConfirmation"));
-
+            
             // Token Generation
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
