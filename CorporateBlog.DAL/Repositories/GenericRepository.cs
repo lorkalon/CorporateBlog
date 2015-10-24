@@ -7,12 +7,13 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
+using CorporateBlog.DAL.Models;
 using CorporateBlog.DAL.Repositories.Filters;
 
 namespace CorporateBlog.DAL.Repositories
 {
     public class GenericRepository<TDataEntity> : IGenericRepository<TDataEntity>
-        where TDataEntity : class
+        where TDataEntity : BaseEntity
     {
         private readonly DbSet<TDataEntity> _dbSet;
         private readonly DbContext _context;
@@ -55,6 +56,18 @@ namespace CorporateBlog.DAL.Repositories
         public IEnumerable<TDataEntity> GetPaged()
         {
             return _dbSet.ToList();
+        }
+
+        public virtual IEnumerable<TDataEntity> GetPaged(BaseFilter<TDataEntity> filter)
+        {
+            if (filter.IsAscending)
+            {
+                return _dbSet.Where(filter.SearchQuery).OrderBy(filter.OrderBy)
+                    .Skip(filter.From).Take(filter.Count);
+            }
+
+            return _dbSet.Where(filter.SearchQuery).OrderByDescending(filter.OrderBy)
+                .Skip(filter.From).Take(filter.Count);
         }
 
         public IEnumerable<TDataEntity> GetAll()

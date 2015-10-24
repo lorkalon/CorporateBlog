@@ -15,7 +15,7 @@ namespace CorporateBlog.DAL.IRepositories
         
         void Delete(TDataEntity entity);
 
-        IEnumerable<TDataEntity> GetPaged();
+        IEnumerable<TDataEntity> GetPaged(BaseFilter<TDataEntity> filter);
 
         IEnumerable<TDataEntity> GetAll();
     }

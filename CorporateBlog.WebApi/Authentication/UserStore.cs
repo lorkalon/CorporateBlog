@@ -37,7 +37,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task UpdateAsync(ApplicationUser user)
         {
-            throw new NotImplementedException();
+           return Task.Run(() => "");
         }
 
         public Task DeleteAsync(ApplicationUser user)
@@ -81,7 +81,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task<string> GetEmailAsync(ApplicationUser user)
         {
-            return Task.Run(() => "lorkalon@mail.ru");
+            return Task.Run(() => user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(ApplicationUser user)
@@ -91,7 +91,9 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
         {
-            throw new NotImplementedException();
+            var mappedUser = Mapper.Map<Common.User>(user);
+            mappedUser.Confirmed = confirmed;
+            return Task.Run(() => _userRegistrationService.ConfirmUser(mappedUser));
         }
 
         public Task<ApplicationUser> FindByEmailAsync(string email)

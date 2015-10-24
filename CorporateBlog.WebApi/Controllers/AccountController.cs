@@ -48,10 +48,9 @@ namespace CorporateBlog.WebApi.Controllers
 
             var appUser = new ApplicationUser()
             {
-                //Email = userModel.Email,
-                Email = "lorkalon@mail.ru",
+                Email = userModel.Email,
                 RoleId = (int)RoleType.Client,
-                UserName = userModel.Login
+                UserName = userModel.Login,
             };
 
             IdentityResult result = await _userManager.CreateAsync(appUser, userModel.Password);

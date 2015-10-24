@@ -2,22 +2,18 @@
 
 namespace CorporateBlog.DAL.Models
 {
-    public class User
+    public class User:BaseEntity
     {
-        public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-
+        public string Email { get; set; }
         public int? UserInfoId { get; set; }
         public virtual UserInfo UserInfo { get; set; }
-
         public int RoleId { get; set; }
-
         public bool EmailConfirmed { get; set; }
-
         public bool Blocked { get; set; }
-
         public virtual Role Role { get; set; }
+        public bool Confirmed { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Article> Articles { get; set; }

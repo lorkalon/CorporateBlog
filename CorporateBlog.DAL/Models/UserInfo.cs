@@ -1,8 +1,7 @@
 ﻿namespace CorporateBlog.DAL.Models
 {
-    public class UserInfo
+    public class UserInfo:BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Avatar { get; set; }

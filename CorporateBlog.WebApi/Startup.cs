@@ -33,32 +33,39 @@ namespace CorporateBlog.WebApi
         {
             var config = new HttpConfiguration();
 
-            WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
-
             var builder = new ContainerBuilder();
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
             DAL.DependeciesResolver.Resolve(builder);
             BLL.DependeciesResolver.Resolve(builder);
-
             builder.RegisterType<UserStore>().As<IUserStore<ApplicationUser, int>>();
-            builder.RegisterType<ApplicationUserManager>();
+            builder.RegisterType<ApplicationUserManager>().InstancePerRequest();
             builder.RegisterType<DpapiDataProtectionProvider>().SingleInstance();
-            builder.RegisterType<CorporateBlogAuthorizationServerProvider>();
+            builder.RegisterType<CorporateBlogAuthorizationServerProvider>().InstancePerRequest();
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             var container = builder.Build();
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            app.UseAutofacMiddleware(container);
+            app.UseAutofacWebApi(config);
 
+            ModelsMappers.RegisterMappers();
 
-            using (var scope = config.DependencyResolver.BeginScope())
+            var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
-                var serverProvider = scope.GetService(typeof(CorporateBlogAuthorizationServerProvider)) as CorporateBlogAuthorizationServerProvider;
-                ConfigureOAuth(app, serverProvider);
-                ModelsMappers.RegisterMappers();
-            }
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = new CorporateBlogAuthorizationServerProvider(),
+                AccessTokenProvider = new AuthenticationTokenProvider()
+            };
+
+            // Token Generation
+            app.UseOAuthAuthorizationServer(oAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            WebApiConfig.Register(config);
+            app.UseWebApi(config);
         }
 
         //private void CreateDatabase(AuthenticationManager authManager, IUserRegistrationService userRegistrationService)
@@ -86,21 +93,21 @@ namespace CorporateBlog.WebApi
         //    }
         //}
 
-        public void ConfigureOAuth(IAppBuilder app, CorporateBlogAuthorizationServerProvider serverProvider)
-        {
-            var oAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = serverProvider,
-                AccessTokenProvider = new AuthenticationTokenProvider()
-            };
-            
-            // Token Generation
-            app.UseOAuthAuthorizationServer(oAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+        //public void ConfigureOAuth(IAppBuilder app)
+        //{
+        //    var oAuthServerOptions = new OAuthAuthorizationServerOptions()
+        //    {
+        //        AllowInsecureHttp = true,
+        //        TokenEndpointPath = new PathString("/token"),
+        //        AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+        //        Provider = new CorporateBlogAuthorizationServerProvider(),
+        //        AccessTokenProvider = new AuthenticationTokenProvider()
+        //    };
 
-        }
+        //    // Token Generation
+        //    app.UseOAuthAuthorizationServer(oAuthServerOptions);
+        //    app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
+        //}
     }
 }

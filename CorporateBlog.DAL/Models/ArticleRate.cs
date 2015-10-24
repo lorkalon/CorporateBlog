@@ -1,8 +1,7 @@
 ﻿namespace CorporateBlog.DAL.Models
 {
-    public class ArticleRate
+    public class ArticleRate:BaseEntity
     {
-        public int Id { get; set; }
         public int Value { get; set; }
 
         public int ArticleId { get; set; }

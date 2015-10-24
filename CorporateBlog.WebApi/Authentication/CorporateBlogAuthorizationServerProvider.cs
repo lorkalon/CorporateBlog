@@ -1,20 +1,15 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Autofac;
 using CorporateBlog.BLL.IServices;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
+using Autofac.Integration.Owin;
 
 namespace CorporateBlog.WebApi.Authentication
 {
     public class CorporateBlogAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly ApplicationUserManager _userManager;
-
-        public CorporateBlogAuthorizationServerProvider(ApplicationUserManager userManager): base()
-        {
-            _userManager = userManager;
-        }
-
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -22,22 +17,32 @@ namespace CorporateBlog.WebApi.Authentication
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
-            ApplicationUser user = await _userManager.FindAsync(context.UserName, context.Password);
-
-            if (user == null)
+            using (var scope = context.OwinContext.GetAutofacLifetimeScope())
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
-                return;
+                using (var userManager = scope.Resolve<ApplicationUserManager>())
+                {
+                    ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+
+                    if (user == null)
+                    {
+                        context.SetError("invalid_grant", "The user name or password is incorrect.");
+                        return;
+                    }
+
+                    if (!user.Confirmed)
+                    {
+                        context.SetError("invalid_grant", "Account is not confirmed!");
+                        return;
+                    }
+
+
+                    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                    identity.AddClaim(new Claim("sub", context.UserName));
+                    identity.AddClaim(new Claim("role", "user"));
+
+                    context.Validated(identity);
+                }
             }
-
-
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
-
-            context.Validated(identity);
         }
     }
 }

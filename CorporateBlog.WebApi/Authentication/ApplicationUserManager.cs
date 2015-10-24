@@ -8,11 +8,16 @@ using Microsoft.Owin.Security.DataProtection;
 
 namespace CorporateBlog.WebApi.Authentication
 {
-    public class ApplicationUserManager:UserManager<ApplicationUser, int>
+    public class ApplicationUserManager:UserManager<ApplicationUser, int>, IDisposable
     {
         public ApplicationUserManager(DpapiDataProtectionProvider protectionProvider, IUserStore<ApplicationUser, int> store) : base(store)
         {
             UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(protectionProvider.Create("EmailConfirmation"));
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

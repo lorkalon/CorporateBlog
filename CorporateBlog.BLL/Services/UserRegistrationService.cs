@@ -27,7 +27,7 @@ namespace CorporateBlog.BLL.Services
 
         public IEnumerable<Common.Role> GetRoles()
         {
-            var roles = _roleRepository.GetPaged();
+            var roles = _roleRepository.GetAll();
             var mappedRoles = roles.Select(Mapper.Map<Common.Role>);
             return mappedRoles;
         }
@@ -42,6 +42,28 @@ namespace CorporateBlog.BLL.Services
             _userRepository.Add(mappedUser);
             SaveChanges();
             user.Id = mappedUser.Id;
+        }
+
+        public void ConfirmUser(Common.User user)
+        {
+            var saved =_userRepository.FindUser(user.Id);
+            if (saved != null)
+            {
+                saved.Confirmed = true;
+            }
+
+            SaveChanges();
+        }
+
+        public void SetUserToRole(Common.User user, RoleType role)
+        {
+            var saved = _userRepository.FindUser(user.Id);
+            if (saved != null)
+            {
+                saved.RoleId = (int)role;
+            }
+
+            SaveChanges();
         }
 
         public Common.User FindUser(string login)
@@ -66,5 +88,7 @@ namespace CorporateBlog.BLL.Services
             return Mapper.Map<Common.User>(dalUSer);
             
         }
+
+       
     }
 }
