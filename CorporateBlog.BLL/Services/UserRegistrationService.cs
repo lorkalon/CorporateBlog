@@ -25,20 +25,9 @@ namespace CorporateBlog.BLL.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<Common.Role> GetRoles()
-        {
-            var roles = _roleRepository.GetAll();
-            var mappedRoles = roles.Select(Mapper.Map<Common.Role>);
-            return mappedRoles;
-        }
-
         public void AddUser(Common.User user)
         {
             var mappedUser = Mapper.Map<DAL.Models.User>(user);
-
-            mappedUser.EmailConfirmed = false;
-            mappedUser.Blocked = false;
-
             _userRepository.Add(mappedUser);
             SaveChanges();
             user.Id = mappedUser.Id;
@@ -49,7 +38,7 @@ namespace CorporateBlog.BLL.Services
             var saved =_userRepository.FindUser(user.Id);
             if (saved != null)
             {
-                saved.Confirmed = true;
+                saved.EmailConfirmed = true;
             }
 
             SaveChanges();
@@ -89,6 +78,15 @@ namespace CorporateBlog.BLL.Services
             
         }
 
-       
+        public User FindUserByEmail(string email)
+        {
+            var dalUSer = _userRepository.FindUserByEmail(email);
+            if (dalUSer == null)
+            {
+                return null;
+            }
+
+            return Mapper.Map<Common.User>(dalUSer);
+        }
     }
 }

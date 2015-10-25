@@ -13,7 +13,6 @@ namespace CorporateBlog.DAL.Models
         public bool EmailConfirmed { get; set; }
         public bool Blocked { get; set; }
         public virtual Role Role { get; set; }
-        public bool Confirmed { get; set; }
 
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Article> Articles { get; set; }

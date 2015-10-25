@@ -6,20 +6,6 @@ namespace CorporateBlog.WebApi.Services
 {
     public static class ConfigurationManagerService
     {
-        public static bool DatabaseCreated
-        {
-            get
-            {
-                var values = ConfigurationManager.AppSettings.GetValues("DatabaseCreated");
-                
-                return values.Any() && Convert.ToBoolean(values.FirstOrDefault());
-            }
-            set
-            {
-                ConfigurationManager.AppSettings.Set("DatabaseCreated", value.ToString());
-            }
-        }
-
         public static string DefaultAdminName
         {
             get { return ConfigurationManager.AppSettings["DefaultAdminName"]; }

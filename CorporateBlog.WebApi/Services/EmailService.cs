@@ -30,7 +30,8 @@ namespace CorporateBlog.WebApi.Services
             await Task.Run(() => smtp.Send(new MailMessage(fromAddress, toAddress)
             {
                 Subject = message.Subject,
-                Body = message.Body
+                Body = message.Body,
+                IsBodyHtml = true
             }));
 
         }

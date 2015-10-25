@@ -23,7 +23,7 @@ namespace CorporateBlog.WebApi.Mappers
                 .ForMember(t => t.Id, m => m.MapFrom(s => s.Id))
                 .ForMember(t => t.Login, m => m.MapFrom(s => s.UserName))
                 .ForMember(t => t.Email, m => m.MapFrom(s => s.Email))
-                .ForMember(t => t.Confirmed, m => m.MapFrom(s => s.Confirmed))
+                .ForMember(t => t.EmailConfirmed, m => m.MapFrom(s => s.EmailConfirmed))
                 .ForMember(t => t.Blocked, m => m.MapFrom(s => s.Blocked))
                 .ForMember(t => t.Password, m => m.MapFrom(s => s.PasswordHash));
 
@@ -31,7 +31,7 @@ namespace CorporateBlog.WebApi.Mappers
                .ForMember(t => t.Id, m => m.MapFrom(s => s.Id))
                .ForMember(t => t.UserName, m => m.MapFrom(s => s.Login))
                .ForMember(t => t.Email, m => m.MapFrom(s => s.Email))
-               .ForMember(t => t.Confirmed, m => m.MapFrom(s => s.Confirmed))
+               .ForMember(t => t.EmailConfirmed, m => m.MapFrom(s => s.EmailConfirmed))
                .ForMember(t => t.Blocked, m => m.MapFrom(s => s.Blocked))
                .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password));
 
@@ -39,7 +39,7 @@ namespace CorporateBlog.WebApi.Mappers
                 .ForMember(t => t.UserName, m => m.MapFrom(s => s.Login))
                 .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password))
                 .ForMember(t => t.Email, m => m.MapFrom(s => s.Email))
-                .ForMember(t => t.Confirmed, m => m.MapFrom(s => s.Confirmed))
+                .ForMember(t => t.EmailConfirmed, m => m.MapFrom(s => s.EmailConfirmed))
                 .ForMember(t => t.Blocked, m => m.MapFrom(s => s.Blocked))
                 .ForMember(t => t.Id, m => m.MapFrom(s => s.Id));
 

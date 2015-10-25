@@ -15,6 +15,7 @@ namespace CorporateBlog.BLL
         {
             builder.RegisterType<ArticleService>().As<IArticleService>();
             builder.RegisterType<UserRegistrationService>().As<IUserRegistrationService>();
+            builder.RegisterType<RoleService>().As<IRoleService>();
         }
     }
 }

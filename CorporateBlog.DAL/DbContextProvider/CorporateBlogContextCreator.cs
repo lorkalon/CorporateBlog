@@ -15,38 +15,11 @@ namespace CorporateBlog.DAL.DbContextProvider
         public CorporateBlogContextCreator()
         {
             _context = new CorporateBlogContext();
-            SetDefaultRoles();
         }
 
         public DbContext GetContext
         {
             get { return _context; }
-        }
-
-        private void SetDefaultRoles()
-        {
-            if (!_context.Roles.Any())
-            {
-                _context.Roles.Add(new Role()
-                {
-                    Id = (int) RoleType.Admin,
-                    Name = "Admin"
-                });
-
-                _context.Roles.Add(new Role()
-                {
-                    Id = (int) RoleType.Publisher,
-                    Name = "Publisher"
-                });
-
-                _context.Roles.Add(new Role()
-                {
-                    Id = (int) RoleType.Client,
-                    Name = "Client"
-                });
-
-                _context.SaveChanges();
-            }
         }
     }
 }

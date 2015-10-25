@@ -15,7 +15,7 @@ namespace CorporateBlog.Common
 
         public int? UserInfoId { get; set; }
         public int RoleId { get; set; }
-        public bool Confirmed { get; set; }
+        public bool EmailConfirmed { get; set; }
         public bool Blocked { get; set; }
     }
 }

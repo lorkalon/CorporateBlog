@@ -12,5 +12,6 @@ namespace CorporateBlog.DAL.IRepositories
     {
         DAL.Models.User FindUser(string login);
         DAL.Models.User FindUser(int userId);
+        DAL.Models.User FindUserByEmail(string email);
     }
 }

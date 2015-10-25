@@ -29,7 +29,7 @@ namespace CorporateBlog.WebApi.Authentication
                         return;
                     }
 
-                    if (!user.Confirmed)
+                    if (!user.EmailConfirmed)
                     {
                         context.SetError("invalid_grant", "Account is not confirmed!");
                         return;

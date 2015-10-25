@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using System.Web.Http.Results;
 using CorporateBlog.BLL.IServices;
 using CorporateBlog.DAL.Models;
@@ -18,7 +19,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace CorporateBlog.WebApi.Controllers
 {
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseController
     {
         private readonly ApplicationUserManager _userManager;
 
@@ -26,16 +27,7 @@ namespace CorporateBlog.WebApi.Controllers
         {
             _userManager = userManager;
         }
-
-        [AllowAnonymous]
-        [Route("Register")]
-        [HttpGet]
-        public string Register()
-        {
-            return "Hello!";
-        }
-
-
+        
         [AllowAnonymous]
         [Route("Register")]
         [HttpPost]
@@ -51,6 +43,8 @@ namespace CorporateBlog.WebApi.Controllers
                 Email = userModel.Email,
                 RoleId = (int)RoleType.Client,
                 UserName = userModel.Login,
+                EmailConfirmed = false,
+                Blocked = false
             };
 
             IdentityResult result = await _userManager.CreateAsync(appUser, userModel.Password);
@@ -64,7 +58,6 @@ namespace CorporateBlog.WebApi.Controllers
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser.Id);
             var callbackUrl = new Uri(Url.Link("EmailConfirmationRoute", new { userId = appUser.Id, code = token }));
 
-            _userManager.EmailService = new EmailService();
             await _userManager.SendEmailAsync(appUser.Id, "Email confirmation",
                 "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
@@ -91,6 +84,32 @@ namespace CorporateBlog.WebApi.Controllers
             {
                 return GetErrorResult(result);
             }
+        }
+
+        [HttpGet]
+        [Route("SendResetPasswordToken")]
+        public async Task<IHttpActionResult> SendResetPasswordToken([FromUri]string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return Forbidden("Email has not been found.");
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
+            var callbackUrl = new Uri(Url.Link("ResetPasswordRoute", new { userId = user.Id, code = token }));
+            await _userManager.SendEmailAsync(user.Id, "Reset password",
+              "Reset password link <a href=\"" + callbackUrl + "\">here</a>");
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("ResetPassword", Name = "ResetPasswordRoute")]
+        public async Task<IHttpActionResult> ResetPassword(int userId = 0, string code = "")
+        {
+            var result = _userManager.ResetPasswordAsync(userId, code, "7654321");
+            return Ok();
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

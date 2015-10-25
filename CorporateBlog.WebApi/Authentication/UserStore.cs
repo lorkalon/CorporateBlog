@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.BLL.Services;
 using CorporateBlog.DAL;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.Models;
@@ -13,12 +14,15 @@ using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Authentication
 {
-    public class UserStore : IUserPasswordStore<ApplicationUser, int>, IUserEmailStore<ApplicationUser, int>
+    public class UserStore : BaseService, IUserPasswordStore<ApplicationUser, int>, IUserEmailStore<ApplicationUser, int>
     {
         private readonly IUserRegistrationService _userRegistrationService;
-        public UserStore(IUserRegistrationService userRegistrationService)
+        private readonly IContextProvider _contextProvider;
+
+        public UserStore(IUserRegistrationService userRegistrationService, IContextProvider contextProvider) : base(contextProvider)
         {
             _userRegistrationService = userRegistrationService;
+            _contextProvider = contextProvider;
         }
 
 
@@ -37,7 +41,6 @@ namespace CorporateBlog.WebApi.Authentication
 
         public Task UpdateAsync(ApplicationUser user)
         {
-           return Task.Run(() => "");
         }
 
         public Task DeleteAsync(ApplicationUser user)
@@ -92,13 +95,15 @@ namespace CorporateBlog.WebApi.Authentication
         public Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
         {
             var mappedUser = Mapper.Map<Common.User>(user);
-            mappedUser.Confirmed = confirmed;
+            mappedUser.EmailConfirmed = confirmed;
             return Task.Run(() => _userRegistrationService.ConfirmUser(mappedUser));
         }
 
         public Task<ApplicationUser> FindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            Common.User user = _userRegistrationService.FindUserByEmail(email);
+            var applicationUser = Mapper.Map<ApplicationUser>(user);
+            return Task.Run(() => applicationUser);
         }
     }
 }

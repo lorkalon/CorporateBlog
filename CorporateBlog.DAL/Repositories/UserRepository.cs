@@ -26,7 +26,9 @@ namespace CorporateBlog.DAL.Repositories
             return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Id == userId);
         }
 
-
-
+        public User FindUserByEmail(string email)
+        {
+            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Email == email);
+        }
     }
 }
