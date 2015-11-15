@@ -16,32 +16,12 @@ namespace CorporateBlog.WebApi.Mappers
             Mapper.CreateMap<DAL.Models.Role, Common.Role>();
             Mapper.CreateMap<Common.Role, DAL.Models.Role>();
 
-            Mapper.CreateMap<DAL.Models.User, Common.User>();
-            Mapper.CreateMap<Common.User, DAL.Models.User>();
+            Mapper.CreateMap<DAL.Models.User, ApplicationUser>();
+            Mapper.CreateMap<ApplicationUser, DAL.Models.User>();
 
-            Mapper.CreateMap<ApplicationUser, Common.User>()
-                .ForMember(t => t.Id, m => m.MapFrom(s => s.Id))
-                .ForMember(t => t.Login, m => m.MapFrom(s => s.UserName))
-                .ForMember(t => t.Email, m => m.MapFrom(s => s.Email))
-                .ForMember(t => t.EmailConfirmed, m => m.MapFrom(s => s.EmailConfirmed))
-                .ForMember(t => t.Blocked, m => m.MapFrom(s => s.Blocked))
-                .ForMember(t => t.Password, m => m.MapFrom(s => s.PasswordHash));
+            Mapper.CreateMap<UserModel, ApplicationUser>();
+            Mapper.CreateMap<ApplicationUser, UserModel>();
 
-            Mapper.CreateMap<Common.User, ApplicationUser>()
-               .ForMember(t => t.Id, m => m.MapFrom(s => s.Id))
-               .ForMember(t => t.UserName, m => m.MapFrom(s => s.Login))
-               .ForMember(t => t.Email, m => m.MapFrom(s => s.Email))
-               .ForMember(t => t.EmailConfirmed, m => m.MapFrom(s => s.EmailConfirmed))
-               .ForMember(t => t.Blocked, m => m.MapFrom(s => s.Blocked))
-               .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password));
-
-            Mapper.CreateMap<UserModel, ApplicationUser>()
-                .ForMember(t => t.UserName, m => m.MapFrom(s => s.Login))
-                .ForMember(t => t.PasswordHash, m => m.MapFrom(s => s.Password))
-                .ForMember(t => t.Email, m => m.MapFrom(s => s.Email))
-                .ForMember(t => t.EmailConfirmed, m => m.MapFrom(s => s.EmailConfirmed))
-                .ForMember(t => t.Blocked, m => m.MapFrom(s => s.Blocked))
-                .ForMember(t => t.Id, m => m.MapFrom(s => s.Id));
 
 
         }

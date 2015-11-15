@@ -1,4 +1,6 @@
-﻿namespace CorporateBlog.DAL.DbContextProvider
+﻿using System.Threading.Tasks;
+
+namespace CorporateBlog.DAL.DbContextProvider
 {
     public class CorporateBlogContextProvider : IContextProvider
     {
@@ -10,9 +12,9 @@
             _contextCreator = contextCreator;
         }
 
-        public void SaveChanges()
+        public Task SaveChangesAsync()
         {
-            _contextCreator.GetContext.SaveChanges();
+            return _contextCreator.GetContext.SaveChangesAsync();
         }
     }
 }

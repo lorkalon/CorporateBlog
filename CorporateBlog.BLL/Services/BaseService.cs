@@ -17,9 +17,9 @@ namespace CorporateBlog.BLL.Services
             _contextProvider = contextProvider;
         }
 
-        protected void SaveChanges()
+        protected Task SaveChangesAsync()
         {
-            _contextProvider.SaveChanges();
+            return _contextProvider.SaveChangesAsync();
         }
     }
 }

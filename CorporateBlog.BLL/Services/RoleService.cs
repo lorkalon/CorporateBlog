@@ -11,7 +11,7 @@ using CorporateBlog.DAL.IRepositories;
 
 namespace CorporateBlog.BLL.Services
 {
-    public class RoleService:BaseService, IRoleService
+    public class RoleService : BaseService, IRoleService
     {
         private readonly IRoleRepository _roleRepository;
 
@@ -20,21 +20,21 @@ namespace CorporateBlog.BLL.Services
             _roleRepository = roleRepository;
         }
 
-        public IEnumerable<Role> GetRoles()
+        public async Task<IEnumerable<Role>> GetRoles()
         {
-            var roles = _roleRepository.GetAll();
+            var roles = await _roleRepository.GetAllAsync();
             var mappedRoles = roles.Select(Mapper.Map<Common.Role>);
             return mappedRoles;
         }
 
-        public void AddRoles(IEnumerable<Common.Role> roles)
+        public async Task CreateRolesAsync(IEnumerable<Common.Role> roles)
         {
             foreach (var role in roles)
             {
                 _roleRepository.Add(Mapper.Map<DAL.Models.Role>(role));
             }
 
-            SaveChanges();
+            await SaveChangesAsync();
         }
     }
 }

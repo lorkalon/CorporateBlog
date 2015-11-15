@@ -4,8 +4,8 @@ namespace CorporateBlog.DAL.Models
 {
     public class User:BaseEntity
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public string UserName { get; set; }
+        public string PasswordHash { get; set; }
         public string Email { get; set; }
         public int? UserInfoId { get; set; }
         public virtual UserInfo UserInfo { get; set; }

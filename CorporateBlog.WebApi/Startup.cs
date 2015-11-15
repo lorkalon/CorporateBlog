@@ -65,16 +65,16 @@ namespace CorporateBlog.WebApi
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
         }
 
-        private void CreateDatabase(IDependencyResolver resolver)
+        private async void CreateDatabase(IDependencyResolver resolver)
         {
             using (var scope = resolver.BeginScope())
             {
-                RegisterRoles(scope);
-                RegisterAdmin(scope);
+               await RegisterRoles(scope);
+               await RegisterAdmin(scope);
             }
         }
 
-        private void RegisterRoles(IDependencyScope scope)
+        private async Task RegisterRoles(IDependencyScope scope)
         {
             var roleService =
                    scope.GetService(typeof(IRoleService)) as IRoleService;
@@ -84,9 +84,12 @@ namespace CorporateBlog.WebApi
                 throw new NullReferenceException("RoleService has not been initialized.");
             }
 
-            if (!roleService.GetRoles().Any())
+           var roles = await roleService.GetRoles();
+
+
+            if (!roles.Any())
             {
-                roleService.AddRoles(new List<Common.Role>()
+                await roleService.CreateRolesAsync(new List<Common.Role>()
                 {
                     new Common.Role()
                     {
@@ -107,7 +110,7 @@ namespace CorporateBlog.WebApi
             }
         }
 
-        private async void RegisterAdmin(IDependencyScope scope)
+        private async Task RegisterAdmin(IDependencyScope scope)
         {
             var adminName = ConfigurationManagerService.DefaultAdminName;
             var adminPassword = ConfigurationManagerService.DefaultAdminPassword;

@@ -34,11 +34,11 @@ namespace CorporateBlog.DAL.DbContextProvider
                         .WithRequired(info => info.User);
 
             modelBuilder.Entity<User>()
-                        .Property(user => user.Login)
+                        .Property(user => user.UserName)
                         .IsRequired();
 
             modelBuilder.Entity<User>()
-                        .Property(user => user.Password)
+                        .Property(user => user.PasswordHash)
                         .IsRequired();
 
             modelBuilder.Entity<Article>()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CorporateBlog.DAL.DbContextProvider;
@@ -53,13 +54,14 @@ namespace CorporateBlog.DAL.Repositories
             _dbSet.Remove(entity);
         }
 
-        public IEnumerable<TDataEntity> GetPaged()
-        {
-            return _dbSet.ToList();
-        }
 
-        public virtual IEnumerable<TDataEntity> GetPaged(BaseFilter<TDataEntity> filter)
+        public virtual IEnumerable<TDataEntity> GetPaged(BaseFilter<TDataEntity> filter = null)
         {
+            if (filter == null)
+            {
+                return null;
+            }
+
             if (filter.IsAscending)
             {
                 return _dbSet.Where(filter.SearchQuery).OrderBy(filter.OrderBy)
@@ -70,15 +72,15 @@ namespace CorporateBlog.DAL.Repositories
                 .Skip(filter.From).Take(filter.Count);
         }
 
-        public IEnumerable<TDataEntity> GetAll()
+        public async Task<IEnumerable<TDataEntity>> GetAllAsync()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
 
-        public TDataEntity Get(int id)
+        public async Task<TDataEntity> GetAsync(int id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
     }

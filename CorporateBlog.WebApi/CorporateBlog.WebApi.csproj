@@ -139,21 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="website-build\img\article.png" />
-    <Content Include="website-build\index.html" />
-    <Content Include="website-build\js\app.js" />
-    <Content Include="website-build\js\controllers.js" />
-    <Content Include="website-build\js\directives.js" />
-    <Content Include="website-build\js\filters.js" />
-    <Content Include="website-build\js\services.js" />
-    <Content Include="website-build\partials\general\navbar.html" />
-    <Content Include="website-build\partials\home\advancedSearch.html" />
-    <Content Include="website-build\partials\home\categories.html" />
-    <Content Include="website-build\partials\home\posts.html" />
-    <Content Include="website-build\partials\home\search.html" />
-    <Content Include="website-build\views\account.html" />
-    <Content Include="website-build\views\home.html" />
-    <Content Include="website-build\views\postDetails.html" />
     <Content Include="website\gruntfile.js" />
     <Content Include="website\img\article.png" />
     <Content Include="website\Index.html" />
@@ -514,7 +499,6 @@
     <Content Include="website\libs\textAngular\README.md" />
     <Content Include="website\package.json" />
     <Content Include="website\sources\content.json" />
-    <Content Include="website-build\sources\content.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

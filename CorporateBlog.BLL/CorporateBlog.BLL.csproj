@@ -50,13 +50,11 @@
   <ItemGroup>
     <Compile Include="DependeciesResolver.cs" />
     <Compile Include="IServices\IRoleService.cs" />
-    <Compile Include="IServices\IUserRegistrationService.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="IServices\IArticleService.cs" />
     <Compile Include="Services\RoleService.cs" />
-    <Compile Include="Services\UserRegistrationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CorporateBlog.Common\CorporateBlog.Common.csproj">

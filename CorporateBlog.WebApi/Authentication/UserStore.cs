@@ -9,6 +9,7 @@ using CorporateBlog.BLL.IServices;
 using CorporateBlog.BLL.Services;
 using CorporateBlog.DAL;
 using CorporateBlog.DAL.DbContextProvider;
+using CorporateBlog.DAL.IRepositories;
 using CorporateBlog.DAL.Models;
 using Microsoft.AspNet.Identity;
 
@@ -16,31 +17,32 @@ namespace CorporateBlog.WebApi.Authentication
 {
     public class UserStore : BaseService, IUserPasswordStore<ApplicationUser, int>, IUserEmailStore<ApplicationUser, int>
     {
-        private readonly IUserRegistrationService _userRegistrationService;
+        private readonly IUserRepository _userRepository;
         private readonly IContextProvider _contextProvider;
 
-        public UserStore(IUserRegistrationService userRegistrationService, IContextProvider contextProvider) : base(contextProvider)
+        public UserStore(IUserRepository userRepository, IContextProvider contextProvider) : base(contextProvider)
         {
-            _userRegistrationService = userRegistrationService;
             _contextProvider = contextProvider;
+            _userRepository = userRepository;
         }
 
 
         public void Dispose()
         {
-            
+
         }
 
-        public Task CreateAsync(ApplicationUser user)
+        public async Task CreateAsync(ApplicationUser user)
         {
-            var mappedUser = Mapper.Map<Common.User>(user);
-             _userRegistrationService.AddUser(mappedUser);
-         
-            return Task.Run(() => user.Id = mappedUser.Id);
+            var mappedUser = Mapper.Map<DAL.Models.User>(user);
+            _userRepository.Add(mappedUser);
+            await SaveChangesAsync();
+            user.Id = mappedUser.Id;
         }
 
-        public Task UpdateAsync(ApplicationUser user)
+        public async Task UpdateAsync(ApplicationUser user)
         {
+            await SaveChangesAsync();
         }
 
         public Task DeleteAsync(ApplicationUser user)
@@ -48,18 +50,18 @@ namespace CorporateBlog.WebApi.Authentication
             throw new NotImplementedException();
         }
 
-        public Task<ApplicationUser> FindByIdAsync(int userId)
+        public async Task<ApplicationUser> FindByIdAsync(int userId)
         {
-            Common.User user = _userRegistrationService.FindUser(userId);
+            var user = await _userRepository.FindUserAsync(userId);
             var applicationUser = Mapper.Map<ApplicationUser>(user);
-            return Task.Run(() => applicationUser);
+            return applicationUser;
         }
 
-        public Task<ApplicationUser> FindByNameAsync(string userName)
+        public async Task<ApplicationUser> FindByNameAsync(string userName)
         {
-            Common.User user = _userRegistrationService.FindUser(userName);
+            var user = await _userRepository.FindUserAsync(userName);
             var applicationUser = Mapper.Map<ApplicationUser>(user);
-            return Task.Run(() => applicationUser);
+            return applicationUser;
         }
 
         public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
@@ -92,18 +94,17 @@ namespace CorporateBlog.WebApi.Authentication
             throw new NotImplementedException();
         }
 
-        public Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
+        public async Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
         {
-            var mappedUser = Mapper.Map<Common.User>(user);
-            mappedUser.EmailConfirmed = confirmed;
-            return Task.Run(() => _userRegistrationService.ConfirmUser(mappedUser));
+            var savedUser = await _userRepository.FindUserAsync(user.Email);
+            savedUser.EmailConfirmed = confirmed;
         }
 
-        public Task<ApplicationUser> FindByEmailAsync(string email)
+        public async Task<ApplicationUser> FindByEmailAsync(string email)
         {
-            Common.User user = _userRegistrationService.FindUserByEmail(email);
+            var user = await _userRepository.FindUserByEmailAsync(email);
             var applicationUser = Mapper.Map<ApplicationUser>(user);
-            return Task.Run(() => applicationUser);
+            return applicationUser;
         }
     }
 }

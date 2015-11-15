@@ -1,7 +1,9 @@
-﻿namespace CorporateBlog.DAL.DbContextProvider
+﻿using System.Threading.Tasks;
+
+namespace CorporateBlog.DAL.DbContextProvider
 {
     public interface IContextProvider
     {
-        void SaveChanges();
+        Task SaveChangesAsync();
     }
 }

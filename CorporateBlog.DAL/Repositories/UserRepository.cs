@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
 using CorporateBlog.DAL.Models;
@@ -15,20 +16,19 @@ namespace CorporateBlog.DAL.Repositories
             _contextCreator = contextCreator;
         }
 
-        public User FindUser(string login)
+        public async Task<User> FindUserAsync(string login)
         {
-            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Login == login);
-
+            return await _contextCreator.GetContext.Set<User>().FirstOrDefaultAsync(user => user.UserName == login);
         }
 
-        public User FindUser(int userId)
+        public async Task<User> FindUserAsync(int userId)
         {
-            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Id == userId);
+            return await _contextCreator.GetContext.Set<User>().FirstOrDefaultAsync(user => user.Id == userId);
         }
 
-        public User FindUserByEmail(string email)
+        public async Task<User> FindUserByEmailAsync(string email)
         {
-            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Email == email);
+            return await _contextCreator.GetContext.Set<User>().FirstOrDefaultAsync(user => user.Email == email);
         }
     }
 }

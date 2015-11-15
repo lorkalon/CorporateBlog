@@ -8,6 +8,7 @@ using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.Results;
+using AutoMapper;
 using CorporateBlog.BLL.IServices;
 using CorporateBlog.DAL.Models;
 using CorporateBlog.WebApi.Authentication;
@@ -38,14 +39,7 @@ namespace CorporateBlog.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var appUser = new ApplicationUser()
-            {
-                Email = userModel.Email,
-                RoleId = (int)RoleType.Client,
-                UserName = userModel.Login,
-                EmailConfirmed = false,
-                Blocked = false
-            };
+            var appUser = Mapper.Map<ApplicationUser>(userModel);
 
             IdentityResult result = await _userManager.CreateAsync(appUser, userModel.Password);
             IHttpActionResult errorResult = GetErrorResult(result);

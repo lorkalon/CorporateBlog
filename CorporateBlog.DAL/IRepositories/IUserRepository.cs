@@ -10,8 +10,8 @@ namespace CorporateBlog.DAL.IRepositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        DAL.Models.User FindUser(string login);
-        DAL.Models.User FindUser(int userId);
-        DAL.Models.User FindUserByEmail(string email);
+        Task<User> FindUserAsync(string login);
+        Task<User> FindUserAsync(int userId);
+        Task<User> FindUserByEmailAsync(string email);
     }
 }
