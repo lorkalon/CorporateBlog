@@ -1,0 +1,44 @@
+﻿<div class="col-md-8">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <ul class="nav nav-pills">
+                    <li ng-click="switchOrderBy('date')" ng-class="{active: orderParam === 'date'}">
+                        <a href="">
+                            <span class="glyphicon glyphicon-sort"></span>
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            <span>Date</span>
+                        </a>
+                    </li>
+                    <li ng-click="switchOrderBy('rating')" ng-class="{active:orderParam ==='rating'}">
+                        <a href="">
+                            <span class=" glyphicon glyphicon-sort">
+                            </span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span>Rating</span>
+                        </a>
+                    </li>
+                    <li ng-click="switchOrderBy('title')" ng-class="{active:orderParam ==='title'}">
+                        <a href="">
+                            <span class=" glyphicon glyphicon-sort">
+                            </span>
+                            <span class="glyphicon glyphicon-font"></span>
+                            <span>Title</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#/posts/{{post.id}}" class="list-group-item" ng-repeat="post in posts | filter:searchPosts | orderBy: orderParam">
+                        <h4>{{post.title}}</h4>
+                        <p>
+                            {{post.content|limitTo: 200 }}...
+                        </p>
+                        <p class="text-muted"><em>{{post.date}}</em></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

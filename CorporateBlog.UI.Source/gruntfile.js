@@ -1,7 +1,7 @@
 ﻿module.exports = function (grunt) {
     'use strict';
 
-    var buildPath = '../../CorporateBlog.WebApi';
+    var buildPath = '../CorporateBlog.WebApi';
 
     grunt.initConfig({
         buildPath: buildPath,
@@ -9,29 +9,34 @@
 
         clean: {
             options: {
-                'no-write': true
+                'no-write': true,
+                force: true,
+
             },
             build: [
-                '<%= buildPath %>/website/',
-                '<%= buildPath %>/Index.html',
-                '!<%= buildPath %>/website/libs',
-                '!<%= buildPath %>/website/bower.json',
-                '!<%= buildPath %>/website/.bowerrc'
+                'build/',
+                '!build/libs',
             ]
         },
 
         copy: {
             build: {
                 expand: true,
-                dest: '<%= buildPath %>/website/',
-                src: ['website', 'Index.html']
+                dest: 'build/',
+                src: ['website/**']
+            },
+            finilize: {
+                expand: true,
+                cwd: 'build/',
+                dest: '<%= buildPath %>',
+                src: ['website/**', 'Index.html']
             }
         },
 
         less: {
             build: {
                 files: {
-                    '<%= buildPath %>/website/styles/app.css': 'styles/*.less'
+                    'build/styles/app.css': 'styles/*.less'
                 }
             }
         },
@@ -39,7 +44,7 @@
         watch: {
             scripts: {
                 files: ['Index.html', 'website'],
-                tasks: ['clean', 'copy', 'less', 'htmlbuild', 'wiredep'],
+                tasks: ['clean', 'less', 'htmlbuild', 'wiredep', 'copy'],
                 options: {
                     spawn: false,
                 }
@@ -49,14 +54,14 @@
         htmlbuild: {
             build: {
                 src: 'Index.html',
-                dest: '<%= buildPath %>',
+                dest: 'build/',
                 options: {
                     styles: {
-                        bundle: ['app.css']
+                        bundle: ['build/styles/app.css']
                     },
 
                     scripts: {
-                        bundle: ['website/js/**/*.js']
+                        bundle: ['build/website/js/**/*.js']
                     }
                 }
             }
@@ -77,7 +82,7 @@
         wiredep: {
             task: {
                 src: [
-                  '<%= buildPath %>/index.html'
+                  'build/index.html'
                 ],
 
                 options: {
@@ -104,5 +109,5 @@
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['copy',  'htmlbuild', 'wiredep', 'less']);
+    grunt.registerTask('default', ['clean', 'less', 'copy:build', 'htmlbuild', 'wiredep', 'copy:finilize']);
 };
