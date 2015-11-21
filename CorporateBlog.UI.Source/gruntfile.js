@@ -9,13 +9,12 @@
 
         clean: {
             options: {
-                'no-write': true,
                 force: true,
-
             },
             build: [
-                'build/',
-                '!build/libs',
+                'build/website',
+                'build/Index.html',
+                '!build/website/libs/**'
             ]
         },
 
@@ -23,7 +22,7 @@
             build: {
                 expand: true,
                 dest: 'build/',
-                src: ['website/**']
+                src: ['website/**', '!**/*.less']
             },
             finilize: {
                 expand: true,
@@ -36,20 +35,20 @@
         less: {
             build: {
                 files: {
-                    'build/styles/app.css': 'styles/*.less'
+                    'build/website/styles/app.css': 'website/styles/*.less'
                 }
             }
         },
         
-        watch: {
-            scripts: {
-                files: ['Index.html', 'website'],
-                tasks: ['clean', 'less', 'htmlbuild', 'wiredep', 'copy'],
-                options: {
-                    spawn: false,
-                }
-            }
-        },
+        //watch: {
+        //    scripts: {
+        //        files: ['Index.html', 'website'],
+        //        tasks: ['default'],
+        //        options: {
+        //            spawn: false,
+        //        }
+        //    }
+        //},
 
         htmlbuild: {
             build: {
@@ -57,7 +56,7 @@
                 dest: 'build/',
                 options: {
                     styles: {
-                        bundle: ['build/styles/app.css']
+                        bundle: ['build/website/styles/**/*.css']
                     },
 
                     scripts: {
@@ -109,5 +108,5 @@
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['clean', 'less', 'copy:build', 'htmlbuild', 'wiredep', 'copy:finilize']);
+    grunt.registerTask('default', ['clean', 'copy:build', 'less', 'htmlbuild', 'wiredep', 'copy:finilize']);
 };
