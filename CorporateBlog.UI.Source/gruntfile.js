@@ -15,6 +15,11 @@
                 'build/website',
                 'build/Index.html',
                 '!build/website/libs/**'
+            ],
+            finilize: [
+                '../CorporateBlog.WebApi/website',
+                 '../CorporateBlog.WebApi/Index.html',
+                '!../CorporateBlog.WebApi/website/libs/**'
             ]
         },
 
@@ -108,5 +113,5 @@
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['clean', 'copy:build', 'less', 'htmlbuild', 'wiredep', 'copy:finilize']);
+    grunt.registerTask('default', ['clean:build', 'copy:build', 'less', 'htmlbuild', 'wiredep', 'clean:finilize', 'copy:finilize']);
 };

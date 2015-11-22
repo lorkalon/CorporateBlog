@@ -20,5 +20,7 @@ namespace CorporateBlog.WebApi.Models
         public int RoleId { get; set; }
         public bool EmailConfirmed { get; set; }
         public bool Blocked { get; set; }
+
+        public virtual WebApi.Models.Role Role { get; set; }
     }
 }

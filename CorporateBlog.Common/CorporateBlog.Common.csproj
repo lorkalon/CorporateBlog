@@ -51,6 +51,7 @@
     <Compile Include="CommentRate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>

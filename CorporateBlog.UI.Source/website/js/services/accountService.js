@@ -22,14 +22,15 @@
                 var data = "grant_type=password&username=" + loginData.login + "&password=" + loginData.password,
                     deferred = $q.defer();
 
-                $http.post('/api/token', data, {
+                $http.post('/api/Account/Login', data, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function (response) {
                     authenticationData.token = response.access_token,
                     authenticationData.isAuthorized = true;
-                    authenticationData.userName = loginData.login;
+                    authenticationData.userName = response.userName;
+                    authenticationData.roleName = response.role;
                     localStorageService.set('authorizationData', authenticationData);
                     deferred.resolve(response);
 
@@ -41,10 +42,22 @@
                 return deferred.promise;
             };
 
+            var register = function(registrationData) {
+                return $http.post('/api/Account/Register', registrationData);
+            };
+
             return {
                 logIn: logIn,
-                logOut: logOut
-            };
+                logOut: logOut,
+                getAuthorizationData: function() {
+                    return {
+                        userName: authenticationData.userName,
+                        isAuthorized: authenticationData.isAuthorized,
+                        roleName: authenticationData.roleName
+                    };
+                },
+                register: register
+        };
 
         }]);
 

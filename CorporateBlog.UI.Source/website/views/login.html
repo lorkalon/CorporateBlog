@@ -1,18 +1,29 @@
-﻿<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-2 margin">
-            <form novalidate>
-                <div class="form-group">
-                    <label>Login</label>
-                    <input type="text" class="form-control" placeholder="Login" ng-model="loginForm.login" required/>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password" ng-model="loginForm.password" required/>
-                </div>
+﻿<div class="row">
+    <div class="page-header text-center">
+        <h3>
+            Welcome to Corporate Blog! <br />
+            <small>LogIn to start work...</small>
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 margin">
+        <form novalidate name="logInForm">
+            <div class="form-group">
+                <label>Login</label>
+                <input type="text" class="form-control" placeholder="Login" ng-model="loginForm.login" required />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" ng-model="loginForm.password" required />
+            </div>
+            <div ng-show="logInForm.$valid">
+                <button type="submit" class="btn btn-default" ng-click="logIn(loginForm)">LogIn</button>
+            </div>
+        </form>
 
-                <button type="submit" class="btn btn-default" ng-click="logIn(loginForm)">Submit</button>
-            </form>
-        </div>
+        <label class="margin">
+            <a href="/#registration">Register a new account</a>
+        </label>
     </div>
 </div>

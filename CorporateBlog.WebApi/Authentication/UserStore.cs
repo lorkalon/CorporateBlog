@@ -96,7 +96,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public async Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed)
         {
-            var savedUser = await _userRepository.FindUserAsync(user.Email);
+            var savedUser = await _userRepository.FindUserByEmailAsync(user.Email);
             savedUser.EmailConfirmed = confirmed;
         }
 

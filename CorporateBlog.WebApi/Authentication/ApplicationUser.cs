@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CorporateBlog.DAL.Models;
 using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Authentication
@@ -20,7 +21,14 @@ namespace CorporateBlog.WebApi.Authentication
 
         public bool EmailConfirmed { get; set; }
         public bool Blocked { get; set; }
-        
+
+        public RoleType RoleName
+        {
+            get
+            {
+                return (RoleType) this.RoleId;
+            }
+        }
 
     }
 }

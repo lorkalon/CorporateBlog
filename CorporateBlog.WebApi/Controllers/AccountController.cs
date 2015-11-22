@@ -28,7 +28,7 @@ namespace CorporateBlog.WebApi.Controllers
         {
             _userManager = userManager;
         }
-        
+
         [AllowAnonymous]
         [Route("Register")]
         [HttpPost]
@@ -39,6 +39,7 @@ namespace CorporateBlog.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            userModel.RoleId = (int)RoleType.Client;
             var appUser = Mapper.Map<ApplicationUser>(userModel);
 
             IdentityResult result = await _userManager.CreateAsync(appUser, userModel.Password);
@@ -60,24 +61,37 @@ namespace CorporateBlog.WebApi.Controllers
 
         [HttpGet]
         [Route("ConfirmEmail", Name = "EmailConfirmationRoute")]
-        public async Task<IHttpActionResult> ConfirmEmail(int userId = 0, string code = "")
+        public async Task<HttpResponseMessage> ConfirmEmail(int userId = 0, string code = "")
         {
+            HttpResponseMessage response;
+            string errorUri = "/#/error";
+            string root = "http://" + Request.RequestUri.Authority;
+            string message = "";
+
             if (userId == 0 || string.IsNullOrWhiteSpace(code))
             {
-                ModelState.AddModelError("", "Invalid confirmation token!");
-                return BadRequest(ModelState);
+                message = "Invalid confirmation link!";
+                response = Request.CreateResponse(HttpStatusCode.Moved);
+                response.Headers.Location = new Uri(root + errorUri + "?message=" + message);
+                return response;
             }
 
             IdentityResult result = await _userManager.ConfirmEmailAsync(userId, code);
 
             if (result.Succeeded)
             {
-                return Ok();
+                response = Request.CreateResponse(HttpStatusCode.Moved);
+                response.Headers.Location = new Uri(root);
+                return response;
             }
             else
             {
-                return GetErrorResult(result);
+                message = "Invalid confirmation link!";
+                response = Request.CreateResponse(HttpStatusCode.Moved);
+                response.Headers.Location = new Uri(root + errorUri + "?message=" + message);
+                return response;
             }
+
         }
 
         [HttpGet]
@@ -119,7 +133,7 @@ namespace CorporateBlog.WebApi.Controllers
                 {
                     foreach (string error in result.Errors)
                     {
-                        ModelState.AddModelError("", error);
+                        ModelState.AddModelError("error", error);
                     }
                 }
 

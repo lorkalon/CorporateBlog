@@ -143,7 +143,7 @@ namespace CorporateBlog.WebApi
             var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/api/Account/Login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new CorporateBlogAuthorizationServerProvider(),
                 AccessTokenProvider = new AuthenticationTokenProvider()

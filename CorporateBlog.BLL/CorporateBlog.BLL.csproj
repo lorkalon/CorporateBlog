@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependeciesResolver.cs" />
+    <Compile Include="IServices\ICategoryService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="IServices\IRoleService.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

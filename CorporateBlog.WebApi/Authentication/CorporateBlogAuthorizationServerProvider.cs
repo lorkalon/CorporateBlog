@@ -1,10 +1,13 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Autofac;
 using CorporateBlog.BLL.IServices;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
 using Autofac.Integration.Owin;
+using Microsoft.Owin.Security;
+using Newtonsoft.Json;
 
 namespace CorporateBlog.WebApi.Authentication
 {
@@ -37,12 +40,38 @@ namespace CorporateBlog.WebApi.Authentication
 
 
                     var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                    identity.AddClaim(new Claim("sub", context.UserName));
-                    identity.AddClaim(new Claim("role", "user"));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
 
-                    context.Validated(identity);
+                    var roleName = user.RoleName.ToString();
+                    identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
+
+                    var properties = CreateProperties(context.UserName, roleName);
+                    var ticket = new AuthenticationTicket(identity, properties);
+
+                    context.Validated(ticket);
                 }
             }
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (var property in context.Properties.Dictionary)
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+
+            return Task.FromResult<object>(null);
+        }
+
+        public static AuthenticationProperties CreateProperties(string userName, string roleName)
+        {
+            var data = new Dictionary<string, string>
+                        {
+                            { "userName", userName },
+                            { "role", roleName }
+                        };
+
+            return new AuthenticationProperties(data);
         }
     }
 }
