@@ -33,6 +33,7 @@ namespace CorporateBlog.DAL.Repositories
                 throw new ArgumentNullException("entity", "Entity cann't be null!");
             }
 
+            entity.CreatedOnUtc = DateTime.UtcNow;
             _dbSet.Add(entity);
         }
 
@@ -55,21 +56,13 @@ namespace CorporateBlog.DAL.Repositories
         }
 
 
-        public virtual IEnumerable<TDataEntity> GetPaged(BaseFilter<TDataEntity> filter = null)
+        protected virtual IQueryable<TDataEntity> GetPaged(
+            int from = 0, 
+            int count=0, 
+            Expression<Func<TDataEntity, bool>> where = null,
+            Func<IQueryable<TDataEntity>, IOrderedQueryable<TDataEntity>> orderBy = null)
         {
-            if (filter == null)
-            {
-                return null;
-            }
-
-            if (filter.IsAscending)
-            {
-                return _dbSet.Where(filter.SearchQuery).OrderBy(filter.OrderBy)
-                    .Skip(filter.From).Take(filter.Count);
-            }
-
-            return _dbSet.Where(filter.SearchQuery).OrderByDescending(filter.OrderBy)
-                .Skip(filter.From).Take(filter.Count);
+            return orderBy(_dbSet.Where(where)).Skip(from).Take(count);
         }
 
         public async Task<IEnumerable<TDataEntity>> GetAllAsync()

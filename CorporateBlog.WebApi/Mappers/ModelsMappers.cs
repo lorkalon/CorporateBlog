@@ -38,7 +38,8 @@ namespace CorporateBlog.WebApi.Mappers
             Mapper.CreateMap<Common.Category, WebApi.Models.Category>();
             Mapper.CreateMap<WebApi.Models.Category, Common.Category>();
 
-
+            Mapper.CreateMap<Common.Filters.BaseFilter, WebApi.Models.Filters.BaseFilter>();
+            Mapper.CreateMap<WebApi.Models.Filters.BaseFilter, Common.Filters.BaseFilter>();
 
         }
     }

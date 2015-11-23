@@ -9,5 +9,6 @@ namespace CorporateBlog.DAL.Models
     public class BaseEntity
     {
         public int Id { get; set; }
+        public DateTime CreatedOnUtc { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace CorporateBlog.WebApi.Models
         public string Text { get; set; }
         public int CategoryId { get; set; }
         public int UserId { get; set; }
+        public DateTime CreatedOnUtc { get; set; }
         public virtual WebApi.Models.UserModel User { get; set; }
         public virtual WebApi.Models.Category Category { get; set; }
     }

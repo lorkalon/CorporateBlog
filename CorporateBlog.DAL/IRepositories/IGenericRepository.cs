@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CorporateBlog.DAL.DbContextProvider;
@@ -15,8 +16,6 @@ namespace CorporateBlog.DAL.IRepositories
         void Update(TDataEntity entity);
 
         void Delete(TDataEntity entity);
-
-        IEnumerable<TDataEntity> GetPaged(BaseFilter<TDataEntity> filter = null);
 
         Task<IEnumerable<TDataEntity>> GetAllAsync();
 

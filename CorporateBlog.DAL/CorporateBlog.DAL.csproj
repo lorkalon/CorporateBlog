@@ -62,7 +62,6 @@
     <Compile Include="DbContextProvider\CorporateBlogContextProvider.cs" />
     <Compile Include="DbContextProvider\IContextProvider.cs" />
     <Compile Include="DbContextProvider\IContextCreator.cs" />
-    <Compile Include="Filters\BaseFilter.cs" />
     <Compile Include="IRepositories\IArticleRepository.cs" />
     <Compile Include="IRepositories\IArticleRateRepository.cs" />
     <Compile Include="IRepositories\ICategoryRepository.cs" />
