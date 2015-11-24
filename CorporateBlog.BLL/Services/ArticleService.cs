@@ -27,19 +27,18 @@ namespace CorporateBlog.BLL.Services
             
         }
 
-        public IEnumerable<Common.Article> GetPagedByFilter(Common.Filters.ArticleFilter filter)
+        public IEnumerable<Common.Article> GetByDateRange(Common.Filters.ArticlesDateRangeFilter filter)
         {
-            var whereExpressions = new List<Expression<Func<DAL.Models.Article, bool>>>()
-            {
-               a=>!(filter.CategoryId.HasValue) || (filter.CategoryId.HasValue && a.CategoryId == filter.CategoryId),
-               a=>!(filter.CreatedById.HasValue) || (filter.CreatedById.HasValue && a.UserId == filter.CreatedById),
-               a=> filter.SearchContent == null || (a.Text.ToLower().Contains(filter.SearchContent.ToLower()) || 
-                                                    a.Title.ToLower().Contains(filter.SearchContent.ToLower())),
-            };
+            Expression<Func<DAL.Models.Article, bool>> whereExpressions = a => a.CategoryId == filter.CategoryId &&
+                                                                               a.CreatedOnUtc > filter.StartDate &&
+                                                                               a.CreatedOnUtc < filter.EndDate;
+            
 
-            var articles = _articleRepository.GetPaged(whereExpressions, null, Mapper.Map<DAL.Models.Filters.BaseFilter>(filter));
+            Expression<Func<DAL.Models.Article, object>> orderBy = article => article.CreatedOnUtc;
+
+            var articles = _articleRepository.GetFiltered(whereExpressions, orderBy, null, null, false);
 
             return articles.Select(Mapper.Map<Common.Article>);
-        }
+        } 
     }
 }

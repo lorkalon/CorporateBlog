@@ -19,9 +19,9 @@ namespace CorporateBlog.DAL.IRepositories
 
         Task<TDataEntity> GetAsync(int id);
 
-        IEnumerable<TDataEntity> GetPaged(
-            List<Expression<Func<TDataEntity, bool>>> whereExpressions,
-            Expression<Func<TDataEntity, object>> orderByExpression,
-            Models.Filters.BaseFilter filter);
+        IEnumerable<TDataEntity> GetFiltered(
+            Expression<Func<TDataEntity, bool>> whereExpressions = null,
+            Expression<Func<TDataEntity, object>> orderByExpression = null,
+            int? from = null, int? count = null, bool? isAsc = null);
     }
 }

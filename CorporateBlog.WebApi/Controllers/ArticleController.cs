@@ -19,10 +19,10 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/Article/GetPaged")]
+        [Route("api/Article/GetFiltered")]
         public IEnumerable<Models.Article> GetArticles(Models.Filters.BaseFilter filter)
         {
-            //var articles = _articleService.GetPaged(Mapper.Map<Common.Filters.BaseFilter>(filter));
+            //var articles = _articleService.GetFiltered(Mapper.Map<Common.Filters.BaseFilter>(filter));
             //return articles.Select(Mapper.Map<Models.Article>);
             return null;
         } 

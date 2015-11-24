@@ -7,7 +7,6 @@ namespace CorporateBlog.BLL.IServices
     public interface IArticleService
     {
         void CreateArticle();
-
-        IEnumerable<Common.Article> GetPagedByFilter(Common.Filters.ArticleFilter filter);
+        IEnumerable<Common.Article> GetByDateRange(Common.Filters.ArticlesDateRangeFilter filter);
     }
 }

@@ -52,27 +52,27 @@ namespace CorporateBlog.DAL.Repositories
             DbSet.Remove(entity);
         }
 
-        public IEnumerable<TDataEntity> GetPaged(
-            List<Expression<Func<TDataEntity, bool>>> whereExpressions = null,
+        public IEnumerable<TDataEntity> GetFiltered(
+            Expression<Func<TDataEntity, bool>> whereExpression = null,
             Expression<Func<TDataEntity, object>> orderByExpression = null,
-            Models.Filters.BaseFilter filter = null)
+            int?from = null, int? count = null, bool? isAsc = null)
         {
             var articles = DbSet.Select(x => x);
 
-            if (whereExpressions != null)
+            if (whereExpression != null)
             {
-                articles = whereExpressions.Aggregate(articles, (current, @where) => current.Where(@where));
+                articles = articles.Where(whereExpression);
             }
 
             if (orderByExpression!=null)
             {
-                if (filter == null)
+                if (!isAsc.HasValue)
                 {
                     articles.OrderBy(orderByExpression);
                 }
                 else
                 {
-                    if (filter.IsAscending)
+                    if (isAsc.Value)
                     {
                         articles.OrderBy(orderByExpression);
                     }
@@ -83,9 +83,14 @@ namespace CorporateBlog.DAL.Repositories
                 }
             }
 
-            if (filter != null)
+            if (from.HasValue)
             {
-                articles = articles.Skip(filter.From).Take(filter.Count);
+                articles = articles.Skip(from.Value);
+            }
+
+            if (count.HasValue)
+            {
+                articles = articles.Take(count.Value);
             }
 
             var result = articles.ToList();
