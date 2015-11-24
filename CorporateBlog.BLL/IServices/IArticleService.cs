@@ -8,6 +8,6 @@ namespace CorporateBlog.BLL.IServices
     {
         void CreateArticle();
 
-        IEnumerable<Common.Article> GetPaged(BaseFilter filter);
+        IEnumerable<Common.Article> GetPagedByFilter(Common.Filters.ArticleFilter filter);
     }
 }

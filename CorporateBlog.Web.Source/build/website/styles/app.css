@@ -1,0 +1,13 @@
+.categoriesList .list-group-item {
+  position: relative;
+}
+.categoriesList .list-group-item .removeIcon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.margin {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

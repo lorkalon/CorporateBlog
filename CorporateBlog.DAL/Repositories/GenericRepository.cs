@@ -4,25 +4,22 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
 using CorporateBlog.DAL.Models;
-using CorporateBlog.DAL.Repositories.Filters;
 
 namespace CorporateBlog.DAL.Repositories
 {
     public class GenericRepository<TDataEntity> : IGenericRepository<TDataEntity>
         where TDataEntity : BaseEntity
     {
-        private readonly DbSet<TDataEntity> _dbSet;
+        protected readonly DbSet<TDataEntity> DbSet;
         private readonly DbContext _context;
 
         public GenericRepository(IContextCreator contextCreator)
         {
             _context = contextCreator.GetContext;
-            _dbSet = contextCreator.GetContext.Set<TDataEntity>();
+            DbSet = contextCreator.GetContext.Set<TDataEntity>();
         }
 
 
@@ -34,12 +31,12 @@ namespace CorporateBlog.DAL.Repositories
             }
 
             entity.CreatedOnUtc = DateTime.UtcNow;
-            _dbSet.Add(entity);
+            DbSet.Add(entity);
         }
 
         public void Update(TDataEntity entity)
         {
-            _dbSet.Attach(entity);
+            DbSet.Attach(entity);
 
             var entry = _context.Entry(entity);
             entry.State = EntityState.Modified;
@@ -52,28 +49,59 @@ namespace CorporateBlog.DAL.Repositories
                 throw new ArgumentNullException("entity", "Entity cann't be null!");
             }
 
-            _dbSet.Remove(entity);
+            DbSet.Remove(entity);
         }
 
-
-        protected virtual IQueryable<TDataEntity> GetPaged(
-            int from = 0, 
-            int count=0, 
-            Expression<Func<TDataEntity, bool>> where = null,
-            Func<IQueryable<TDataEntity>, IOrderedQueryable<TDataEntity>> orderBy = null)
+        public IEnumerable<TDataEntity> GetPaged(
+            List<Expression<Func<TDataEntity, bool>>> whereExpressions = null,
+            Expression<Func<TDataEntity, object>> orderByExpression = null,
+            Models.Filters.BaseFilter filter = null)
         {
-            return orderBy(_dbSet.Where(where)).Skip(from).Take(count);
+            var articles = DbSet.Select(x => x);
+
+            if (whereExpressions != null)
+            {
+                articles = whereExpressions.Aggregate(articles, (current, @where) => current.Where(@where));
+            }
+
+            if (orderByExpression!=null)
+            {
+                if (filter == null)
+                {
+                    articles.OrderBy(orderByExpression);
+                }
+                else
+                {
+                    if (filter.IsAscending)
+                    {
+                        articles.OrderBy(orderByExpression);
+                    }
+                    else
+                    {
+                        articles.OrderByDescending(orderByExpression);
+                    }
+                }
+            }
+
+            if (filter != null)
+            {
+                articles = articles.Skip(filter.From).Take(filter.Count);
+            }
+
+            var result = articles.ToList();
+
+            return result;
         }
 
         public async Task<IEnumerable<TDataEntity>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await DbSet.ToListAsync();
         }
 
 
         public async Task<TDataEntity> GetAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await DbSet.FindAsync(id);
         }
 
     }

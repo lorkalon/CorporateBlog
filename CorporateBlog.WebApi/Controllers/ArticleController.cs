@@ -22,8 +22,9 @@ namespace CorporateBlog.WebApi.Controllers
         [Route("api/Article/GetPaged")]
         public IEnumerable<Models.Article> GetArticles(Models.Filters.BaseFilter filter)
         {
-            var articles = _articleService.GetPaged(Mapper.Map<Common.Filters.BaseFilter>(filter));
-            return articles.Select(Mapper.Map<Models.Article>);
+            //var articles = _articleService.GetPaged(Mapper.Map<Common.Filters.BaseFilter>(filter));
+            //return articles.Select(Mapper.Map<Models.Article>);
+            return null;
         } 
 
     }

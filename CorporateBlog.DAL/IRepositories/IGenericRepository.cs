@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using CorporateBlog.DAL.DbContextProvider;
-using CorporateBlog.DAL.Repositories.Filters;
 
 namespace CorporateBlog.DAL.IRepositories
 {
@@ -20,5 +18,10 @@ namespace CorporateBlog.DAL.IRepositories
         Task<IEnumerable<TDataEntity>> GetAllAsync();
 
         Task<TDataEntity> GetAsync(int id);
+
+        IEnumerable<TDataEntity> GetPaged(
+            List<Expression<Func<TDataEntity, bool>>> whereExpressions,
+            Expression<Func<TDataEntity, object>> orderByExpression,
+            Models.Filters.BaseFilter filter);
     }
 }

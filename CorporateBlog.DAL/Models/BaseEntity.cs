@@ -10,5 +10,9 @@ namespace CorporateBlog.DAL.Models
     {
         public int Id { get; set; }
         public DateTime CreatedOnUtc { get; set; }
+        public static object GetPropValue(object src, string propName)
+        {
+            return src.GetType().GetProperty(propName).GetValue(src, null);
+        }
     }
 }
