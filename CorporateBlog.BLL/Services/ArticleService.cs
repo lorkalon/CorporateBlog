@@ -29,8 +29,8 @@ namespace CorporateBlog.BLL.Services
         public IEnumerable<Common.Article> GetByDateRange(Common.Filters.ArticlesDateRangeFilter filter)
         {
             Expression<Func<DAL.Models.Article, bool>> whereExpressions = a => a.CategoryId == filter.CategoryId &&
-                                                                               a.CreatedOnUtc > filter.StartDate &&
-                                                                               a.CreatedOnUtc < filter.EndDate;
+                                                                               a.CreatedOnUtc >= filter.StartDate &&
+                                                                               a.CreatedOnUtc <= filter.EndDate;
             
 
             Expression<Func<DAL.Models.Article, object>> orderBy = article => article.CreatedOnUtc;

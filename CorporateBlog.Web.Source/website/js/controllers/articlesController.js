@@ -28,8 +28,8 @@
             $scope.loadArticles = function () {
                 var passData = {
                     categoryId: $scope.category.id,
-                    startDate: new Date(2015, 10, 1),
-                    endDate: new Date(2015, 10, 30)
+                    startDate: new Date(2015, 10, 10),
+                    endDate: new Date(2015, 10, 15)
                 };
 
                 articleService.getByDateRange(passData).then(function (response) {
