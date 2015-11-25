@@ -67,6 +67,8 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="website\js\filters\cutFilter.js" />
+    <Content Include="website\js\services\articleService.js" />
     <Content Include="website\sources\content.json" />
     <Content Include="website\styles\categories.less" />
     <Content Include="website\styles\common.less" />

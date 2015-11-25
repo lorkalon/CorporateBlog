@@ -6,6 +6,7 @@
     var services = angular.module('services', ['LocalStorageModule']);
     var interceptors = angular.module('interceptors', []);
     var shared = angular.module('sharedData', []);
+    var filters = angular.module('filters', []);
 
     var blogApp = angular.module('corporateBlogApplication', [
        'ngRoute',
@@ -14,7 +15,8 @@
        'services',
        'ui.bootstrap',
        'interceptors',
-       'sharedData'
+       'sharedData',
+       'filters'
     ]);
 
     blogApp.config(['$routeProvider', function ($routeProvider) {

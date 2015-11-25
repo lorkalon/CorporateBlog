@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.WebApi.Models.Filters;
 
 namespace CorporateBlog.WebApi.Controllers
 {
@@ -19,12 +20,18 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/Article/GetFiltered")]
-        public IEnumerable<Models.Article> GetArticles(Models.Filters.BaseFilter filter)
+        [Route("api/Article/GetByDateRange")]
+        public IEnumerable<Models.Article> GetArticles([FromUri]ArticlesDateRangeFilter filter)
         {
-            //var articles = _articleService.GetFiltered(Mapper.Map<Common.Filters.BaseFilter>(filter));
-            //return articles.Select(Mapper.Map<Models.Article>);
-            return null;
+            var articles = _articleService.GetByDateRange(Mapper.Map<Common.Filters.ArticlesDateRangeFilter>(filter));
+            return articles.Select(Mapper.Map<Models.Article>);
+        }
+
+        [HttpPost]
+        [Route("api/Article/Add")]
+        public void AddArticle(Models.Article article)
+        {
+            
         } 
 
     }

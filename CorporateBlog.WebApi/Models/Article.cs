@@ -16,5 +16,6 @@ namespace CorporateBlog.WebApi.Models
         public DateTime CreatedOnUtc { get; set; }
         public virtual WebApi.Models.UserModel User { get; set; }
         public virtual WebApi.Models.Category Category { get; set; }
+        public int Rate { get; set; }
     }
 }

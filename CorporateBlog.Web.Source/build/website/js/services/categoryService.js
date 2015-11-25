@@ -10,7 +10,9 @@
             };
 
             var createCategory = function(model) {
-                return $http.post('api/Category/Create', model);
+                return $http.post('api/Category/Create', {
+                    model: model
+                });
             };
 
             var deleteCategory = function(id) {

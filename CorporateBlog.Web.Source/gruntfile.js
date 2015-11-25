@@ -11,16 +11,22 @@
             options: {
                 force: true,
             },
-            build: [
-                'build/website',
-                'build/Index.html',
-                '!build/website/libs/**'
-            ],
-            finilize: [
-                '../CorporateBlog.WebApi/website',
-                 '../CorporateBlog.WebApi/Index.html',
-                '!../CorporateBlog.WebApi/website/libs/**'
-            ]
+            build: {
+                src: [
+                    'build/website/*',
+                    'build/Index.html',
+                    '!build/website/libs/**'
+                ]
+            },
+            finilize: {
+                src: [
+                    '../CorporateBlog.WebApi/website/*',
+                    '../CorporateBlog.WebApi/Index.html',
+                    '!../CorporateBlog.WebApi/website/libs/**'
+                ]
+            }
+
+
         },
 
         copy: {
@@ -44,7 +50,7 @@
                 }
             }
         },
-        
+
         //watch: {
         //    scripts: {
         //        files: ['Index.html', 'website'],
@@ -80,7 +86,7 @@
         jshint: {
             files: ['gruntfile.js', 'website/js/*.js'],
             // configure JSHint (documented at http://www.jshint.com/docs/)
-           
+
         },
 
         wiredep: {
@@ -100,7 +106,7 @@
 
                     // https://github.com/taptapship/wiredep#configuration
                 }
-            } 
+            }
         }
     });
 

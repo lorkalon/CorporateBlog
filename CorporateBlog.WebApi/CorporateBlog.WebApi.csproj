@@ -150,8 +150,8 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\Filters\BaseFilter.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Filters\ArticlesDateRangeFilter.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Services\ConfigurationManagerService.cs" />
     <Compile Include="Controllers\AccountController.cs" />

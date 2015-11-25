@@ -20,6 +20,7 @@
             var getAllCategories = function () {
                 categoryService.getAll().then(function(response) {
                     $scope.categories = response.data;
+                    sharedCategory.setCategory(_.first($scope.categories));
                 });
             };
 
@@ -35,8 +36,8 @@
                 });
             };
 
-            $scope.selectCategory = function(category) {
-                sharedCategory.selectedCategory = category;
+            $scope.selectCategory = function (category) {
+                sharedCategory.setCategory(category);
             };
 
             getAllCategories();

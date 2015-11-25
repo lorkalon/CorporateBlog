@@ -8,7 +8,6 @@ using CorporateBlog.Common;
 using CorporateBlog.Common.Filters;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
-using CorporateBlog.DAL.Models.Filters;
 
 namespace CorporateBlog.BLL.Services
 {

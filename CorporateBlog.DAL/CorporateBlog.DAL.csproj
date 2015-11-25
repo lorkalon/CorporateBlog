@@ -94,7 +94,6 @@
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\CommentRateRepository.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
-    <Compile Include="Models\Filters\BaseFilter.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\UserInfoRepository.cs" />
