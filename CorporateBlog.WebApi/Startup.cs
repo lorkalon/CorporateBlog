@@ -93,17 +93,17 @@ namespace CorporateBlog.WebApi
                 {
                     new Common.Role()
                     {
-                        Name = "Admin",
+                        Name = RoleNames.Admin,
                         Id = (int) RoleType.Admin
                     },
                     new Common.Role()
                     {
-                        Name = "Publisher",
+                        Name = RoleNames.Publisher,
                         Id = (int) RoleType.Publisher
                     },
                     new Common.Role()
                     {
-                        Name = "Client",
+                        Name = RoleNames.Client,
                         Id = (int) RoleType.Client
                     }
                 });

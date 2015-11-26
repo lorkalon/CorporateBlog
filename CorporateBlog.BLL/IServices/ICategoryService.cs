@@ -9,6 +9,7 @@ namespace CorporateBlog.BLL.IServices
     public interface ICategoryService
     {
         Task CreateCategoryAsync(Common.Category category);
+        Task UpdateCategoryAsync(Common.Category category);
         Task DeleteCategoryAsync(int categoryId);
         Task<IEnumerable<Common.Category>> GetAllAsync();
     }

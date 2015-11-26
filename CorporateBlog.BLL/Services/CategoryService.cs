@@ -26,11 +26,26 @@ namespace CorporateBlog.BLL.Services
             await SaveChangesAsync();
         }
 
+        public async Task UpdateCategoryAsync(Common.Category category)
+        {
+            var entity = await _categoryRepository.GetAsync(category.Id);
+            
+            if (entity != null)
+            {
+                entity.Name = category.Name;
+                await SaveChangesAsync();
+            }
+        }
+
         public async Task DeleteCategoryAsync(int categoryId)
         {
             var category = await _categoryRepository.GetAsync(categoryId);
-            _categoryRepository.Delete(category);
-            await SaveChangesAsync();
+            
+            if (category != null)
+            {
+                _categoryRepository.Delete(category);
+                await SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<Common.Category>> GetAllAsync()

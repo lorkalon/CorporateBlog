@@ -109,7 +109,6 @@
     <Content Include="website\js\services\accountService.js" />
     <Content Include="website\js\services\categoryService.js" />
     <Content Include="website\js\sharedData\sharedCategory.js" />
-    <Content Include="website\views\articles.html" />
     <Content Include="website\views\categories.html" />
     <Content Include="website\views\error.html" />
     <Content Include="website\views\login.html" />

@@ -8,6 +8,7 @@ namespace UnitTests
     [TestClass]
     public class UnitTest1
     {
+
         public class Article
         {
             public int CategoryId { get; set; }

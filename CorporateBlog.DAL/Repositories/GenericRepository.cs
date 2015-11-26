@@ -93,7 +93,7 @@ namespace CorporateBlog.DAL.Repositories
                 articles = articles.Take(count.Value);
             }
 
-            var result = articles.ToList();
+            var result = articles;
 
             return result;
         }

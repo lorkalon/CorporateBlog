@@ -29,7 +29,6 @@ namespace CorporateBlog.WebApi.Mappers
 
             Mapper.CreateMap<DAL.Models.Article, Common.Article>()
                 .AfterMap((src, dest) => dest.Rate = src.ArticleRates.Sum(rate => rate.Value));
-
             Mapper.CreateMap<Common.Article, DAL.Models.Article>();
             Mapper.CreateMap<Common.Article, WebApi.Models.Article>();
             Mapper.CreateMap<WebApi.Models.Article, Common.Article>();
@@ -42,6 +41,12 @@ namespace CorporateBlog.WebApi.Mappers
 
             Mapper.CreateMap<Common.Filters.ArticlesDateRangeFilter, WebApi.Models.Filters.ArticlesDateRangeFilter>();
             Mapper.CreateMap<WebApi.Models.Filters.ArticlesDateRangeFilter, Common.Filters.ArticlesDateRangeFilter>();
+
+            Mapper.CreateMap<DAL.Models.Comment, Common.Comment>()
+               .AfterMap((src, dest) => dest.Rate = src.CommentRates.Sum(rate => rate.Value));
+            Mapper.CreateMap<Common.Comment, DAL.Models.Comment>();
+            Mapper.CreateMap<Common.Comment, WebApi.Models.Comment>();
+            Mapper.CreateMap<WebApi.Models.Comment, Common.Comment>();
 
         }
     }

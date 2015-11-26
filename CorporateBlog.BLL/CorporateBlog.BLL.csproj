@@ -50,12 +50,14 @@
   <ItemGroup>
     <Compile Include="DependeciesResolver.cs" />
     <Compile Include="IServices\ICategoryService.cs" />
+    <Compile Include="IServices\ICommentService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="IServices\IRoleService.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="IServices\IArticleService.cs" />
+    <Compile Include="Services\CommentService.cs" />
     <Compile Include="Services\RoleService.cs" />
   </ItemGroup>
   <ItemGroup>

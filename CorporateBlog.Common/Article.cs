@@ -15,6 +15,8 @@ namespace CorporateBlog.Common
         public int UserId { get; set; }
         public DateTime CreatedOnUtc { get; set; }
         public virtual Common.User User { get; set; }
+        public virtual Common.Category Category { get; set; }
         public int Rate { get; set; }
+
     }
 }

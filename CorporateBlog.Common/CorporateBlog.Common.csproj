@@ -50,6 +50,7 @@
     <Compile Include="Comment.cs" />
     <Compile Include="CommentRate.cs" />
     <Compile Include="Filters\ArticlesDateRangeFilter.cs" />
+    <Compile Include="Filters\CommentsDateRangeFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />

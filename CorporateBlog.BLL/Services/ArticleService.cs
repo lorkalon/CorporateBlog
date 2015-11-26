@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
 using CorporateBlog.Common;
@@ -21,9 +22,35 @@ namespace CorporateBlog.BLL.Services
             _articleRepository = articleRepository;
         }
 
-        public void CreateArticle()
+        public async Task CreateArticleAsync(Common.Article article)
         {
-            
+            var model = Mapper.Map<DAL.Models.Article>(article);
+            _articleRepository.Add(model);
+            await SaveChangesAsync();
+        }
+
+        public async Task DeleteArticle(int articleId)
+        {
+            var article = await _articleRepository.GetAsync(articleId);
+
+            if (article != null)
+            {
+                _articleRepository.Delete(article);
+                await SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateArticle(Common.Article article)
+        {
+            var entity = await _articleRepository.GetAsync(article.Id);
+
+            if (entity != null)
+            {
+                entity.Title = article.Title;
+                entity.Text = article.Text;
+
+                await SaveChangesAsync();
+            }
         }
 
         public IEnumerable<Common.Article> GetByDateRange(Common.Filters.ArticlesDateRangeFilter filter)
@@ -35,9 +62,17 @@ namespace CorporateBlog.BLL.Services
 
             Expression<Func<DAL.Models.Article, object>> orderBy = article => article.CreatedOnUtc;
 
-            var articles = _articleRepository.GetFiltered(whereExpressions, orderBy, null, null, false);
+            var articles =
+                _articleRepository.GetFiltered(whereExpressions, orderBy, null, null, false)
+                    .Select(Mapper.Map<Common.Article>).ToList();
 
-            return articles.Select(Mapper.Map<Common.Article>);
-        } 
+            return articles;
+        }
+
+        public async Task<Common.Article> GetArticle(int articleId)
+        {
+            var article = await _articleRepository.GetAsync(articleId);
+            return Mapper.Map<Common.Article>(article);
+        }
     }
 }

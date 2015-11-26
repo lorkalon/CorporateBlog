@@ -25,7 +25,7 @@ namespace CorporateBlog.WebApi.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPost]
         [Route("api/Category/Create")]
         public async Task CreateCategory(Models.Category category)
@@ -38,7 +38,14 @@ namespace CorporateBlog.WebApi.Controllers
             await _categoryService.CreateCategoryAsync(model);
         }
 
-
+        [Authorize(Roles = RoleNames.Admin)]
+        [HttpPut]
+        [Route("api/Category/Update")]
+        public async Task UpdateCategory(Models.Category category)
+        {
+            var model = Mapper.Map<Common.Category>(category);
+            await _categoryService.UpdateCategoryAsync(model);
+        }
 
         [HttpGet]
         [Route("api/Category/GetAll")]
@@ -49,7 +56,7 @@ namespace CorporateBlog.WebApi.Controllers
             return mappedCategories;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpDelete]
         [Route("api/Category/Delete/{categoryId}")]
         public async Task DeleteCategory(int categoryId)
