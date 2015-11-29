@@ -11,7 +11,11 @@ namespace CorporateBlog.Common
         public int Id { get; set; }
         public int Value { get; set; }
 
+        public int UserId { get; set; }
+        public Common.User User { get; set; }
 
+        public int ArticleId { get; set; }
+        public Common.Article Article { get; set; }
 
     }
 }
