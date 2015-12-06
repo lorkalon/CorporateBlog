@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CorporateBlog.BLL.IServices;
 using CorporateBlog.Common;
 using CorporateBlog.Common.Filters;
@@ -63,8 +64,8 @@ namespace CorporateBlog.BLL.Services
             Expression<Func<DAL.Models.Article, object>> orderBy = article => article.CreatedOnUtc;
 
             var articles =
-                _articleRepository.GetFiltered(whereExpressions, orderBy, null, null, false)
-                    .Select(Mapper.Map<Common.Article>).ToList();
+                _articleRepository.GetFiltered(whereExpressions, orderBy, null, null, false).AsQueryable()
+                    .Project().To<Common.Article>().ToList();
 
             return articles;
         }

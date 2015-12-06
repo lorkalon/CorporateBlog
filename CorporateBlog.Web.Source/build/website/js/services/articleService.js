@@ -13,8 +13,13 @@
                 });
             };
 
+            var createArticle = function(model) {
+                return $http.post("api/Article/Add", model);
+            };
+
             return {
-                getByDateRange: getByDateRange
+                getByDateRange: getByDateRange,
+                createArticle: createArticle
             };
         }
     ]);

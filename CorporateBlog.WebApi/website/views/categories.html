@@ -6,41 +6,54 @@
             <h4>Categories</h4>
         </div>
 
-        <div ng-show="isUserAdmiin" class="margin">
+        <div ng-show="isUserAdmin" class="margin">
             <form class="form-inline" novalidate name="addCategoryForm">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="categoryModel.name" placeholder="Category name" required/>
+                    <input type="text" class="form-control" ng-model="categoryModel.name" placeholder="Category name" required />
                 </div>
                 <button type="submit" class="btn btn-xs btn-default" ng-disabled="!addCategoryForm.$valid" ng-click="createCategory(categoryModel)">Add</button>
             </form>
         </div>
 
         <div class="list-group categoriesList" ng-repeat="category in categories">
-            <a class="list-group-item" ng-click="selectCategory(category)">
+            <a class="list-group-item hover" ng-click="selectCategory(category)">
                 <span>{{category.name}}</span>
-                <span ng-show="isUserAdmiin" ng-click="deleteCategory(category)" class="removeIcon glyphicon glyphicon-remove"></span>
+                <span ng-show="isUserAdmin" ng-click="deleteCategory(category)" class="removeIcon glyphicon glyphicon-remove hover"></span>
             </a>
         </div>
     </div>
     <div class="col-md-6 col-md-offset-1" ng-controller="ArticlesController as artCtr">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-11">
                 <div class="page-header">
-                    <h3>Category <small>{{category.name}}</small></h3>
+                    <h3>
+                        Category <small>{{category.name}}</small>
+                    </h3>
                 </div>
+            </div>
+            <div class="col-md-1" ng-show="isUserAdmin||isUserPublisher">
+                <a class="btn btn-default" href="#/createArticle">Create article</a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <div class="list-group" data-ng-repeat="article in articles | orderBy:'-rank'">
-                        <a class="list-group-item">
-                            <div>
-                                <h4>{{article.title}}</h4>
-                                <p>{{article.text | cut:200}}</p>
+                <div class="list-group" data-ng-repeat="article in articles">
+                    <a class="list-group-item">
+                        <div class="avatarHolder">
+                            <div class="thumbnail">
+                                <img />
+                                <div class="caption">
+                                    <label>Thumbnail label</label>
+                                </div>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                        <div>
+                            <h4>{{article.title}}</h4>
+                            <p>{{article.text | cut:200}}</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@
     var interceptors = angular.module('interceptors', []);
     var shared = angular.module('sharedData', []);
     var filters = angular.module('filters', []);
+    var common = angular.module('common', []);
 
     var blogApp = angular.module('corporateBlogApplication', [
        'ngRoute',
@@ -16,13 +17,18 @@
        'ui.bootstrap',
        'interceptors',
        'sharedData',
-       'filters'
+       'filters',
+       'common',
+       'textAngular'
     ]);
 
     blogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/categories', {
             templateUrl: '/website/views/categories.html',
             controller: 'CategoriesController'
+        }).when('/createArticle', {
+            templateUrl: '/website/views/createArticle.html',
+            controller: 'CreateArticleController'
         }).when('/login', {
             templateUrl: '/website/views/login.html',
             controller: 'LoginController'

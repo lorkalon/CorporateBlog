@@ -3,8 +3,11 @@
 }
 .categoriesList .list-group-item .removeIcon {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -15px;
+  right: -15px;
+}
+.hover:hover {
+  cursor: pointer;
 }
 
 .margin {

@@ -5,7 +5,7 @@
         return {
             restrict: 'E',
             templateUrl: '/website/views/loginSnippet.html',
-            controller: 'LoginController'
+            controller: 'LoginSnippetController'
         };
     });
 

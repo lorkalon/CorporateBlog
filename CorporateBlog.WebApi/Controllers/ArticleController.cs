@@ -54,6 +54,7 @@ namespace CorporateBlog.WebApi.Controllers
             var userName = User.Identity.GetUserName();
             var user = await _userManager.FindByNameAsync(userName);
             model.UserId = user.Id;
+            await _articleService.CreateArticleAsync(model);
         }
 
         [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]

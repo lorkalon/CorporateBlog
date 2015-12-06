@@ -5,17 +5,18 @@
         'categoryService',
         '$scope',
         'accountService',
-        'sharedCategory', function (categoryService, $scope, accountService, sharedCategory) {
+        'sharedCategory',
+        'settings', function (categoryService, $scope, accountService, sharedCategory, settings) {
 
             $scope.categories = [];
             $scope.categoryModel = {
                 name: ''
             };
 
-            var adminRole = "Admin";
             var roleName = accountService.getAuthorizationData().roleName;
 
-            $scope.isUserAdmiin = roleName === adminRole ;
+            $scope.isUserAdmin = roleName === settings.adminRoleName;
+            $scope.isUserPublisher = roleName === settings.publisherRoleName;
 
             var getAllCategories = function () {
                 categoryService.getAll().then(function(response) {

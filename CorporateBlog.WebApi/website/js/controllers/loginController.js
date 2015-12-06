@@ -11,19 +11,11 @@
             };
 
             $scope.isUserLoggedIn = accountService.getAuthorizationData().isAuthorized;
-            $scope.userName = accountService.getAuthorizationData().userName;
 
             $scope.logIn = function (loginForm) {
                 accountService.logIn(loginForm).then(function () {
                     $location.path('/categories');
                 });
-            };
-
-            $scope.logOut = function() {
-                accountService.logOut();
-                $scope.isUserLoggedIn = false;
-                $scope.userName = '';
-                $location.path('/login');
             };
 
             var redirectIfLoggedIn = function() {

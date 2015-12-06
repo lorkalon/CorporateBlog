@@ -1,0 +1,23 @@
+﻿<loginsnippet></loginsnippet>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <div class="page-header">
+            <h3>
+                Create new article <small>for category: "{{category.name}}"</small>
+            </h3>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form novalidate name="createArticleForm">
+                    <div class="form-group">
+                        <label>Article header</label>
+                        <input type="text" class="form-control" placeholder="Header" ng-model="article.header" required/>
+                    </div>
+                    <div text-angular ng-model="article.body" class="margin" required></div>
+                    <button class="btn btn-primary" ng-click="createArticle(article)" ng-disabled="!createArticleForm.$valid">Create article</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

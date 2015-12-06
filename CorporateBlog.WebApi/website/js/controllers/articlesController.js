@@ -29,7 +29,7 @@
                 var passData = {
                     categoryId: $scope.category.id,
                     startDate: new Date(2015, 10, 10),
-                    endDate: new Date(2015, 10, 15)
+                    endDate: new Date(2015, 11, 7)
                 };
 
                 articleService.getByDateRange(passData).then(function (response) {

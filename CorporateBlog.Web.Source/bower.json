@@ -19,7 +19,7 @@
     "angular-resource": "~1.4.7",
     "angular-local-storage": "~0.2.3",
     "angular-ui-bootstrap-bower": "~0.13.3",
-    "textAngular": "1.4.6",
+    "textAngular": "~1.4.6",
     "font-awesome": "~4.2.0",
     "lodash": "~3.10.1"
   }
