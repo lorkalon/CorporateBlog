@@ -62,6 +62,7 @@
     <Content Include="bower.json" />
     <Content Include="build\website\sources\content.json" />
     <Content Include="package.json" />
+    <Content Include="website\views\showArticle.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -71,6 +72,7 @@
     <Content Include="website\js\common\settings.js" />
     <Content Include="website\js\controllers\createArticleController.js" />
     <Content Include="website\js\controllers\logginSnippetController.js" />
+    <Content Include="website\js\controllers\showArticleController.js" />
     <Content Include="website\js\filters\cutFilter.js" />
     <Content Include="website\js\services\articleService.js" />
     <Content Include="website\styles\categories.less" />

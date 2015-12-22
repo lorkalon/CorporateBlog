@@ -29,6 +29,9 @@
         }).when('/createArticle', {
             templateUrl: '/website/views/createArticle.html',
             controller: 'CreateArticleController'
+        }).when('/articles/:id', {
+            templateUrl: '/website/views/showArticle.html',
+            controller: 'ShowArticleController'
         }).when('/login', {
             templateUrl: '/website/views/login.html',
             controller: 'LoginController'

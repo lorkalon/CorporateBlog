@@ -29,11 +29,21 @@
                 var passData = {
                     categoryId: $scope.category.id,
                     startDate: new Date(2015, 10, 10),
-                    endDate: new Date(2015, 11, 7)
+                    endDate: new Date(2016, 11, 7)
                 };
 
                 articleService.getByDateRange(passData).then(function (response) {
-                    $scope.articles = response.data;
+                    if (!response.data) {
+                        return;
+                    }
+
+                    var mapped = _.map(response.data, function(article) {
+                        return angular.extend(article, {
+                            link: '#/articles/' + article.id
+                        });
+                    });
+
+                    $scope.articles = mapped;
                 });
             };
 

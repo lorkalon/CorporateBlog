@@ -17,7 +17,7 @@
                 }
             };
 
-            //redirectIfNeed();
+            redirectIfNeed();
 
             $scope.category = sharedCategory.getCategory();
 
@@ -32,7 +32,7 @@
                     text: article.body,
                     categoryId: $scope.category.id
                 }).then(function() {
-                   // clearArticleModel();
+                    clearArticleModel();
                 });
             };
 

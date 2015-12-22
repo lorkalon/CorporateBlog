@@ -17,9 +17,17 @@
                 return $http.post("api/Article/Add", model);
             };
 
+            var getArticle = function(id) {
+                return $http({
+                    url: "api/Article/" + id,
+                    method: "GET"
+                });
+            };
+
             return {
                 getByDateRange: getByDateRange,
-                createArticle: createArticle
+                createArticle: createArticle,
+                getArticle: getArticle
             };
         }
     ]);

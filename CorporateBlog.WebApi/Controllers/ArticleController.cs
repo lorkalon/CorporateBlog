@@ -45,6 +45,14 @@ namespace CorporateBlog.WebApi.Controllers
             return viewModels;
         }
 
+        [HttpGet]
+        [Route("api/Article/{articleId}")]
+        public async Task<Models.Article> GetArticle(int articleId)
+        {
+            var article = await _articleService.GetArticle(articleId);
+            return Mapper.Map<Models.Article>(article);
+        }
+
         [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
         [HttpPost]
         [Route("api/Article/Add")]
