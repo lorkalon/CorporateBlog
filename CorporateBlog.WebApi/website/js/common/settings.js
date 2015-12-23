@@ -5,7 +5,9 @@
         return {
             adminRoleName: "Admin",
             publisherRoleName: "Publisher",
-            clientRoleName: "Client"
+            clientRoleName: "Client",
+            limitSymbolsTo: 250,
+            limitContentEnding: '...'
         };
     }]);
 

@@ -2,11 +2,29 @@
 @brand-info:    #5bc0de;
 @brand-warning: #f0ad4e;
 @brand-danger:  #d9534f;
+@danger: #8a0a0a;
 
 @top-offset: 20px;
 @bottom-offset: 20px;
+@remove-top:-15px;
+@remove-right: -15px;
 
 .margin{
     margin-top: @top-offset;
     margin-bottom: @bottom-offset;
+}
+
+.itemBox { 
+    position: relative;
+}
+
+.itemBox .remove {
+    position: absolute;
+    top: @remove-top;
+    right: @remove-right;
+}
+
+.itemBox .remove:hover{
+    color: @danger;
+    cursor: pointer;
 }

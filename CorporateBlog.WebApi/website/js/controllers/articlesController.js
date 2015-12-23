@@ -3,8 +3,11 @@
 
     angular.module("controllers").controller('ArticlesController', [
         '$scope',
+        '$sce',
+        '$filter',
         'sharedCategory',
-        'articleService', function ($scope, sharedCategory, articleService) {
+        'articleService',
+        'settings', function ($scope, $sce, $filter, sharedCategory, articleService, settings) {
 
             $scope.category = null;
             $scope.articles = [];
@@ -37,9 +40,11 @@
                         return;
                     }
 
-                    var mapped = _.map(response.data, function(article) {
+                    var mapped = _.map(response.data, function (article) {
+                        var shortText = $filter('limitTo')(article.text, settings.limitSymbolsTo) + settings.limitContentEnding;
                         return angular.extend(article, {
-                            link: '#/articles/' + article.id
+                            link: '#/articles/' + article.id,
+                            content: $sce.trustAsHtml(shortText)
                         });
                     });
 
@@ -47,6 +52,14 @@
                 });
             };
 
-        }]);
+        $scope.deleteArticle = function(article) {
+            articleService.deleteArticle(article.id).then(function() {
+                _.remove($scope.articles, function(art) {
+                    return art.id == article.id;
+                });
+            });
+        };
+
+    }]);
 
 })(angular);

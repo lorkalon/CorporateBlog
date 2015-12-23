@@ -16,9 +16,9 @@
         </div>
 
         <div class="list-group categoriesList" ng-repeat="category in categories">
-            <a class="list-group-item hover" ng-click="selectCategory(category)">
+            <a class="list-group-item hover itemBox" ng-click="selectCategory(category)">
                 <span>{{category.name}}</span>
-                <span ng-show="isUserAdmin" ng-click="deleteCategory(category)" class="removeIcon glyphicon glyphicon-remove hover"></span>
+                <span ng-show="isUserAdmin" ng-click="deleteCategory(category)" class="remove glyphicon glyphicon-remove hover"></span>
             </a>
         </div>
     </div>
@@ -38,21 +38,22 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="list-group" data-ng-repeat="article in articles">
+                <div class="list-group itemBox" data-ng-repeat="article in articles">
                     <a class="list-group-item" ng-href="{{article.link}}">
                         <div class="avatarHolder">
                             <div class="thumbnail">
                                 <img />
                                 <div class="caption">
-                                    <label>Thumbnail label</label>
+                                    <label>Lorem Ipsum</label>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <h4>{{article.title}}</h4>
-                            <p>{{article.text | cut:200}}</p>
+                            <p ng-bind-html="article.content"></p>
                         </div>
                     </a>
+                    <span ng-show="article.canBeDeletedByUser" ng-click="deleteArticle(article)" class="remove glyphicon glyphicon-remove"></span>
                 </div>
             </div>
         </div>

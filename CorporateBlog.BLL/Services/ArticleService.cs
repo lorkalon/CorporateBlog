@@ -28,6 +28,7 @@ namespace CorporateBlog.BLL.Services
             var model = Mapper.Map<DAL.Models.Article>(article);
             _articleRepository.Add(model);
             await SaveChangesAsync();
+            article.Id = model.Id;
         }
 
         public async Task DeleteArticle(int articleId)

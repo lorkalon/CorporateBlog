@@ -62,6 +62,7 @@
     <Content Include="bower.json" />
     <Content Include="build\website\sources\content.json" />
     <Content Include="package.json" />
+    <Content Include="website\views\updateArticle.html" />
     <Content Include="website\views\showArticle.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -77,6 +78,7 @@
     <Content Include="website\js\services\articleService.js" />
     <Content Include="website\styles\categories.less" />
     <Content Include="website\styles\common.less" />
+    <Content Include="website\styles\articles.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build\Index.html" />

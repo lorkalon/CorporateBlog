@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module("controllers").controller('RegistrationController', [
-         '$scope',
+        '$scope',
         'accountService',
         '$location',
         function ($scope, accountService, $location) {

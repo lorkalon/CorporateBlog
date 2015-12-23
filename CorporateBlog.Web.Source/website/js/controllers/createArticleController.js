@@ -13,7 +13,7 @@
                 var isClient = roleName === settings.clientRoleName;
 
                 if (isClient || !sharedCategory.getCategory()) {
-                    $location.path('#/categories');
+                    $location.path('/categories');
                 }
             };
 
@@ -31,17 +31,15 @@
                     title: article.header,
                     text: article.body,
                     categoryId: $scope.category.id
-                }).then(function() {
-                    clearArticleModel();
+                }).then(function (response) {
+                    if (response.data.id) {
+                        var url = '/articles/' + response.data.id;
+                        $location.path(url);
+                    } else {
+                        $location.path('/categories');
+                    }
                 });
             };
-
-            function clearArticleModel() {
-                $scope.article = {
-                    header: '',
-                    body: ''
-                };
-            }
         }]);
 
 })(angular);

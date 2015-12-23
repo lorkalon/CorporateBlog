@@ -56,13 +56,14 @@ namespace CorporateBlog.WebApi.Controllers
         [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
         [HttpPost]
         [Route("api/Article/Add")]
-        public async Task AddArticle(Models.Article article)
+        public async Task<Models.Article> AddArticle(Models.Article article)
         {
             var model = Mapper.Map<Common.Article>(article);
             var userName = User.Identity.GetUserName();
             var user = await _userManager.FindByNameAsync(userName);
             model.UserId = user.Id;
             await _articleService.CreateArticleAsync(model);
+            return Mapper.Map<Models.Article>(model);
         }
 
         [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
@@ -82,7 +83,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
-        [HttpPost]
+        [HttpPut]
         [Route("api/Article/Update")]
         public async Task UpdateArticle(Models.Article article)
         {

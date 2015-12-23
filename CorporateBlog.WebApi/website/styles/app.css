@@ -1,10 +1,6 @@
+
 .categoriesList .list-group-item {
   position: relative;
-}
-.categoriesList .list-group-item .removeIcon {
-  position: absolute;
-  top: -15px;
-  right: -15px;
 }
 .hover:hover {
   cursor: pointer;
@@ -13,4 +9,16 @@
 .margin {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.itemBox {
+  position: relative;
+}
+.itemBox .remove {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+.itemBox .remove:hover {
+  color: #8a0a0a;
+  cursor: pointer;
 }

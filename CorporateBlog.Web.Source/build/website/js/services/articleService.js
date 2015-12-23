@@ -24,10 +24,18 @@
                 });
             };
 
+            var deleteArticle = function(id) {
+                return $http({
+                    url: "api/Article/Delete/" + id,
+                    method: "DELETE"
+                });
+            };
+
             return {
                 getByDateRange: getByDateRange,
                 createArticle: createArticle,
-                getArticle: getArticle
+                getArticle: getArticle,
+                deleteArticle: deleteArticle
             };
         }
     ]);
