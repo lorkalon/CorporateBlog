@@ -26,9 +26,12 @@
         $routeProvider.when('/categories', {
             templateUrl: '/website/views/categories.html',
             controller: 'CategoriesController'
-        }).when('/createArticle', {
-            templateUrl: '/website/views/createArticle.html',
-            controller: 'CreateArticleController'
+        }).when('/articles/update/:id', {
+            templateUrl: '/website/views/addOrUpdateArticle.html',
+            controller: 'AddOrUpdateArticleController'
+        }).when('/articles/add', {
+            templateUrl: '/website/views/addOrUpdateArticle.html',
+            controller: 'AddOrUpdateArticleController'
         }).when('/articles/:id', {
             templateUrl: '/website/views/showArticle.html',
             controller: 'ShowArticleController'

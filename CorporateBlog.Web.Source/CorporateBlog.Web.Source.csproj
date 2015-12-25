@@ -62,7 +62,7 @@
     <Content Include="bower.json" />
     <Content Include="build\website\sources\content.json" />
     <Content Include="package.json" />
-    <Content Include="website\views\updateArticle.html" />
+    <Content Include="website\js\sharedData\sharedCategory.js" />
     <Content Include="website\views\showArticle.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -71,7 +71,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="website\js\common\settings.js" />
-    <Content Include="website\js\controllers\createArticleController.js" />
+    <Content Include="website\js\controllers\addOrUpdateArticleController.js" />
     <Content Include="website\js\controllers\logginSnippetController.js" />
     <Content Include="website\js\controllers\showArticleController.js" />
     <Content Include="website\js\filters\cutFilter.js" />
@@ -115,9 +115,8 @@
     <Content Include="website\js\interceptors\tokenInterceptor.js" />
     <Content Include="website\js\services\accountService.js" />
     <Content Include="website\js\services\categoryService.js" />
-    <Content Include="website\js\sharedData\sharedCategory.js" />
     <Content Include="website\views\categories.html" />
-    <Content Include="website\views\createArticle.html" />
+    <Content Include="website\views\addOrUpdateArticle.html" />
     <Content Include="website\views\error.html" />
     <Content Include="website\views\login.html" />
     <Content Include="website\views\loginSnippet.html" />
@@ -126,6 +125,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

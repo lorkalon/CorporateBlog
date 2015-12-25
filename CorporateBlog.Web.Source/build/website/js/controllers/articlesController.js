@@ -44,7 +44,8 @@
                         var shortText = $filter('limitTo')(article.text, settings.limitSymbolsTo) + settings.limitContentEnding;
                         return angular.extend(article, {
                             link: '#/articles/' + article.id,
-                            content: $sce.trustAsHtml(shortText)
+                            content: $sce.trustAsHtml(shortText),
+                            editLink: '#/articles/update/' + article.id
                         });
                     });
 

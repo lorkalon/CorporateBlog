@@ -50,6 +50,7 @@ namespace CorporateBlog.BLL.Services
             {
                 entity.Title = article.Title;
                 entity.Text = article.Text;
+                entity.CategoryId = article.CategoryId;
 
                 await SaveChangesAsync();
             }

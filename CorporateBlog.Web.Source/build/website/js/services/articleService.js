@@ -31,11 +31,20 @@
                 });
             };
 
+            var updateArticle = function(model) {
+                return $http({
+                    url: "api/Article/Update",
+                    method: "PUT",
+                    data: model
+                });
+            };
+
             return {
                 getByDateRange: getByDateRange,
                 createArticle: createArticle,
                 getArticle: getArticle,
-                deleteArticle: deleteArticle
+                deleteArticle: deleteArticle,
+                updateArticle: updateArticle
             };
         }
     ]);

@@ -37,7 +37,7 @@ namespace CorporateBlog.WebApi.Controllers
 
             foreach (var article in viewModels)
             {
-                article.CanBeDeletedByUser = article.User.RoleId == (int) RoleType.Admin ||
+                article.UserHasEditAccess = article.User.RoleId == (int) RoleType.Admin ||
                                              (article.User.RoleId == (int) RoleType.Publisher &&
                                               article.User.UserName == userName);
             }

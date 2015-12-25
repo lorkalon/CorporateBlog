@@ -8,7 +8,6 @@ namespace CorporateBlog.WebApi.Models
 {
     public class Article
     {
-
         public int Id { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
@@ -19,6 +18,6 @@ namespace CorporateBlog.WebApi.Models
         public virtual WebApi.Models.Category Category { get; set; }
         public int Rate { get; set; }
 
-        public bool CanBeDeletedByUser { get; set; }
+        public bool UserHasEditAccess { get; set; }
     }
 }

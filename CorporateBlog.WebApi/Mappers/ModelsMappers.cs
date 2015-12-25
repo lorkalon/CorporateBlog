@@ -26,6 +26,7 @@ namespace CorporateBlog.WebApi.Mappers
 
             Mapper.CreateMap<DAL.Models.User, Common.User>();
             Mapper.CreateMap<Common.User, WebApi.Models.UserModel>();
+            Mapper.CreateMap<WebApi.Models.UserModel, Common.User>();
 
             Mapper.CreateMap<DAL.Models.Article, Common.Article>()
                 .ForMember(article => article.Rate,

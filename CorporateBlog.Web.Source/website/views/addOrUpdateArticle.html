@@ -1,0 +1,27 @@
+﻿<loginsnippet></loginsnippet>
+
+<div class="row addOrUpdateArticle">
+    <div class="col-md-10 col-md-offset-2">
+        <div class="page-header">
+            Edit article
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form novalidate name="articleForm">
+                    <label>Select category:</label>
+                    <select class="categorySelect" name="categorySelect"
+                            ng-options="option.name for option in categories track by option.id"
+                            ng-model="selectedCategory" required>
+                    </select>
+
+                    <div class="form-group">
+                        <label>Article header</label>
+                        <input type="text" class="form-control" placeholder="Header" ng-model="article.title" required/>
+                    </div>
+                    <div text-angular ng-model="article.text" class="margin" required></div>
+                    <button class="btn btn-primary" ng-click="saveChanges(article)" ng-disabled="!articleForm.$valid">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
