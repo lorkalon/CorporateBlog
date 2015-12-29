@@ -42,7 +42,7 @@
                     <a class="list-group-item" ng-href="{{article.link}}">
                         <div class="avatarHolder">
                             <div class="thumbnail">
-                                <img />
+                                <img/>
                                 <div class="caption">
                                     <label>Lorem Ipsum</label>
                                 </div>
@@ -58,6 +58,7 @@
                         Edit
                     </a>
                 </div>
+                <button ng-click="loadEarlier()" class="btn btn-default btn-primary loadEarlierButton" ng-disabled="!isLoadEarlierAvailable">Load earlier</button>
             </div>
         </div>
     </div>

@@ -39,12 +39,20 @@
                 });
             };
 
+            var getDateLimit = function() {
+                return $http({
+                    url: "api/Article/GetDateLimit",
+                    method: "GET"
+                });
+            };
+
             return {
                 getByDateRange: getByDateRange,
                 createArticle: createArticle,
                 getArticle: getArticle,
                 deleteArticle: deleteArticle,
-                updateArticle: updateArticle
+                updateArticle: updateArticle,
+                getDateLimit: getDateLimit
             };
         }
     ]);

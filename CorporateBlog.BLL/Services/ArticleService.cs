@@ -77,5 +77,11 @@ namespace CorporateBlog.BLL.Services
             var article = await _articleRepository.GetAsync(articleId);
             return Mapper.Map<Common.Article>(article);
         }
+
+        public IEnumerable<DateTime> GetDateLimit()
+        {
+            var limit = _articleRepository.GetDateLimit();
+            return limit;
+        }
     }
 }

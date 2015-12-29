@@ -15,5 +15,22 @@ namespace CorporateBlog.DAL.Repositories
             : base(contextCreator)
         {
         }
+
+        public IEnumerable<DateTime> GetDateLimit()
+        {
+            var firstArticle = DbSet.OrderBy(article => article.CreatedOnUtc).FirstOrDefault();
+            var lastArticle = DbSet.OrderByDescending(article => article.CreatedOnUtc).FirstOrDefault();
+
+            if (firstArticle == null || lastArticle == null)
+            {
+                return null;
+            }
+
+            return new List<DateTime>()
+            {
+                firstArticle.CreatedOnUtc,
+                lastArticle.CreatedOnUtc
+            };
+        }
     }
 }

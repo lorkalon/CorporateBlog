@@ -5,6 +5,9 @@
   padding: 4px;
   border-radius: 4px;
 }
+.loadEarlierButton {
+  width: 100%;
+}
 
 .categoriesList .list-group-item {
   position: relative;

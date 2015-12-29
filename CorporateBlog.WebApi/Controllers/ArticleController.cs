@@ -46,6 +46,13 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/Article/GetDateLimit")]
+        public IEnumerable<DateTime> GetDateLimit()
+        {
+            return _articleService.GetDateLimit();
+        }
+            
+        [HttpGet]
         [Route("api/Article/{articleId}")]
         public async Task<Models.Article> GetArticle(int articleId)
         {
