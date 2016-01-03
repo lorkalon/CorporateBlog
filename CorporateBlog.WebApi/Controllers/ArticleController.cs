@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.Common.Filters;
 using CorporateBlog.DAL.Models;
 using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Models;
-using CorporateBlog.WebApi.Models.Filters;
 using Microsoft.AspNet.Identity;
+using ArticlesDateRangeFilter = CorporateBlog.WebApi.Models.Filters.ArticlesDateRangeFilter;
 
 namespace CorporateBlog.WebApi.Controllers
 {
@@ -19,12 +20,17 @@ namespace CorporateBlog.WebApi.Controllers
     public class ArticleController : BaseController
     {
         private readonly IArticleService _articleService;
+        private readonly IArticleRateService _articleRateService;
         private readonly ApplicationUserManager _userManager;
 
-        public ArticleController(IArticleService articleService, ApplicationUserManager userManager)
+        public ArticleController(
+            IArticleService articleService, 
+            IArticleRateService articleRateService, 
+            ApplicationUserManager userManager)
         {
             _articleService = articleService;
             _userManager = userManager;
+            _articleRateService = articleRateService;
         }
 
         [HttpGet]
@@ -57,7 +63,22 @@ namespace CorporateBlog.WebApi.Controllers
         public async Task<Models.Article> GetArticle(int articleId)
         {
             var article = await _articleService.GetArticle(articleId);
-            return Mapper.Map<Models.Article>(article);
+            var mappedModel = Mapper.Map<Models.Article>(article);
+            var userName = User.Identity.GetUserName();
+            var user = await _userManager.FindByNameAsync(userName);
+
+            var currentRate = _articleRateService.GetRateByFilter(new ArticleRateFilter()
+            {
+                ArticleId = articleId,
+                UserId = user.Id
+            });
+
+            if (currentRate != null)
+            {
+                mappedModel.CurrentUserRate = (int)currentRate.Value;
+            }
+
+            return mappedModel;
         }
 
         [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]

@@ -9,7 +9,7 @@ namespace CorporateBlog.Common
     public class ArticleRate
     {
         public int Id { get; set; }
-        public int Value { get; set; }
+        public RateType Value { get; set; }
 
         public int UserId { get; set; }
         public Common.User User { get; set; }

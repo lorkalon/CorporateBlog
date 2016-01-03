@@ -49,9 +49,11 @@
     <Compile Include="Category.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="CommentRate.cs" />
+    <Compile Include="Filters\ArticleRateFilter.cs" />
     <Compile Include="Filters\ArticlesDateRangeFilter.cs" />
     <Compile Include="Filters\CommentsDateRangeFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RateType.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInfo.cs" />

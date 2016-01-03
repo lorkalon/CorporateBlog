@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Web;
 using AutoMapper;
+using CorporateBlog.Common;
 using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Models;
 
@@ -57,6 +58,12 @@ namespace CorporateBlog.WebApi.Mappers
 
             Mapper.CreateMap<DAL.Models.UserInfo, Common.UserInfo>();
             Mapper.CreateMap<Common.UserInfo, DAL.Models.UserInfo>();
+
+            Mapper.CreateMap<Common.ArticleRate, DAL.Models.ArticleRate>();
+            //.ForMember(rate => rate.Value, expression => expression.MapFrom(articleRate => (int) articleRate.Value));
+            Mapper.CreateMap<DAL.Models.ArticleRate, Common.ArticleRate>();
+            //.ForMember(rate => rate.Value, expression => expression.MapFrom(articleRate => (RateType) articleRate.Value));
+            Mapper.CreateMap<WebApi.Models.ArticleRate, Common.ArticleRate>();
 
         }
     }

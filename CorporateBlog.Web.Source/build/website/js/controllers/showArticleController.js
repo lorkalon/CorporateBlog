@@ -15,5 +15,14 @@
                 }
             });
 
+            $scope.voteForArticle = function(rate) {
+                articleService.voteForArticle({
+                    articleId: $scope.article.id,
+                    value: rate
+                }).then(function() {
+                    $scope.article.rate += rate;
+                });
+            };
+
         }]);
 })(angular);

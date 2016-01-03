@@ -46,13 +46,22 @@
                 });
             };
 
+            var voteForArticle = function(model) {
+                return $http({
+                    url: "api/ArticleRate/Vote",
+                    method: "POST",
+                    data: model
+                });
+            };
+
             return {
                 getByDateRange: getByDateRange,
                 createArticle: createArticle,
                 getArticle: getArticle,
                 deleteArticle: deleteArticle,
                 updateArticle: updateArticle,
-                getDateLimit: getDateLimit
+                getDateLimit: getDateLimit,
+                voteForArticle: voteForArticle
             };
         }
     ]);

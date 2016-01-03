@@ -1,4 +1,15 @@
-﻿<div>
-    <h2>{{article.title}}</h2>
-    <div ng-bind-html="article.text"></div>
+﻿<div class="col-md-10 col-md-offset-2">
+    <div class="row">
+        <h2>{{article.title}}</h2>
+        <div ng-bind-html="article.text"></div>
+        <div class="rating">
+            <button ng-click="voteForArticle(1)" ng-hide="!!article.currentUserRate">Like</button>
+            <span><b>Rating:</b></span>
+            <span> {{article.rate}}</span>
+            <button ng-click="voteForArticle(-1)" ng-hide="!!article.currentUserRate">Dislike</button>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
 </div>

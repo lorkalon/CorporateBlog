@@ -146,9 +146,11 @@
     <Compile Include="Authentication\ApplicationUserManager.cs" />
     <Compile Include="Authentication\UserStore.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\ArticleRateController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleRate.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Filters\ArticlesDateRangeFilter.cs" />

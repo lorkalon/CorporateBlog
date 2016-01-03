@@ -19,5 +19,6 @@ namespace CorporateBlog.WebApi.Models
         public int Rate { get; set; }
 
         public bool UserHasEditAccess { get; set; }
+        public int CurrentUserRate { get; set; }
     }
 }
