@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CorporateBlog.Common.Filters
 {
-    public class CommentsDateRangeFilter
+    public class CommentsFilter
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public int ArticleId { get; set; }
+        public int From { get; set; }
+        public int Count { get; set; }
     }
 }

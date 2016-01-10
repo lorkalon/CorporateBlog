@@ -18,11 +18,11 @@ namespace CorporateBlog.WebApi.Controllers
     public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;
-        private readonly ApplicationUserManager _userManager;
-        public CategoryController(ICategoryService categoryService, ApplicationUserManager userManager)
+        public CategoryController(
+            ICategoryService categoryService, 
+            ApplicationUserManager userManager):base(userManager)
         {
             _categoryService = categoryService;
-            _userManager = userManager;
         }
 
         [Authorize(Roles = RoleNames.Admin)]
@@ -31,8 +31,7 @@ namespace CorporateBlog.WebApi.Controllers
         public async Task CreateCategory(Models.Category category)
         {
             var model = Mapper.Map<Common.Category>(category);
-            var userName = User.Identity.GetUserName();
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await GetCurrentUser();
             model.UserId = user.Id;
 
             await _categoryService.CreateCategoryAsync(model);

@@ -12,8 +12,8 @@ namespace CorporateBlog.BLL.IServices
         Task AddComment(Common.Comment comment);
         Task UpdateComment(Common.Comment comment);
         Task DeleteComment(int commentId);
-
-        IEnumerable<Common.Comment> GetByDateRange(CommentsDateRangeFilter filter);
+        IEnumerable<Common.Comment> GetCommentsByFilter(CommentsFilter filter);
+        Task<Common.Comment> GetById(int id);
 
     }
 }

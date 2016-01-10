@@ -22,6 +22,8 @@ namespace CorporateBlog.DAL.IRepositories
         IEnumerable<TDataEntity> GetFiltered(
             Expression<Func<TDataEntity, bool>> whereExpressions = null,
             Expression<Func<TDataEntity, object>> orderByExpression = null,
-            int? from = null, int? count = null, bool? isAsc = null);
+            int? from = null, int? count = null, bool? isAsc = null,
+            Expression<Func<TDataEntity, DateTime>> orderByDateTime = null);
+
     }
 }

@@ -35,5 +35,10 @@ namespace CorporateBlog.WebApi.Services
         {
             get { return Convert.ToInt32(ConfigurationManager.AppSettings["smtp:Port"]); }
         }
+
+        public static int CommentsRangeLimit
+        {
+            get { return Convert.ToInt32(ConfigurationManager.AppSettings["CommentsRangeLimit"]); }
+        }
     }
 }

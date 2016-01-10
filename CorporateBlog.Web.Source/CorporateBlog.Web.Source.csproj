@@ -62,6 +62,8 @@
     <Content Include="bower.json" />
     <Content Include="build\website\sources\content.json" />
     <Content Include="package.json" />
+    <Content Include="website\js\controllers\commentsController.js" />
+    <Content Include="website\js\services\commentsService.js" />
     <Content Include="website\js\sharedData\sharedCategory.js" />
     <Content Include="website\views\showArticle.html" />
     <None Include="Web.Debug.config">

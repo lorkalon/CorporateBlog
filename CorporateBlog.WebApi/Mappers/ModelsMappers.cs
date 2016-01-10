@@ -65,6 +65,9 @@ namespace CorporateBlog.WebApi.Mappers
             //.ForMember(rate => rate.Value, expression => expression.MapFrom(articleRate => (RateType) articleRate.Value));
             Mapper.CreateMap<WebApi.Models.ArticleRate, Common.ArticleRate>();
 
+            Mapper.CreateMap<Common.Filters.CommentsFilter, Models.Filters.CommentsFilter>();
+            Mapper.CreateMap<Models.Filters.CommentsFilter, Common.Filters.CommentsFilter>();
+
         }
     }
 }

@@ -50,21 +50,23 @@ namespace CorporateBlog.BLL.Services
             }
         }
 
-        public IEnumerable<Comment> GetByDateRange(CommentsDateRangeFilter filter)
+        public IEnumerable<Common.Comment> GetCommentsByFilter(CommentsFilter filter)
         {
-            Expression<Func<DAL.Models.Comment, bool>> whereExpressions = a => a.ArticleId == filter.ArticleId &&
-                                                                               a.CreatedOnUtc >= filter.StartDate &&
-                                                                               a.CreatedOnUtc <= filter.EndDate;
-
-
-            Expression<Func<DAL.Models.Comment, object>> orderBy = comment => comment.CreatedOnUtc;
+            Expression<Func<DAL.Models.Comment, bool>> whereExpressions = a => a.ArticleId == filter.ArticleId;
+            Expression<Func<DAL.Models.Comment, DateTime>> orderBy = comment => comment.CreatedOnUtc;
 
             var comments =
-                _commentRepository.GetFiltered(whereExpressions, orderBy, null, null, false)
-                    .Select(Mapper.Map<Common.Comment>)
-                    .ToList();
+                _commentRepository.GetFiltered(whereExpressions, null, filter.From, filter.Count, false, orderBy)
+                    .ToList()
+                    .Select(Mapper.Map<Common.Comment>);
 
             return comments;
+        }
+
+        public async Task<Common.Comment> GetById(int id)
+        {
+            var savedComment = await _commentRepository.GetAsync(id);
+            return Mapper.Map<Common.Comment>(savedComment);
         }
     }
 }

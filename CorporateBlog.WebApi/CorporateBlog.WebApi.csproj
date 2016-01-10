@@ -149,11 +149,13 @@
     <Compile Include="Controllers\ArticleRateController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleRate.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Filters\ArticlesDateRangeFilter.cs" />
+    <Compile Include="Models\Filters\CommentsFilter.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Services\ConfigurationManagerService.cs" />

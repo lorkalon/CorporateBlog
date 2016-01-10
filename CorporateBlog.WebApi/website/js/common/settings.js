@@ -7,7 +7,8 @@
             publisherRoleName: "Publisher",
             clientRoleName: "Client",
             limitSymbolsTo: 250,
-            limitContentEnding: '...'
+            limitContentEnding: '...',
+            commentsRangeLimit: 100
         };
     }]);
 

@@ -9,7 +9,20 @@
             <button ng-click="voteForArticle(-1)" ng-hide="!!article.currentUserRate">Dislike</button>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-controller="CommentsController">
+        <form novalidate name="commentForm">
+            <label>Add comment:</label>
+            <textarea ng-model="commentBody" required></textarea>
+            <button class="btn btn-primary" ng-click="addComment(commentBody)" ng-disabled="!commentForm.$valid">Add comment</button>
+        </form>
 
+        <div ng-repeat="comment in comments">
+            <div>{{comment.text}}</div>
+            <div>added by <span>{{comment.user.userName}}</span> at <span>{{comment.formattedDate}}</span></div>
+            <button ng-click="deleteComment(comment.id)" ng-show="comment.canBeEditedByUser">Delete</button>
+        </div>
+        <div>
+            <button ng-click="loadComments()">Load more</button>
+        </div>
     </div>
 </div>

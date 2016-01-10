@@ -17,12 +17,12 @@ namespace CorporateBlog.WebApi.Controllers
     public class ArticleRateController : BaseController
     {
         private readonly IArticleRateService _articleRateService;
-        private readonly ApplicationUserManager _userManager;
 
-        public ArticleRateController(IArticleRateService articleRateService, ApplicationUserManager userManager)
+        public ArticleRateController(
+            IArticleRateService articleRateService, 
+            ApplicationUserManager userManager):base(userManager)
         {
             _articleRateService = articleRateService;
-            _userManager = userManager;
         }
 
         [HttpPost]
@@ -34,8 +34,7 @@ namespace CorporateBlog.WebApi.Controllers
             {
                 throw new Exception("Rate value is not valid!");
             }
-            var userName = User.Identity.GetUserName();
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await GetCurrentUser();
             articleRate.UserId = user.Id;
             var mapped = Mapper.Map<Common.ArticleRate>(articleRate);
             await _articleRateService.AddRate(mapped);

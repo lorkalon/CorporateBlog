@@ -13,12 +13,12 @@ using CorporateBlog.DAL.IRepositories;
 
 namespace CorporateBlog.BLL.Services
 {
-    public class ArticleService:BaseService, IArticleService
+    public class ArticleService : BaseService, IArticleService
     {
         private readonly IArticleRepository _articleRepository;
 
-        public ArticleService(IArticleRepository articleRepository, 
-                              IContextProvider contextProvider): base(contextProvider)
+        public ArticleService(IArticleRepository articleRepository,
+                              IContextProvider contextProvider) : base(contextProvider)
         {
             _articleRepository = articleRepository;
         }
@@ -61,15 +61,16 @@ namespace CorporateBlog.BLL.Services
             Expression<Func<DAL.Models.Article, bool>> whereExpressions = a => a.CategoryId == filter.CategoryId &&
                                                                                a.CreatedOnUtc >= filter.StartDate &&
                                                                                a.CreatedOnUtc <= filter.EndDate;
-            
 
-            Expression<Func<DAL.Models.Article, object>> orderBy = article => article.CreatedOnUtc;
+
+            Expression<Func<DAL.Models.Article, DateTime>> orderBy = article => article.CreatedOnUtc;
 
             var articles =
-                _articleRepository.GetFiltered(whereExpressions, orderBy, null, null, false).AsQueryable()
-                    .Project().To<Common.Article>().ToList();
+                _articleRepository.GetFiltered(whereExpressions, null, null, null, false, orderBy).ToList();
 
-            return articles;
+            var mapped = articles.AsQueryable().Project().To<Common.Article>().ToList();
+
+            return mapped;
         }
 
         public async Task<Common.Article> GetArticle(int articleId)

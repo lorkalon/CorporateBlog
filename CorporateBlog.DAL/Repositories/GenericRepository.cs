@@ -55,47 +55,89 @@ namespace CorporateBlog.DAL.Repositories
         public IEnumerable<TDataEntity> GetFiltered(
             Expression<Func<TDataEntity, bool>> whereExpression = null,
             Expression<Func<TDataEntity, object>> orderByExpression = null,
-            int?from = null, int? count = null, bool? isAsc = null)
+            int? from = null, int? count = null, bool? isAsc = null,
+            Expression<Func<TDataEntity, DateTime>> orderByDateTime = null)
         {
-            var articles = DbSet.Select(x => x);
+            var entities = DbSet.Select(x => x);
+            Expression<Func<TDataEntity, DateTime>> orderBy = null;
 
             if (whereExpression != null)
             {
-                articles = articles.Where(whereExpression);
+                entities = entities.Where(whereExpression);
             }
 
-            if (orderByExpression!=null)
+            if (orderByExpression != null)
             {
-                if (!isAsc.HasValue)
-                {
-                    articles.OrderBy(orderByExpression);
-                }
-                else
-                {
-                    if (isAsc.Value)
-                    {
-                        articles.OrderBy(orderByExpression);
-                    }
-                    else
-                    {
-                        articles.OrderByDescending(orderByExpression);
-                    }
-                }
+                entities = SortEntities(orderByExpression, entities, isAsc);
+            }
+
+            if (orderByDateTime != null)
+            {
+                entities = SortEntitiesWithDateTime(orderByDateTime, entities, isAsc);
             }
 
             if (from.HasValue)
             {
-                articles = articles.Skip(from.Value);
+                entities = entities.Skip(from.Value);
             }
 
             if (count.HasValue)
             {
-                articles = articles.Take(count.Value);
+                entities = entities.Take(count.Value);
             }
 
-            var result = articles;
+            var result = entities;
 
             return result;
+        }
+
+
+        private IQueryable<TDataEntity> SortEntities(
+            Expression<Func<TDataEntity, object>> orderByExpression, 
+            IQueryable<TDataEntity> entities, 
+            bool? isAsc = null)
+        {
+            if (!isAsc.HasValue)
+            {
+                entities = entities.OrderBy(orderByExpression);
+            }
+            else
+            {
+                if (isAsc.Value)
+                {
+                    entities = entities.OrderBy(orderByExpression);
+                }
+                else
+                {
+                    entities = entities.OrderByDescending(orderByExpression);
+                }
+            }
+
+            return entities;
+        }
+
+        private IQueryable<TDataEntity> SortEntitiesWithDateTime(
+            Expression<Func<TDataEntity, DateTime>> orderByExpression,
+            IQueryable<TDataEntity> entities,
+            bool? isAsc = null)
+        {
+            if (!isAsc.HasValue)
+            {
+                entities = entities.OrderBy(orderByExpression);
+            }
+            else
+            {
+                if (isAsc.Value)
+                {
+                    entities = entities.OrderBy(orderByExpression);
+                }
+                else
+                {
+                    entities = entities.OrderByDescending(orderByExpression);
+                }
+            }
+
+            return entities;
         }
 
         public async Task<IEnumerable<TDataEntity>> GetAllAsync()

@@ -1,4 +1,4 @@
-﻿(function (angular) {
+﻿(function (angular, moment) {
     'use strict';
 
     angular.module("controllers").controller('ArticlesController', [
@@ -122,4 +122,4 @@
 
         }]);
 
-})(angular);
+})(angular, moment);

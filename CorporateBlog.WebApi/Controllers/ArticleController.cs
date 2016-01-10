@@ -21,15 +21,13 @@ namespace CorporateBlog.WebApi.Controllers
     {
         private readonly IArticleService _articleService;
         private readonly IArticleRateService _articleRateService;
-        private readonly ApplicationUserManager _userManager;
 
         public ArticleController(
             IArticleService articleService, 
             IArticleRateService articleRateService, 
-            ApplicationUserManager userManager)
+            ApplicationUserManager userManager):base(userManager)
         {
             _articleService = articleService;
-            _userManager = userManager;
             _articleRateService = articleRateService;
         }
 
@@ -64,8 +62,7 @@ namespace CorporateBlog.WebApi.Controllers
         {
             var article = await _articleService.GetArticle(articleId);
             var mappedModel = Mapper.Map<Models.Article>(article);
-            var userName = User.Identity.GetUserName();
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await GetCurrentUser();
 
             var currentRate = _articleRateService.GetRateByFilter(new ArticleRateFilter()
             {
@@ -87,8 +84,7 @@ namespace CorporateBlog.WebApi.Controllers
         public async Task<Models.Article> AddArticle(Models.Article article)
         {
             var model = Mapper.Map<Common.Article>(article);
-            var userName = User.Identity.GetUserName();
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await GetCurrentUser();
             model.UserId = user.Id;
             await _articleService.CreateArticleAsync(model);
             return Mapper.Map<Models.Article>(model);
@@ -116,8 +112,7 @@ namespace CorporateBlog.WebApi.Controllers
         public async Task UpdateArticle(Models.Article article)
         {
             var model = Mapper.Map<Common.Article>(article);
-            var userName = User.Identity.GetUserName();
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await GetCurrentUser();
             model.UserId = user.Id;
             await _articleService.UpdateArticle(model);
         }
