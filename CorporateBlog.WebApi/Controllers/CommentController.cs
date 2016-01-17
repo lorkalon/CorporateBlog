@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.Common;
 using CorporateBlog.DAL.Models;
 using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Models.Filters;
@@ -17,11 +18,15 @@ namespace CorporateBlog.WebApi.Controllers
     public class CommentController : BaseController
     {
         private readonly ICommentService _commentService;
+        private readonly ICommentRateService _commentRateService;
+
         public CommentController(
             ICommentService commentService, 
-            ApplicationUserManager userManager):base(userManager)
+            ApplicationUserManager userManager,
+            ICommentRateService commentRateService):base(userManager)
         {
             _commentService = commentService;
+            _commentRateService = commentRateService;
         }
 
         [HttpPost]
@@ -61,9 +66,31 @@ namespace CorporateBlog.WebApi.Controllers
             {
                 comment.CanBeEditedByUser = comment.User.RoleId == (int) RoleType.Admin ||
                                             comment.User.Id == currentUser.Id;
+                var rate = _commentRateService.FindCommentRate(comment.Id, currentUser.Id);
+
+                if (rate != null)
+                {
+                    comment.UserVotedRate = rate.Value;
+                }
             }
 
             return comments;
+        }
+
+        [HttpPost]
+        [Route("api/Comment/Vote")]
+        public async Task RateForComment(Models.CommentRate rate)
+        {
+            if (rate.Value != RateType.Like && rate.Value != RateType.Dislike)
+            {
+                throw new ArgumentException("Rate is not valid!");
+            }
+
+            var user = await GetCurrentUser();
+            rate.UserId = user.Id;
+
+            var model = Mapper.Map<Common.CommentRate>(rate);
+            await _commentRateService.AddRate(model);
         }
 
     }

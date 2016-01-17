@@ -10,6 +10,6 @@ namespace CorporateBlog.DAL.IRepositories
 {
     public interface IArticleRepository : IGenericRepository<Article>
     {
-        IEnumerable<DateTime> GetDateLimit();
+        IEnumerable<DateTime> GetDateLimit(int categoryId);
     }
 }

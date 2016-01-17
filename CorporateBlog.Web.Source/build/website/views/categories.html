@@ -11,28 +11,35 @@
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="categoryModel.name" placeholder="Category name" required />
                 </div>
-                <button type="submit" class="btn btn-xs btn-default" ng-disabled="!addCategoryForm.$valid" ng-click="createCategory(categoryModel)">Add</button>
+                <div>
+                    <button type="submit" class="btn btn-link" ng-disabled="!addCategoryForm.$valid" ng-click="createCategory(categoryModel)">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        add category
+                    </button>
+                </div>
             </form>
         </div>
 
         <div class="list-group categoriesList" ng-repeat="category in categories">
-            <a class="list-group-item hover itemBox" ng-click="selectCategory(category)">
+            <a class="list-group-item pointer itemBox" ng-click="selectCategory(category)">
                 <span>{{category.name}}</span>
-                <span ng-show="isUserAdmin" ng-click="deleteCategory(category)" class="remove glyphicon glyphicon-remove hover"></span>
+                <span ng-show="isUserAdmin" ng-click="deleteCategory(category)" class="remove glyphicon glyphicon-remove pointer"></span>
             </a>
         </div>
     </div>
     <div class="col-md-6 col-md-offset-1" ng-controller="ArticlesController as artCtr">
         <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-12">
                 <div class="page-header">
                     <h3>
                         Category <small>{{category.name}}</small>
                     </h3>
                 </div>
             </div>
-            <div class="col-md-1" ng-show="isUserAdmin||isUserPublisher">
-                <a class="btn btn-default" href="#/articles/add">Create article</a>
+            <div class="addArticle" ng-show="isUserAdmin||isUserPublisher">
+                <a href="#/articles/add">
+                    <span class="glyphicon glyphicon-plus"></span> add article
+                </a>
             </div>
         </div>
 
@@ -42,7 +49,7 @@
                     <a class="list-group-item" ng-href="{{article.link}}">
                         <div class="avatarHolder">
                             <div class="thumbnail">
-                                <img/>
+                                <img />
                                 <div class="caption">
                                     <label>Lorem Ipsum</label>
                                 </div>
@@ -54,11 +61,11 @@
                         </div>
                     </a>
                     <span ng-show="article.userHasEditAccess" ng-click="deleteArticle(article)" class="remove glyphicon glyphicon-remove"></span>
-                    <a ng-show="article.userHasEditAccess" ng-href="{{article.editLink}}">
-                        Edit
+                    <a ng-show="article.userHasEditAccess" ng-href="{{article.editLink}}" class="edit">
+                        <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 </div>
-                <button ng-click="loadEarlier()" class="btn btn-default btn-primary loadEarlierButton" ng-disabled="!isLoadEarlierAvailable">Load earlier</button>
+                <button ng-click="loadEarlier()" class="btn btn-default btn-primary loadEarlierButton" ng-hide="!isLoadEarlierAvailable">Load earlier</button>
             </div>
         </div>
     </div>

@@ -1,20 +1,22 @@
 ﻿@brand-success: #5cb85c;
-@brand-info:    #5bc0de;
+@brand-info: #5bc0de;
 @brand-warning: #f0ad4e;
-@brand-danger:  #d9534f;
+@brand-danger: #d9534f;
 @danger: #8a0a0a;
 
 @top-offset: 20px;
 @bottom-offset: 20px;
-@remove-top:-15px;
+@remove-top: -15px;
 @remove-right: -15px;
+@edit-top: -18px;
+@edit-right: -35px;
 
-.margin{
+.margin {
     margin-top: @top-offset;
     margin-bottom: @bottom-offset;
 }
 
-.itemBox { 
+.itemBox {
     position: relative;
 }
 
@@ -24,7 +26,35 @@
     right: @remove-right;
 }
 
-.itemBox .remove:hover{
+.itemBox .edit {
+    position: absolute;
+    top: @edit-top;
+    right: @edit-right;
+}
+
+.itemBox .remove:hover,
+.itemBox .edit:hover {
     color: @danger;
     cursor: pointer;
 }
+
+.pointer:hover {
+    cursor: pointer;
+}
+
+.back {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    font-size: 16px;
+    z-index: 5;
+}
+
+.logginSnippet {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 5;
+}
+
+

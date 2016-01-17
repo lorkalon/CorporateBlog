@@ -13,6 +13,6 @@ namespace CorporateBlog.BLL.IServices
         Task UpdateArticle(Common.Article article);
         Task DeleteArticle(int articleId);
         Task<Common.Article> GetArticle(int articleId);
-        IEnumerable<DateTime> GetDateLimit();
+        IEnumerable<DateTime> GetDateLimit(int categoryId);
     }
 }

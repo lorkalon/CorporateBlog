@@ -10,8 +10,9 @@ namespace CorporateBlog.Common
     {
         public int Id { get; set; }
         public int Value { get; set; }
-
         public int UserId { get; set; }
         public int CommentId { get; set; }
+        public Common.User User { get; set; }
+        public Common.Comment Comment { get; set; }
     }
 }

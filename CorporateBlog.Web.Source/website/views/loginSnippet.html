@@ -1,11 +1,9 @@
-﻿<div class="row">
-    <div class="pull-right">
-        <div ng-show="isUserLoggedIn">
-            <a>Hello, <span>{{userName}}</span></a>&nbsp;
-            <button class="btn btn-link" ng-click="logOut()">LogOut</button>
-        </div>
-        <div ng-hide="isUserLoggedIn">
-            <a href="/#login">LogIn &nbsp;</a>
-        </div>
+﻿<div class="logginSnippet">
+    <div ng-show="isUserLoggedIn">
+        <a>Hello, <span>{{userName}}</span></a>&nbsp;
+        <button class="btn btn-link" ng-click="logOut()">LogOut</button>
+    </div>
+    <div ng-hide="isUserLoggedIn">
+        <a href="/#login">LogIn &nbsp;</a>
     </div>
 </div>

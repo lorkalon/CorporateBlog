@@ -58,7 +58,17 @@
                     $scope.loadComments();
                 });
             };
-            
+
+            $scope.voteForComment = function(comment, rate) {
+                commentsService.voteForComment({
+                    commentId: comment.id,
+                    value: rate
+                }).then(function() {
+                    comment.rate += rate;
+                    comment.userVotedRate = rate;
+                });
+            };
+
             $scope.loadComments();
 
         }]);

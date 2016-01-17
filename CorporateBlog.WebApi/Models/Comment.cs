@@ -17,5 +17,6 @@ namespace CorporateBlog.WebApi.Models
         public virtual WebApi.Models.Article Article { get; set; }
         public int Rate { get; set; }
         public bool CanBeEditedByUser { get; set; }
+        public int UserVotedRate { get; set; }
     }
 }

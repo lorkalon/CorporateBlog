@@ -79,9 +79,9 @@ namespace CorporateBlog.BLL.Services
             return Mapper.Map<Common.Article>(article);
         }
 
-        public IEnumerable<DateTime> GetDateLimit()
+        public IEnumerable<DateTime> GetDateLimit(int categoryId)
         {
-            var limit = _articleRepository.GetDateLimit();
+            var limit = _articleRepository.GetDateLimit(categoryId);
             return limit;
         }
     }

@@ -1,28 +1,64 @@
-﻿<div class="col-md-10 col-md-offset-2">
-    <div class="row">
-        <h2>{{article.title}}</h2>
-        <div ng-bind-html="article.text"></div>
-        <div class="rating">
-            <button ng-click="voteForArticle(1)" ng-hide="!!article.currentUserRate">Like</button>
-            <span><b>Rating:</b></span>
-            <span> {{article.rate}}</span>
-            <button ng-click="voteForArticle(-1)" ng-hide="!!article.currentUserRate">Dislike</button>
+﻿<loginsnippet></loginsnippet>
+
+<div class="back">
+    <a href="#/categories"><span class="glyphicon glyphicon-arrow-left"></span> Back </a>
+</div>
+
+<div class="col-md-2">
+    <div class="thumbnail author">
+        <img src="" alt="">
+        <div class="caption">
+            <h4>{{article.user.userName}}</h4>
         </div>
     </div>
-    <div class="row" ng-controller="CommentsController">
-        <form novalidate name="commentForm">
-            <label>Add comment:</label>
-            <textarea ng-model="commentBody" required></textarea>
-            <button class="btn btn-primary" ng-click="addComment(commentBody)" ng-disabled="!commentForm.$valid">Add comment</button>
-        </form>
+</div>
 
-        <div ng-repeat="comment in comments">
-            <div>{{comment.text}}</div>
-            <div>added by <span>{{comment.user.userName}}</span> at <span>{{comment.formattedDate}}</span></div>
-            <button ng-click="deleteComment(comment.id)" ng-show="comment.canBeEditedByUser">Delete</button>
+<div class="col-md-10">
+    <div class="row">
+        <div class="page-header">
+            <h2>{{article.title}}</h2>
+        </div>
+        <blockquote>
+            <div ng-bind-html="article.text"></div>
+        </blockquote>
+
+        <div class="rating">
+            <span><b>Rating:</b></span>
+            <span> {{article.rate}}</span>
+            <span ng-click="voteForArticle(1)" ng-hide="!!article.currentUserRate" class="glyphicon glyphicon-thumbs-up"></span>
+            <span ng-click="voteForArticle(-1)" ng-hide="!!article.currentUserRate" class="glyphicon glyphicon-thumbs-down"></span>
+        </div>
+    </div>
+
+    <div class="row comments" ng-controller="CommentsController">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <form novalidate name="commentForm">
+                    <textarea ng-model="commentBody" required class="addComment"></textarea>
+                    <button class="btn btn-default btn-primary" ng-click="addComment(commentBody)" ng-disabled="!commentForm.$valid">
+                        Add comment
+                    </button>
+                </form>
+            </div>
+
+            <div class="panel-body">
+                <ul class="list-group" ng-repeat="comment in comments">
+                    <li class="list-group-item itemBox">
+                        <div>{{comment.text}}</div>
+                        <div class="addedBy">added by <span>{{comment.user.userName}}</span> at <span>{{comment.formattedDate}}</span></div>
+                        <span ng-click="deleteComment(comment.id)" ng-show="comment.canBeEditedByUser" class="glyphicon glyphicon-remove remove"></span>
+                        <div class="rating">
+                            <span><b>Rating:</b></span>
+                            <span>{{comment.rate}}</span>
+                            <span ng-click="voteForComment(comment, 1)" ng-hide="comment.userVotedRate" class="glyphicon glyphicon-thumbs-up pointer"></span>
+                            <span ng-click="voteForComment(comment, -1)" ng-hide="comment.userVotedRate" class="glyphicon glyphicon-thumbs-down pointer"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div>
-            <button ng-click="loadComments()">Load more</button>
+            <button ng-click="loadComments()" ng-hide="!isLoadMoreAvailable" class="btn btn-success loadMore">Load more</button>
         </div>
     </div>
 </div>

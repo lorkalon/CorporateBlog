@@ -36,9 +36,9 @@
             });
         };
 
-        var getDateLimit = function () {
+        var getDateLimit = function (categoryId) {
             return $http({
-                url: "api/Article/GetDateLimit",
+                url: "api/Article/GetDateLimit/" + categoryId,
                 method: "GET"
             });
         };

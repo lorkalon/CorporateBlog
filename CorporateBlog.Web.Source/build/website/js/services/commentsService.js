@@ -21,10 +21,15 @@
             });
         };
 
+        var voteForComment = function (model) {
+            return $http.post("api/Comment/Vote", model);
+        };
+
         return {
             addComment: addComment,
             deleteComment: deleteComment,
-            getComments: getComments
+            getComments: getComments,
+            voteForComment: voteForComment
         };
     }
     ]);

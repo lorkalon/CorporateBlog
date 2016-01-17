@@ -154,6 +154,7 @@
     <Compile Include="Models\ArticleRate.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentRate.cs" />
     <Compile Include="Models\Filters\ArticlesDateRangeFilter.cs" />
     <Compile Include="Models\Filters\CommentsFilter.cs" />
     <Compile Include="Models\Role.cs" />

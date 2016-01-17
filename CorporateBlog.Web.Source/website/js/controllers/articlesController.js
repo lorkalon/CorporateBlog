@@ -20,13 +20,14 @@
 
             $scope.dateLimit = null;
 
-            var getDateLimit = function () {
+            var getDateLimit = function (categoryId) {
                 var deferred = $q.defer();
-                articleService.getDateLimit().then(function (response) {
+                articleService.getDateLimit(categoryId).then(function (response) {
                     var limit = response.data;
                     if (limit !== null) {
                         $scope.dateLimit = [moment.utc(limit[0]).local(), moment.utc(limit[1]).local()];
                     }
+
                     deferred.resolve();
                 });
 
@@ -51,23 +52,22 @@
                 return $scope.category;
             }, function () {
                 if ($scope.category) {
-                    if (!$scope.dateLimit) {
-                        getDateLimit().then(function () {
+                    $scope.articles = [];
+                    $scope.dateLimit = null;
+                    $scope.isLoadEarlierAvailable = false;
+
+                    getDateLimit($scope.category.id).then(function () {
+                        if ($scope.dateLimit != null) {
                             $scope.currentWeek = getCurrentWeek();
-                            $scope.articles = [];
                             $scope.loadArticles();
-                        });
-                    } else {
-                        $scope.currentWeek = getCurrentWeek();
-                        $scope.articles = [];
-                        $scope.loadArticles();
-                    }
+                        }
+                    });
                 }
             });
 
-            $scope.$watch(function() {
+            $scope.$watch(function () {
                 return $scope.currentWeek.startDate;
-            }, function() {
+            }, function () {
                 if ($scope.dateLimit != null) {
                     if ($scope.currentWeek.startDate <= $scope.dateLimit[0]) {
                         $scope.isLoadEarlierAvailable = false;
@@ -86,8 +86,7 @@
                 };
 
                 articleService.getByDateRange(passData).then(function (response) {
-                    if (!response.data) {
-                        return;
+                    if (response.data.length === 0) {
                     }
 
                     var mapped = _.map(response.data, function (article) {

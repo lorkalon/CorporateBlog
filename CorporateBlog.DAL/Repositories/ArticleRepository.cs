@@ -16,10 +16,12 @@ namespace CorporateBlog.DAL.Repositories
         {
         }
 
-        public IEnumerable<DateTime> GetDateLimit()
+        public IEnumerable<DateTime> GetDateLimit(int categoryId)
         {
-            var firstArticle = DbSet.OrderBy(article => article.CreatedOnUtc).FirstOrDefault();
-            var lastArticle = DbSet.OrderByDescending(article => article.CreatedOnUtc).FirstOrDefault();
+            var categoryArticles = DbSet.Where(article => article.CategoryId == categoryId);
+
+            var firstArticle = categoryArticles.OrderBy(article => article.CreatedOnUtc).FirstOrDefault();
+            var lastArticle = categoryArticles.OrderByDescending(article => article.CreatedOnUtc).FirstOrDefault();
 
             if (firstArticle == null || lastArticle == null)
             {

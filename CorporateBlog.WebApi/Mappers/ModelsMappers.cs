@@ -68,6 +68,10 @@ namespace CorporateBlog.WebApi.Mappers
             Mapper.CreateMap<Common.Filters.CommentsFilter, Models.Filters.CommentsFilter>();
             Mapper.CreateMap<Models.Filters.CommentsFilter, Common.Filters.CommentsFilter>();
 
+            Mapper.CreateMap<Common.CommentRate, DAL.Models.CommentRate>();
+            Mapper.CreateMap<DAL.Models.CommentRate, Common.CommentRate>();
+            Mapper.CreateMap<Models.CommentRate, Common.CommentRate>();
+
         }
     }
 }

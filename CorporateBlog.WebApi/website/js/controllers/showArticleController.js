@@ -21,6 +21,7 @@
                     value: rate
                 }).then(function() {
                     $scope.article.rate += rate;
+                    $scope.article.currentUserRate = rate;
                 });
             };
 

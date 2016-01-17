@@ -50,10 +50,10 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/Article/GetDateLimit")]
-        public IEnumerable<DateTime> GetDateLimit()
+        [Route("api/Article/GetDateLimit/{categoryId}")]
+        public IEnumerable<DateTime> GetDateLimit(int categoryId)
         {
-            return _articleService.GetDateLimit();
+            return _articleService.GetDateLimit(categoryId);
         }
             
         [HttpGet]
