@@ -8,10 +8,13 @@
         'articleService', function ($scope, $routeParams, sharedCategory, articleService) {
 
             $scope.article = {};
+            $scope.avatar = null;
 
             articleService.getArticle($routeParams.id).then(function (response) {
                 if (response.data) {
                     angular.extend($scope.article, response.data);
+                    $scope.avatar = "/avatars/" + $scope.article.user.userInfo.avatar;
+
                 }
             });
 

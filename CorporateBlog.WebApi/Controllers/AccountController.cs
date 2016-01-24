@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
@@ -10,6 +12,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.Results;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.Common;
 using CorporateBlog.DAL.Models;
 using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Models;
@@ -23,10 +26,12 @@ namespace CorporateBlog.WebApi.Controllers
     public class AccountController : BaseController
     {
         private readonly ApplicationUserManager _userManager;
+        private readonly IUserInfoService _userInfoService;
 
-        public AccountController(ApplicationUserManager userManager)
+        public AccountController(ApplicationUserManager userManager, IUserInfoService userInfoService) : base(userManager)
         {
             _userManager = userManager;
+            _userInfoService = userInfoService;
         }
 
         [AllowAnonymous]
@@ -37,6 +42,20 @@ namespace CorporateBlog.WebApi.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            var userNameSaved = await _userManager.FindByNameAsync(userModel.UserName);
+
+            if (userNameSaved != null)
+            {
+                return Conflict("User with the same UserName has already existed!");
+            }
+
+            var userEmailSaved = await _userManager.FindByEmailAsync(userModel.Email);
+
+            if (userEmailSaved != null)
+            {
+                return Conflict("User with the same Email has already existed!");
             }
 
             userModel.RoleId = (int)RoleType.Client;
@@ -116,8 +135,58 @@ namespace CorporateBlog.WebApi.Controllers
         [Route("ResetPassword", Name = "ResetPasswordRoute")]
         public async Task<IHttpActionResult> ResetPassword(int userId = 0, string code = "")
         {
-            var result = _userManager.ResetPasswordAsync(userId, code, "7654321");
+            var result = await _userManager.ResetPasswordAsync(userId, code, "7654321");
             return Ok();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("SaveUserPicture")]
+        public async Task<IHttpActionResult> PostPicture()
+        {
+            var localPath = AppDomain.CurrentDomain.BaseDirectory + "avatars\\";
+            var avatarName = await SaveAvatar(localPath);
+            if (avatarName == null)
+            {
+                throw new ArgumentNullException("Posted picture is null!");
+            }
+
+            var currentUser = await GetCurrentUser();
+            var userInfo = _userInfoService.FindUserInfoByUserId(currentUser.Id);
+
+            if (userInfo != null)
+            {
+                File.Delete(localPath + userInfo.Avatar);
+            }
+
+            await _userInfoService.AddOrUpdateUserInfo(new Common.UserInfo()
+            {
+                UserId = currentUser.Id,
+                Avatar = avatarName
+            });
+
+            return Ok();
+        }
+
+        private async Task<string> SaveAvatar(string localPath)
+        {
+            HttpRequestMessage request = this.Request;
+            var randomName = Guid.NewGuid() + ".jpg";
+            var provider = await request.Content.ReadAsMultipartAsync();
+            var content = provider.Contents.FirstOrDefault();
+
+            if (content == null)
+            {
+                return null;
+            }
+
+            var stream = await content.ReadAsStreamAsync();
+            using (var output = new FileStream(localPath + randomName, FileMode.CreateNew))
+            {
+                await stream.CopyToAsync(output);
+            }
+
+            return randomName;
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

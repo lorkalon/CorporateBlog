@@ -29,10 +29,6 @@ namespace CorporateBlog.DAL.DbContextProvider
                         .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             modelBuilder.Entity<User>()
-                        .HasOptional(b => b.UserInfo)
-                        .WithRequired(info => info.User);
-
-            modelBuilder.Entity<User>()
                         .Property(user => user.UserName)
                         .IsRequired();
 
@@ -43,6 +39,14 @@ namespace CorporateBlog.DAL.DbContextProvider
             modelBuilder.Entity<User>()
                         .Property(user => user.RoleId)
                         .IsRequired();
+
+            modelBuilder.Entity<UserInfo>()
+                        .HasKey(info => info.UserId);
+
+            modelBuilder.Entity<User>()
+                        .HasOptional(m => m.UserInfo)
+                        .WithRequired(info => info.User);
+
 
             modelBuilder.Entity<Category>()
                         .HasRequired(t => t.User)

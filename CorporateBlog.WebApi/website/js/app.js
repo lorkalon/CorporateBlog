@@ -19,7 +19,9 @@
        'sharedData',
        'filters',
        'common',
-       'textAngular'
+       'textAngular',
+       'ngFileUpload'
+
     ]);
 
     blogApp.config(['$routeProvider', function ($routeProvider) {
@@ -41,6 +43,9 @@
         }).when('/registration', {
             templateUrl: '/website/views/registration.html',
             controller: 'RegistrationController'
+        }).when('/profile', {
+            templateUrl: '/website/views/profile.html',
+            controller: 'ProfileController'
         }).when('/error', {
             templateUrl: '/website/views/error.html',
             controller: 'ErrorController'

@@ -159,6 +159,7 @@
     <Compile Include="Models\Filters\CommentsFilter.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleNames.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Services\ConfigurationManagerService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Mappers\ModelsMappers.cs" />
@@ -182,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="avatars\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CorporateBlog.BLL\CorporateBlog.BLL.csproj">

@@ -11,11 +11,11 @@ namespace CorporateBlog.Common
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public virtual Common.UserInfo UserInfo { get; set; }
         public int RoleId { get; set; }
         public bool EmailConfirmed { get; set; }
         public bool Blocked { get; set; }
         public virtual Common.Role Role { get; set; }
+        public virtual Common.UserInfo UserInfo { get; set; }
 
     }
 }

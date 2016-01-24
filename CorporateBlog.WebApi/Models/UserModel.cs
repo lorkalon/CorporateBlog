@@ -22,5 +22,6 @@ namespace CorporateBlog.WebApi.Models
         public bool Blocked { get; set; }
 
         public virtual WebApi.Models.Role Role { get; set; }
+        public virtual WebApi.Models.UserInfo UserInfo { get; set; }
     }
 }

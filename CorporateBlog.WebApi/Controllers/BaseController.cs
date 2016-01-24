@@ -54,9 +54,33 @@ namespace CorporateBlog.WebApi.Controllers
             }
         }
 
+        protected class ConflictResult : IHttpActionResult
+        {
+            private readonly HttpRequestMessage _request;
+            private readonly string _reason;
+
+            public ConflictResult(HttpRequestMessage request, string reason)
+            {
+                _request = request;
+                _reason = reason;
+            }
+
+            public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+            {
+                var response = _request.CreateResponse(HttpStatusCode.Conflict, _reason);
+                return Task.FromResult(response);
+            }
+
+        }
+
         protected virtual ForbiddenResult Forbidden(string message)
         {
             return new ForbiddenResult(new HttpRequestMessage(), message);
+        }
+
+        protected virtual ConflictResult Conflict(string message)
+        {
+            return new ConflictResult(new HttpRequestMessage(), message);
         }
     }
 }

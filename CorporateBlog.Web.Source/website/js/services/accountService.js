@@ -46,6 +46,10 @@
                 return $http.post('/api/Account/Register', registrationData);
             };
 
+            var saveUserPicture = function(file) {
+                return $http.post('/api/Account/SaveUserPicture', file);
+            };
+
             return {
                 logIn: logIn,
                 logOut: logOut,
@@ -56,7 +60,8 @@
                         roleName: authenticationData.roleName
                     };
                 },
-                register: register
+                register: register,
+                saveUserPicture: saveUserPicture
         };
 
         }]);

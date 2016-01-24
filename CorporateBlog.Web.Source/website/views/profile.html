@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col-md-10 col-md-offset-1 profile">
+        <div class="page-header">
+            <h2>Profile information</h2>
+        </div>
+
+        <div>
+            UserName: <b><span>{{userName}}</span></b>
+        </div>
+        <div>
+            Avatar:
+            <div class="itemBox avatar">
+                <img ng-show="userPicture" ngf-src="userPicture"/>
+                <div class="remove">
+                    <span ng-click="deleteAvatar()" class="glyphicon glyphicon-remove"></span>
+                </div>
+            </div>
+
+            <form name="updateProfileForm" novalidate enctype="multipart/form-data">
+                <input type="file" ngf-select ng-model="userPicture" name="file" ngf-accept="'image/*'" required>
+                <button type="submit" ng-disabled="!updateProfileForm.$valid" ng-click="uploadPicture(userPicture)" class="btn btn-primary saveChanges">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>

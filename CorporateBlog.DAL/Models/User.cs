@@ -8,8 +8,8 @@ namespace CorporateBlog.DAL.Models
     {
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
+
         public string Email { get; set; }
-        public int? UserInfoId { get; set; }
         public virtual UserInfo UserInfo { get; set; }
         public int RoleId { get; set; }
         public bool EmailConfirmed { get; set; }

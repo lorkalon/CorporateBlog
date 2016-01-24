@@ -19,6 +19,7 @@ namespace CorporateBlog.BLL
             builder.RegisterType<CategoryService>().As<ICategoryService>();
             builder.RegisterType<CommentService>().As<ICommentService>();
             builder.RegisterType<CommentRateService>().As<ICommentRateService>();
+            builder.RegisterType<UserInfoService>().As<IUserInfoService>();
         }
     }
 }

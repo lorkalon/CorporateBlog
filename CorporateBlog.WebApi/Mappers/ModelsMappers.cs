@@ -72,6 +72,10 @@ namespace CorporateBlog.WebApi.Mappers
             Mapper.CreateMap<DAL.Models.CommentRate, Common.CommentRate>();
             Mapper.CreateMap<Models.CommentRate, Common.CommentRate>();
 
+            Mapper.CreateMap<Common.UserInfo, DAL.Models.UserInfo>();
+            Mapper.CreateMap<DAL.Models.UserInfo, Common.UserInfo>();
+            Mapper.CreateMap<Common.UserInfo, WebApi.Models.UserInfo>();
+            Mapper.CreateMap<WebApi.Models.UserInfo, Common.UserInfo>();
         }
     }
 }
