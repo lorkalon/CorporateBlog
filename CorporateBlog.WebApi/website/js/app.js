@@ -58,16 +58,6 @@
             '$rootScope',
             '$location',
             'accountService', function ($rootScope, $location, accountService) {
-
-                //$rootScope.$on("$routeChangeStart", function (event, next, current) {
-
-                //    permissionsService.getPermissionByName(next.permission).then(function (permissionValue) {
-                //        if (!authenticateService.checkPermission(permissionValue)) {
-                //            $location.path("/auth");
-                //            event.preventDefault();
-                //        }
-                //    });
-                //});
             }]);
 })(angular);
 

@@ -42,18 +42,32 @@
                 return deferred.promise;
             };
 
-            var register = function(registrationData) {
+            var register = function (registrationData) {
                 return $http.post('/api/Account/Register', registrationData);
             };
 
-            var saveUserPicture = function(file) {
+            var saveUserPicture = function (file) {
                 return $http.post('/api/Account/SaveUserPicture', file);
+            };
+
+            var getMyProfileInfo = function () {
+                return $http({
+                    url: "/api/Account/GetMyProfileInfo",
+                    method: "GET"
+                });
+            };
+
+            var deleteProfilePicture = function () {
+                return $http({
+                    url: "/api/Account/DeleteUserPicture",
+                    method: "DELETE"
+                });
             };
 
             return {
                 logIn: logIn,
                 logOut: logOut,
-                getAuthorizationData: function() {
+                getAuthorizationData: function () {
                     return {
                         userName: authenticationData.userName,
                         isAuthorized: authenticationData.isAuthorized,
@@ -61,8 +75,10 @@
                     };
                 },
                 register: register,
-                saveUserPicture: saveUserPicture
-        };
+                saveUserPicture: saveUserPicture,
+                getMyProfileInfo: getMyProfileInfo,
+                deleteProfilePicture: deleteProfilePicture
+            };
 
         }]);
 

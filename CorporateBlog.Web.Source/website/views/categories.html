@@ -48,11 +48,12 @@
                 <div class="list-group itemBox" data-ng-repeat="article in articles">
                     <a class="list-group-item" ng-href="{{article.link}}">
                         <div class="avatarHolder">
-                            <div class="thumbnail">
-                                <img />
-                                <div class="caption">
-                                    <label>Lorem Ipsum</label>
-                                </div>
+                            <div class="itemBox avatar nophoto" ng-hide="article.avatar"></div>
+                            <div class="itemBox avatar" ng-show="article.avatar">
+                                <img ng-src="{{article.avatar}}" />
+                            </div>
+                            <div class="caption">
+                                <label>{{article.user.userName}}</label>
                             </div>
                         </div>
                         <div>

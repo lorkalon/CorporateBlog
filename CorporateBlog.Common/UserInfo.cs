@@ -13,6 +13,6 @@ namespace CorporateBlog.Common
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Avatar { get; set; }
-        public Common.User User { get; set; }
+        //public Common.User User { get; set; }
     }
 }

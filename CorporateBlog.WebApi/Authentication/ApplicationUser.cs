@@ -21,7 +21,9 @@ namespace CorporateBlog.WebApi.Authentication
 
         public bool EmailConfirmed { get; set; }
         public bool Blocked { get; set; }
+        public Common.UserInfo UserInfo { get; set; }
 
+        public Common.Role Role { get; set; }
         public RoleType RoleName
         {
             get

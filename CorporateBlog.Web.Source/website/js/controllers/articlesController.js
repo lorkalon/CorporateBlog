@@ -91,10 +91,17 @@
 
                     var mapped = _.map(response.data, function (article) {
                         var shortText = $filter('limitTo')(article.text, settings.limitSymbolsTo) + settings.limitContentEnding;
+                        var avatar = null;
+
+                        if (article.user.userInfo) {
+                            avatar = article.user.userInfo.avatar;
+                        }
+
                         return angular.extend(article, {
                             link: '#/articles/' + article.id,
                             content: $sce.trustAsHtml(shortText),
-                            editLink: '#/articles/update/' + article.id
+                            editLink: '#/articles/update/' + article.id,
+                            avatar: avatar
                         });
                     });
 

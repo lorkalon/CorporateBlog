@@ -1,4 +1,4 @@
-﻿(function(angular) {
+﻿(function (angular) {
     'use strict';
 
     angular.module("controllers").controller('ProfileController', [
@@ -7,17 +7,60 @@
         '$location',
         'Upload',
         function ($scope, accountService, $location, Upload) {
-            var authData = accountService.getAuthorizationData();
-            $scope.userName = authData.userName;
-            $scope.userPicture = "";
-            $scope.uploadPicture = function(data) {
-                uploadUsingUpload(data);
+            $scope.myProfile = {
+                email: '',
+                userName: '',
+                name: '',
+                surname: '',
+                roleName: '',
             };
 
-            function uploadUsingUpload(file) {
+            $scope.avatar = null;
+
+            $scope.showedAvatar = {
+                src: null,
+                saved: false
+            };
+
+            $scope.uploadPicture = function (file) {
+
                 file.upload = Upload.upload({
                     url: '/api/Account/SaveUserPicture',
                     data: { file: file }
+                });
+
+                file.upload.then(function () {
+                    $scope.showedAvatar.saved = true;
+                });
+            };
+
+            $scope.deleteAvatar = function () {
+                if ($scope.showedAvatar.src &&
+                    $scope.showedAvatar.saved) {
+                    $scope.showedAvatar.src = null;
+                    accountService.deleteProfilePicture();
+                }
+            };
+
+            loadMyProfile();
+
+            function loadMyProfile() {
+                accountService.getMyProfileInfo().then(function (response) {
+                    var profile = response.data;
+                    $scope.myProfile.userName = profile.userName;
+                    $scope.myProfile.email = profile.email;
+                    $scope.myProfile.roleName = profile.role.name;
+
+                    if (profile.userInfo) {
+                        $scope.myProfile.name =  profile.userInfo.name;
+                        $scope.myProfile.surname = profile.userInfo.surname;
+
+                        if (profile.userInfo.avatar) {
+                            $scope.showedAvatar.src = profile.userInfo.avatar;
+                            $scope.showedAvatar.saved = true;
+                        }
+                    }
+
                 });
             }
 

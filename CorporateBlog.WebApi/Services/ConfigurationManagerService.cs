@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 
 namespace CorporateBlog.WebApi.Services
@@ -39,6 +40,16 @@ namespace CorporateBlog.WebApi.Services
         public static int CommentsRangeLimit
         {
             get { return Convert.ToInt32(ConfigurationManager.AppSettings["CommentsRangeLimit"]); }
+        }
+
+        public static string AvatarsFolder
+        {
+            get { return ConfigurationManager.AppSettings["AvatarsFolder"]; }
+        }
+
+        public static string AvatarsStoragePath
+        {
+            get { return AppDomain.CurrentDomain.BaseDirectory + AvatarsFolder + "\\"; }
         }
     }
 }

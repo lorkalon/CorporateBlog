@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
@@ -74,7 +75,11 @@ namespace CorporateBlog.WebApi.Mappers
 
             Mapper.CreateMap<Common.UserInfo, DAL.Models.UserInfo>();
             Mapper.CreateMap<DAL.Models.UserInfo, Common.UserInfo>();
-            Mapper.CreateMap<Common.UserInfo, WebApi.Models.UserInfo>();
+            Mapper.CreateMap<Common.UserInfo, WebApi.Models.UserInfo>()
+                .ForMember(info => info.Avatar,
+                    expression =>
+                        expression.MapFrom(info => "/" + Services.ConfigurationManagerService.AvatarsFolder + "/" + info.Avatar));
+
             Mapper.CreateMap<WebApi.Models.UserInfo, Common.UserInfo>();
         }
     }

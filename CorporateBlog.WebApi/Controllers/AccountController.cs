@@ -28,7 +28,8 @@ namespace CorporateBlog.WebApi.Controllers
         private readonly ApplicationUserManager _userManager;
         private readonly IUserInfoService _userInfoService;
 
-        public AccountController(ApplicationUserManager userManager, IUserInfoService userInfoService) : base(userManager)
+        public AccountController(ApplicationUserManager userManager, IUserInfoService userInfoService)
+            : base(userManager)
         {
             _userManager = userManager;
             _userInfoService = userInfoService;
@@ -144,7 +145,7 @@ namespace CorporateBlog.WebApi.Controllers
         [Route("SaveUserPicture")]
         public async Task<IHttpActionResult> PostPicture()
         {
-            var localPath = AppDomain.CurrentDomain.BaseDirectory + "avatars\\";
+            var localPath = ConfigurationManagerService.AvatarsStoragePath;
             var avatarName = await SaveAvatar(localPath);
             if (avatarName == null)
             {
@@ -187,6 +188,35 @@ namespace CorporateBlog.WebApi.Controllers
             }
 
             return randomName;
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("DeleteUserPicture")]
+        public async Task DeleteAvatar()
+        {
+            var currentUser = await GetCurrentUser();
+
+            if (currentUser.UserInfo != null)
+            {
+                var userInfo = currentUser.UserInfo;
+
+                if (userInfo.Avatar != null)
+                {
+                    File.Delete(ConfigurationManagerService.AvatarsStoragePath + currentUser.UserInfo.Avatar);
+                    userInfo.Avatar = null;
+                    await _userInfoService.AddOrUpdateUserInfo(userInfo);
+                }
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetMyProfileInfo")]
+        public async Task<UserModel> GetMyProfileInfo()
+        {
+            var currentUser = await GetCurrentUser();
+            return Mapper.Map<WebApi.Models.UserModel>(currentUser);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

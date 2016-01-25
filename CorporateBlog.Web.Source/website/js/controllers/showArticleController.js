@@ -13,7 +13,10 @@
             articleService.getArticle($routeParams.id).then(function (response) {
                 if (response.data) {
                     angular.extend($scope.article, response.data);
-                    $scope.avatar = "/avatars/" + $scope.article.user.userInfo.avatar;
+
+                    if ($scope.article.user.userInfo) {
+                        $scope.avatar = $scope.article.user.userInfo.avatar;
+                    }
 
                 }
             });
