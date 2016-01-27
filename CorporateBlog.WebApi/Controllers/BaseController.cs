@@ -73,14 +73,15 @@ namespace CorporateBlog.WebApi.Controllers
 
         }
 
+
         protected virtual ForbiddenResult Forbidden(string message)
         {
-            return new ForbiddenResult(new HttpRequestMessage(), message);
+            return new ForbiddenResult(Request, message);
         }
 
         protected virtual ConflictResult Conflict(string message)
         {
-            return new ConflictResult(new HttpRequestMessage(), message);
+            return new ConflictResult(Request, message);
         }
     }
 }

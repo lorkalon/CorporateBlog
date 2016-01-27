@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
@@ -125,19 +126,37 @@ namespace CorporateBlog.WebApi.Controllers
                 return Forbidden("Email has not been found.");
             }
 
+            var baseUri = "http://" + Request.RequestUri.Authority;
             var token = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
-            var callbackUrl = new Uri(Url.Link("ResetPasswordRoute", new { userId = user.Id, code = token }));
+            var encodedToken = HttpUtility.UrlEncode(token);
+
+            var callbackUrl = baseUri + "/#/resetPassword?code=" + encodedToken + "&" + "email=" + email;
+
             await _userManager.SendEmailAsync(user.Id, "Reset password",
               "Reset password link <a href=\"" + callbackUrl + "\">here</a>");
             return Ok();
         }
 
-        [HttpGet]
+
+        [HttpPost]
         [Route("ResetPassword", Name = "ResetPasswordRoute")]
-        public async Task<IHttpActionResult> ResetPassword(int userId = 0, string code = "")
+        public async Task<IHttpActionResult> ResetPassword([FromBody]ResetPassword model)
         {
-            var result = await _userManager.ResetPasswordAsync(userId, code, "7654321");
-            return Ok();
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                return Forbidden(String.Format("User with email '{0}' hasn't been registered.", model.Email));
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return Forbidden("Reset Password Code is not valid.");
         }
 
         [HttpPost]

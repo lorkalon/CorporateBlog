@@ -64,6 +64,20 @@
                 });
             };
 
+            var sendRestoreEmail = function (email) {
+                return $http({
+                    url: "/api/Account/SendResetPasswordToken",
+                    method: "GET",
+                    params: {
+                        email: email
+                    }
+                });
+            };
+
+            var resetPassword = function (model) {
+                return $http.post('/api/Account/ResetPassword', model);
+            };
+
             return {
                 logIn: logIn,
                 logOut: logOut,
@@ -77,7 +91,9 @@
                 register: register,
                 saveUserPicture: saveUserPicture,
                 getMyProfileInfo: getMyProfileInfo,
-                deleteProfilePicture: deleteProfilePicture
+                deleteProfilePicture: deleteProfilePicture,
+                sendRestoreEmail: sendRestoreEmail,
+                resetPassword: resetPassword
             };
 
         }]);

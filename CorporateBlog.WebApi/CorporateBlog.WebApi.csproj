@@ -158,6 +158,7 @@
     <Compile Include="Models\CommentRate.cs" />
     <Compile Include="Models\Filters\ArticlesDateRangeFilter.cs" />
     <Compile Include="Models\Filters\CommentsFilter.cs" />
+    <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Models\UserInfo.cs" />

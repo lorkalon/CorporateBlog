@@ -64,9 +64,10 @@ namespace CorporateBlog.WebApi.Authentication
             return applicationUser;
         }
 
-        public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
+        public async Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
         {
-            return Task.Run(() => user.PasswordHash = passwordHash);
+            var savedUser = await _userRepository.FindUserAsync(user.Id);
+            savedUser.PasswordHash = passwordHash;
         }
 
         public Task<string> GetPasswordHashAsync(ApplicationUser user)

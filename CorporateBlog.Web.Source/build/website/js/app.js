@@ -46,6 +46,12 @@
         }).when('/profile', {
             templateUrl: '/website/views/profile.html',
             controller: 'ProfileController'
+        }).when('/restorePassword', {
+            templateUrl: '/website/views/restorePassword.html',
+            controller: 'RestorePasswordController'
+        }).when('/resetPassword', {
+            templateUrl: '/website/views/resetPassword.html',
+            controller: 'ResetPasswordController'
         }).when('/error', {
             templateUrl: '/website/views/error.html',
             controller: 'ErrorController'

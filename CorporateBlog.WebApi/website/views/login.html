@@ -17,13 +17,16 @@
                 <label>Password</label>
                 <input type="password" class="form-control" placeholder="Password" ng-model="loginForm.password" required />
             </div>
-            <div ng-show="logInForm.$valid">
-                <button type="submit" class="btn btn-default" ng-click="logIn(loginForm)">LogIn</button>
+            <div>
+                <button type="submit" class="btn btn-default" ng-click="logIn(loginForm)" ng-disabled="!logInForm.$valid">LogIn</button>
             </div>
         </form>
 
-        <label class="margin">
+        <div class="margin">
+                <a href="/#restorePassword">I forgot my password</a>
+        </div>
+        <div class="margin">
             <a href="/#registration">Register a new account</a>
-        </label>
+        </div>
     </div>
 </div>
