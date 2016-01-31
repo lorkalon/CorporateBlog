@@ -91,6 +91,11 @@ namespace CorporateBlog.DAL.Repositories
             return result;
         }
 
+        public int GetTotalCount()
+        {
+            return DbSet.Count();
+        }
+
 
         private IQueryable<TDataEntity> SortEntities(
             Expression<Func<TDataEntity, object>> orderByExpression, 

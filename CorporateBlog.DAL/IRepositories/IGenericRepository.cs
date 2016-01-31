@@ -25,5 +25,7 @@ namespace CorporateBlog.DAL.IRepositories
             int? from = null, int? count = null, bool? isAsc = null,
             Expression<Func<TDataEntity, DateTime>> orderByDateTime = null);
 
+        int GetTotalCount();
+
     }
 }

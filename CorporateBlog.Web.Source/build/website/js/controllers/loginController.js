@@ -10,11 +10,15 @@
                 password: ''
             };
 
+            $scope.logginError = null;
+
             $scope.isUserLoggedIn = accountService.getAuthorizationData().isAuthorized;
 
             $scope.logIn = function (loginForm) {
                 accountService.logIn(loginForm).then(function () {
                     $location.path('/categories');
+                }, function(error) {
+                    $scope.logginError = error.error_description;
                 });
             };
 

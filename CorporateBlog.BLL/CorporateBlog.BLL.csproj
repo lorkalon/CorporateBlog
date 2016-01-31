@@ -54,6 +54,8 @@
     <Compile Include="IServices\ICommentRateService.cs" />
     <Compile Include="IServices\ICommentService.cs" />
     <Compile Include="IServices\IUserInfoService.cs" />
+    <Compile Include="IServices\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ArticleRateService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="IServices\IRoleService.cs" />

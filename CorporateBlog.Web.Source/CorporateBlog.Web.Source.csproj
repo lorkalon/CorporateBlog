@@ -63,12 +63,15 @@
     <Content Include="build\website\sources\content.json" />
     <Content Include="package.json" />
     <Content Include="website\img\noPicture.jpg" />
+    <Content Include="website\js\controllers\adminController.js" />
     <Content Include="website\js\controllers\commentsController.js" />
     <Content Include="website\js\controllers\restorePassword.js" />
     <Content Include="website\js\controllers\profileController.js" />
     <Content Include="website\js\controllers\resetPassword.js" />
+    <Content Include="website\js\services\adminService.js" />
     <Content Include="website\js\services\commentsService.js" />
     <Content Include="website\js\sharedData\sharedCategory.js" />
+    <Content Include="website\views\admin.html" />
     <Content Include="website\views\restorePassword.html" />
     <Content Include="website\views\profile.html" />
     <Content Include="website\views\resetPassword.html" />

@@ -4,10 +4,13 @@
     angular.module("controllers").controller('LoginSnippetController', [
         '$scope',
         'accountService',
-        '$location', function ($scope, accountService, $location) {
+        '$location',
+        'settings', function ($scope, accountService, $location, settings) {
 
             $scope.isUserLoggedIn = accountService.getAuthorizationData().isAuthorized;
             $scope.userName = accountService.getAuthorizationData().userName;
+            $scope.isUserAdmin = $scope.isUserLoggedIn &&
+                (accountService.getAuthorizationData().roleName === settings.adminRoleName);
 
             $scope.logOut = function () {
                 accountService.logOut();

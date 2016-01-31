@@ -78,9 +78,12 @@ namespace CorporateBlog.WebApi.Mappers
             Mapper.CreateMap<Common.UserInfo, WebApi.Models.UserInfo>()
                 .ForMember(info => info.Avatar,
                     expression =>
-                        expression.MapFrom(info => "/" + Services.ConfigurationManagerService.AvatarsFolder + "/" + info.Avatar));
+                        expression.MapFrom(info => info.Avatar != null?"/" + Services.ConfigurationManagerService.AvatarsFolder + "/" + info.Avatar: null));
 
             Mapper.CreateMap<WebApi.Models.UserInfo, Common.UserInfo>();
+            Mapper.CreateMap<Common.UsersReport, WebApi.Models.UsersReport>();
+            Mapper.CreateMap<WebApi.Models.GeneralUserInfo, Common.GeneralUserInfo>();
+            Mapper.CreateMap<WebApi.Models.Filters.UsersFilter, Common.Filters.UsersFilter>();
         }
     }
 }

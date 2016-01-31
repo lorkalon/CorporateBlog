@@ -1,6 +1,8 @@
 ﻿<div class="logginSnippet">
     <div ng-show="isUserLoggedIn">
-        <a href="/#profile">Hello, <span>{{userName}}</span></a>&nbsp;
+        <a href="/#administration" ng-show="isUserAdmin">Administration</a>
+        <span ng-show="isUserAdmin">|</span>
+        <a href="/#profile">Hello, <span>{{userName}}</span></a>|
         <button class="btn btn-link" ng-click="logOut()">LogOut</button>
     </div>
     <div ng-hide="isUserLoggedIn">

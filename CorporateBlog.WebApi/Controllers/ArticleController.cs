@@ -33,17 +33,17 @@ namespace CorporateBlog.WebApi.Controllers
 
         [HttpGet]
         [Route("api/Article/GetByDateRange")]
-        public IEnumerable<Models.Article> GetArticles([FromUri]ArticlesDateRangeFilter filter)
+        public async Task<IEnumerable<Models.Article>> GetArticles([FromUri]ArticlesDateRangeFilter filter)
         {
-            var userName = User.Identity.GetUserName();
+            var currentUser = await GetCurrentUser();
             var articles = _articleService.GetByDateRange(Mapper.Map<Common.Filters.ArticlesDateRangeFilter>(filter));
             var viewModels = articles.Select(Mapper.Map<Models.Article>).ToList();
 
             foreach (var article in viewModels)
             {
-                article.UserHasEditAccess = article.User.RoleId == (int) RoleType.Admin ||
-                                             (article.User.RoleId == (int) RoleType.Publisher &&
-                                              article.User.UserName == userName);
+                article.UserHasEditAccess = currentUser.RoleId == (int) RoleType.Admin ||
+                                             (currentUser.RoleId == (int) RoleType.Publisher &&
+                                              currentUser.UserName == article.User.UserName);
             }
 
             return viewModels;
@@ -95,12 +95,11 @@ namespace CorporateBlog.WebApi.Controllers
         [Route("api/Article/Delete/{articleId}")]
         public async Task DeleteArticle(int articleId)
         {
-            var userName = User.Identity.GetUserName();
+            var currentUser = await GetCurrentUser();
             var article = await _articleService.GetArticle(articleId);
 
-            if (article.User.RoleId == (int) RoleType.Admin ||
-                (article.User.RoleId == (int) RoleType.Publisher &&
-                 article.User.UserName == userName))
+            if (currentUser.RoleId == (int)RoleType.Admin ||
+                (currentUser.UserName == article.User.UserName))
             {
                 await _articleService.DeleteArticle(article.Id);
             }

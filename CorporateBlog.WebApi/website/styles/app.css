@@ -18,6 +18,16 @@
   right: 0;
   z-index: 5;
 }
+.articles .avatarHolder {
+  float: left;
+  margin-right: 15px;
+}
+.articles .avatarHolder img {
+  height: 210px;
+}
+.articles .articlePreview {
+  min-height: 210px;
+}
 
 .margin {
   margin-top: 20px;
@@ -59,7 +69,6 @@
 }
 .avatar {
   width: 200px;
-  height: 200px;
   margin-bottom: 10px;
 }
 .avatar.nophoto {
@@ -67,6 +76,7 @@
   background-size: 300px 210px;
   background-position: -50px;
   border: 1px dashed lightgray;
+  height: 200px;
 }
 
 .profile {
@@ -109,7 +119,9 @@ div.comments .loadMore {
 div.thumbnail.author {
   margin-top: 50px;
 }
-div.thumbnail.author img {
+.author {
+  margin-top: 50px;
+}
+.author img {
   width: 200px;
-  height: 200px;
 }

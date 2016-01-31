@@ -64,8 +64,9 @@ namespace CorporateBlog.WebApi.Controllers
 
             foreach (var comment in comments)
             {
-                comment.CanBeEditedByUser = comment.User.RoleId == (int) RoleType.Admin ||
+                comment.CanBeEditedByUser = currentUser.RoleId == (int) RoleType.Admin ||
                                             comment.User.Id == currentUser.Id;
+
                 var rate = _commentRateService.FindCommentRate(comment.Id, currentUser.Id);
 
                 if (rate != null)

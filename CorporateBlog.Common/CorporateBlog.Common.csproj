@@ -52,11 +52,14 @@
     <Compile Include="Filters\ArticleRateFilter.cs" />
     <Compile Include="Filters\ArticlesDateRangeFilter.cs" />
     <Compile Include="Filters\CommentsFilter.cs" />
+    <Compile Include="Filters\UsersFilter.cs" />
+    <Compile Include="GeneralUserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RateType.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInfo.cs" />
+    <Compile Include="UsersReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

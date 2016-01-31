@@ -52,6 +52,9 @@
         }).when('/resetPassword', {
             templateUrl: '/website/views/resetPassword.html',
             controller: 'ResetPasswordController'
+        }).when('/administration', {
+            templateUrl: '/website/views/admin.html',
+            controller: 'AdminController'
         }).when('/error', {
             templateUrl: '/website/views/error.html',
             controller: 'ErrorController'

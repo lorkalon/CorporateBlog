@@ -146,6 +146,7 @@
     <Compile Include="Authentication\ApplicationUser.cs" />
     <Compile Include="Authentication\ApplicationUserManager.cs" />
     <Compile Include="Authentication\UserStore.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\ArticleRateController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -153,15 +154,18 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleRate.cs" />
+    <Compile Include="Models\GeneralUserInfo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentRate.cs" />
     <Compile Include="Models\Filters\ArticlesDateRangeFilter.cs" />
     <Compile Include="Models\Filters\CommentsFilter.cs" />
+    <Compile Include="Models\Filters\UsersFilter.cs" />
     <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\RoleNames.cs" />
     <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\UsersReport.cs" />
     <Compile Include="Services\ConfigurationManagerService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Mappers\ModelsMappers.cs" />

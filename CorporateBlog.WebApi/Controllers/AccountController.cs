@@ -176,7 +176,10 @@ namespace CorporateBlog.WebApi.Controllers
 
             if (userInfo != null)
             {
-                File.Delete(localPath + userInfo.Avatar);
+                if (userInfo.Avatar != null)
+                {
+                    File.Delete(localPath + userInfo.Avatar);
+                }
             }
 
             await _userInfoService.AddOrUpdateUserInfo(new Common.UserInfo()

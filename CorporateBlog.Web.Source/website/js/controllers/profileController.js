@@ -18,7 +18,7 @@
             $scope.avatar = null;
 
             $scope.showedAvatar = {
-                src: null,
+                src: "",
                 saved: false
             };
 
@@ -35,10 +35,11 @@
             };
 
             $scope.deleteAvatar = function () {
-                if ($scope.showedAvatar.src &&
-                    $scope.showedAvatar.saved) {
-                    $scope.showedAvatar.src = null;
+                $scope.showedAvatar.src = "";
+
+                if ($scope.showedAvatar.saved) {
                     accountService.deleteProfilePicture();
+                    $scope.avatar = null;
                 }
             };
 

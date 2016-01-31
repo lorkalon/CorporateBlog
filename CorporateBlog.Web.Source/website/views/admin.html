@@ -1,0 +1,58 @@
+﻿<loginsnippet></loginsnippet>
+
+<div class="back">
+    <a href="#/categories"><span class="glyphicon glyphicon-arrow-left"></span> Back To Application </a>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+
+        <div class="page-header">
+            <h2>Administration <small>registered users</small></h2> 
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Blocked</th>
+                <th>EmailConfirmed</th>
+                <th>Role</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            <tr ng-repeat="user in users">
+                <td>{{user.id}}</td>
+                <td>{{user.userName}}</td>
+                <td>{{user.Email}}</td>
+                <td>
+                    <input type="checkbox" ng-model="user.blocked" />
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="user.emailConfirmed" />
+                </td>
+                <td>
+                    <select ng-model="user.roleId" ng-options="role.id as role.name for role in roles"></select>
+                </td>
+                <td>
+                    <button ng-click="updateUser(user)" class="btn btn-xs btn-danger">update</button>
+                </td>
+                <td>
+                    <button ng-click="deleteUser(user.id)" class="btn btn-xs btn-danger">delete</button>
+                </td>
+            </tr>
+
+        </table>
+
+        <div class="text-center">
+            <pagination ng-model="currentPage"
+                        total-items="totalCount"
+                        max-size="5"
+                        items-per-page ="pageSize"
+                        boundary-links="true">
+            </pagination>
+        </div>
+    </div>
+</div>
