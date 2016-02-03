@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using AutoMapper;
-using CorporateBlog.BLL.IServices;
 using CorporateBlog.BLL.Services;
-using CorporateBlog.DAL;
 using CorporateBlog.DAL.DbContextProvider;
 using CorporateBlog.DAL.IRepositories;
-using CorporateBlog.DAL.Models;
 using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Authentication
@@ -42,6 +35,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public async Task UpdateAsync(ApplicationUser user)
         {
+            var savedUser = await _userRepository.FindUserAsync(user.Id);
             await SaveChangesAsync();
         }
 

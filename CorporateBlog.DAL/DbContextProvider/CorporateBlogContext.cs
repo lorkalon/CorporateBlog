@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using AutoMapper;
 using CorporateBlog.DAL.Models;
 
 namespace CorporateBlog.DAL.DbContextProvider
