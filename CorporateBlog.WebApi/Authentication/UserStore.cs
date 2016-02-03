@@ -11,11 +11,9 @@ namespace CorporateBlog.WebApi.Authentication
     public class UserStore : BaseService, IUserPasswordStore<ApplicationUser, int>, IUserEmailStore<ApplicationUser, int>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IContextProvider _contextProvider;
 
         public UserStore(IUserRepository userRepository, IContextProvider contextProvider) : base(contextProvider)
         {
-            _contextProvider = contextProvider;
             _userRepository = userRepository;
         }
 
@@ -27,6 +25,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public async Task CreateAsync(ApplicationUser user)
         {
+
             var mappedUser = Mapper.Map<DAL.Models.User>(user);
             _userRepository.Add(mappedUser);
             await SaveChangesAsync();
@@ -36,6 +35,8 @@ namespace CorporateBlog.WebApi.Authentication
         public async Task UpdateAsync(ApplicationUser user)
         {
             var savedUser = await _userRepository.FindUserAsync(user.Id);
+            savedUser.PasswordHash = user.PasswordHash;
+            _userRepository.Update(savedUser);
             await SaveChangesAsync();
         }
 
@@ -60,8 +61,7 @@ namespace CorporateBlog.WebApi.Authentication
 
         public async Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
         {
-            var savedUser = await _userRepository.FindUserAsync(user.Id);
-            savedUser.PasswordHash = passwordHash;
+            await Task.Run(()=>user.PasswordHash = passwordHash);
         }
 
         public Task<string> GetPasswordHashAsync(ApplicationUser user)
