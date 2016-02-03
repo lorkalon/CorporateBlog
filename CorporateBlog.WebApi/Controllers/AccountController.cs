@@ -241,6 +241,15 @@ namespace CorporateBlog.WebApi.Controllers
             return Mapper.Map<WebApi.Models.UserModel>(currentUser);
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("ChangePassword")]
+        public async Task ChangePassword(Models.ChangePassword model)
+        {
+            var currentUser = await GetCurrentUser();
+            await _userManager.ChangePasswordAsync(currentUser.Id, model.OldPassword, model.NewPassword);
+        }
+
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)

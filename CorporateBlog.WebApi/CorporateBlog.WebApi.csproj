@@ -154,6 +154,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleRate.cs" />
+    <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\GeneralUserInfo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
