@@ -81,6 +81,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("ConfirmEmail", Name = "EmailConfirmationRoute")]
         public async Task<HttpResponseMessage> ConfirmEmail(int userId = 0, string code = "")
         {
@@ -116,6 +117,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("SendResetPasswordToken")]
         public async Task<IHttpActionResult> SendResetPasswordToken([FromUri]string email)
         {
@@ -139,6 +141,7 @@ namespace CorporateBlog.WebApi.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("ResetPassword", Name = "ResetPasswordRoute")]
         public async Task<IHttpActionResult> ResetPassword([FromBody]ResetPassword model)
         {
@@ -160,7 +163,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [ExtendedAuthorize]
         [Route("SaveUserPicture")]
         public async Task<IHttpActionResult> PostPicture()
         {
@@ -191,6 +194,7 @@ namespace CorporateBlog.WebApi.Controllers
             return Ok();
         }
 
+        [ExtendedAuthorize]
         private async Task<string> SaveAvatar(string localPath)
         {
             HttpRequestMessage request = this.Request;
@@ -213,7 +217,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        [ExtendedAuthorize]
         [Route("DeleteUserPicture")]
         public async Task DeleteAvatar()
         {
@@ -233,7 +237,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [ExtendedAuthorize]
         [Route("GetMyProfileInfo")]
         public async Task<UserModel> GetMyProfileInfo()
         {
@@ -242,7 +246,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [ExtendedAuthorize]
         [Route("ChangePassword")]
         public async Task ChangePassword(Models.ChangePassword model)
         {

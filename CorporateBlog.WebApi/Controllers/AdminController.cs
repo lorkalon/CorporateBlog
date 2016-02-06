@@ -6,11 +6,12 @@ using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using CorporateBlog.BLL.IServices;
+using CorporateBlog.WebApi.Authentication;
 using CorporateBlog.WebApi.Models;
 
 namespace CorporateBlog.WebApi.Controllers
 {
-    [Authorize(Roles = RoleNames.Admin)]
+    [ExtendedAuthorize(Roles = RoleNames.Admin)]
     [RoutePrefix("api/Admin")]
     public class AdminController:BaseController
     {

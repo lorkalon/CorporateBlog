@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
@@ -10,11 +8,10 @@ using CorporateBlog.BLL.IServices;
 using CorporateBlog.Common;
 using CorporateBlog.DAL.Models;
 using CorporateBlog.WebApi.Authentication;
-using CorporateBlog.WebApi.Models.Filters;
 
 namespace CorporateBlog.WebApi.Controllers
 {
-    [Authorize]
+    [ExtendedAuthorize]
     public class CommentController : BaseController
     {
         private readonly ICommentService _commentService;

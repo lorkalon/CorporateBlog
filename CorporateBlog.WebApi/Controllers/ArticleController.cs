@@ -16,7 +16,6 @@ using ArticlesDateRangeFilter = CorporateBlog.WebApi.Models.Filters.ArticlesDate
 
 namespace CorporateBlog.WebApi.Controllers
 {
-    [Authorize]
     public class ArticleController : BaseController
     {
         private readonly IArticleService _articleService;
@@ -32,6 +31,7 @@ namespace CorporateBlog.WebApi.Controllers
         }
 
         [HttpGet]
+        [ExtendedAuthorize]
         [Route("api/Article/GetByDateRange")]
         public async Task<IEnumerable<Models.Article>> GetArticles([FromUri]ArticlesDateRangeFilter filter)
         {
@@ -49,13 +49,15 @@ namespace CorporateBlog.WebApi.Controllers
             return viewModels;
         }
 
+        [ExtendedAuthorize]
         [HttpGet]
         [Route("api/Article/GetDateLimit/{categoryId}")]
         public IEnumerable<DateTime> GetDateLimit(int categoryId)
         {
             return _articleService.GetDateLimit(categoryId);
         }
-            
+
+        [ExtendedAuthorize]
         [HttpGet]
         [Route("api/Article/{articleId}")]
         public async Task<Models.Article> GetArticle(int articleId)
@@ -78,7 +80,7 @@ namespace CorporateBlog.WebApi.Controllers
             return mappedModel;
         }
 
-        [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
+        [ExtendedAuthorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
         [HttpPost]
         [Route("api/Article/Add")]
         public async Task<Models.Article> AddArticle(Models.Article article)
@@ -86,17 +88,28 @@ namespace CorporateBlog.WebApi.Controllers
             var model = Mapper.Map<Common.Article>(article);
             var user = await GetCurrentUser();
             model.UserId = user.Id;
+
+            if (user.RoleName != RoleType.Admin && user.RoleName != RoleType.Publisher)
+            {
+                throw new UnauthorizedAccessException("Your credentials have expired!");
+            }
+
             await _articleService.CreateArticleAsync(model);
             return Mapper.Map<Models.Article>(model);
         }
 
-        [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
+        [ExtendedAuthorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
         [HttpDelete]
         [Route("api/Article/Delete/{articleId}")]
         public async Task DeleteArticle(int articleId)
         {
             var currentUser = await GetCurrentUser();
             var article = await _articleService.GetArticle(articleId);
+
+            if (currentUser.RoleName != RoleType.Admin && currentUser.RoleName != RoleType.Publisher)
+            {
+                throw new UnauthorizedAccessException("Your credentials have expired!");
+            }
 
             if (currentUser.RoleId == (int)RoleType.Admin ||
                 (currentUser.UserName == article.User.UserName))
@@ -105,15 +118,26 @@ namespace CorporateBlog.WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
+        [ExtendedAuthorize(Roles = RoleNames.Admin + "," + RoleNames.Publisher)]
         [HttpPut]
         [Route("api/Article/Update")]
         public async Task UpdateArticle(Models.Article article)
         {
             var model = Mapper.Map<Common.Article>(article);
             var user = await GetCurrentUser();
+
+            if (user.RoleName != RoleType.Admin && user.RoleName != RoleType.Publisher)
+            {
+                throw new UnauthorizedAccessException("Your credentials have expired!");
+            }
+
             model.UserId = user.Id;
-            await _articleService.UpdateArticle(model);
+
+            if (user.RoleId == (int) RoleType.Admin ||
+                (user.UserName == article.User.UserName))
+            {
+                await _articleService.UpdateArticle(model);
+            }
         }
     }
 }

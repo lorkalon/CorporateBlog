@@ -145,6 +145,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\ApplicationUser.cs" />
     <Compile Include="Authentication\ApplicationUserManager.cs" />
+    <Compile Include="Authentication\ExtendedAuthorizeAttribute.cs" />
     <Compile Include="Authentication\UserStore.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />

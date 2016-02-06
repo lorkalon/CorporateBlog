@@ -30,5 +30,15 @@ namespace CorporateBlog.DAL.Repositories
         {
             return await _contextCreator.GetContext.Set<User>().FirstOrDefaultAsync(user => user.Email == email);
         }
+
+        public User FindUser(int userId)
+        {
+            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.Id == userId);
+        }
+
+        public User FindUser(string login)
+        {
+            return _contextCreator.GetContext.Set<User>().FirstOrDefault(user => user.UserName == login);
+        }
     }
 }

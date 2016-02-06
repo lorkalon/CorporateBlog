@@ -36,7 +36,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="addArticle" ng-show="isUserAdmin||isUserPublisher">
+            <div class="addArticle" ng-show="(isUserAdmin||isUserPublisher)&& !!category">
                 <a href="#/articles/add">
                     <span class="glyphicon glyphicon-plus"></span> add article
                 </a>

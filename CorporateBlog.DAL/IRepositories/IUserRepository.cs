@@ -13,5 +13,7 @@ namespace CorporateBlog.DAL.IRepositories
         Task<User> FindUserAsync(string login);
         Task<User> FindUserAsync(int userId);
         Task<User> FindUserByEmailAsync(string email);
+        User FindUser(string login);
+        User FindUser(int userId);
     }
 }

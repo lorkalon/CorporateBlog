@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Controllers
 {
-    [Authorize]
+    [ExtendedAuthorize]
     public class ArticleRateController : BaseController
     {
         private readonly IArticleRateService _articleRateService;
@@ -24,6 +24,7 @@ namespace CorporateBlog.WebApi.Controllers
         {
             _articleRateService = articleRateService;
         }
+
 
         [HttpPost]
         [Route("api/ArticleRate/Vote")]

@@ -42,13 +42,19 @@ namespace CorporateBlog.DAL.DbContextProvider
             modelBuilder.Entity<UserInfo>()
                         .HasKey(info => info.UserId);
 
-            modelBuilder.Entity<User>()
-                        .HasOptional(m => m.UserInfo)
-                        .WithRequired(info => info.User);
+            modelBuilder.Entity<UserInfo>()
+                        .HasRequired(info => info.User)
+                        .WithOptional(user => user.UserInfo)
+                        .WillCascadeOnDelete(true);
+                        
+
+            //modelBuilder.Entity<User>()
+            //            .HasOptional(m => m.UserInfo)
+            //            .WithRequired(info => info.User);
 
 
             modelBuilder.Entity<Category>()
-                        .HasRequired(t => t.User)
+                        .HasOptional(t => t.User)
                         .WithMany(t => t.Categories)
                         .HasForeignKey(category => category.UserId)
                         .WillCascadeOnDelete(false);
@@ -57,7 +63,7 @@ namespace CorporateBlog.DAL.DbContextProvider
                         .HasRequired(t => t.User)
                         .WithMany(t => t.Articles)
                         .HasForeignKey(d => d.UserId)
-                        .WillCascadeOnDelete(false);
+                        .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Article>()
                         .HasRequired(t => t.Category)
@@ -66,7 +72,7 @@ namespace CorporateBlog.DAL.DbContextProvider
                         .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Comment>()
-                        .HasRequired(t => t.User)
+                        .HasOptional(t => t.User)
                         .WithMany(t => t.Comments)
                         .HasForeignKey(t => t.UserId)
                         .WillCascadeOnDelete(false);
@@ -78,7 +84,7 @@ namespace CorporateBlog.DAL.DbContextProvider
                         .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<CommentRate>()
-                        .HasRequired(t => t.User)
+                        .HasOptional(t => t.User)
                         .WithMany(t => t.CommentRates)
                         .HasForeignKey(t => t.UserId)
                         .WillCascadeOnDelete(false);
@@ -91,7 +97,7 @@ namespace CorporateBlog.DAL.DbContextProvider
 
 
             modelBuilder.Entity<ArticleRate>()
-                        .HasRequired(t => t.User)
+                        .HasOptional(t => t.User)
                         .WithMany(t => t.ArticleRates)
                         .HasForeignKey(t => t.UserId)
                         .WillCascadeOnDelete(false);

@@ -14,7 +14,6 @@ using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Controllers
 {
-    [Authorize]
     public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;
@@ -25,7 +24,7 @@ namespace CorporateBlog.WebApi.Controllers
             _categoryService = categoryService;
         }
 
-        [Authorize(Roles = RoleNames.Admin)]
+        [ExtendedAuthorize(Roles = RoleNames.Admin)]
         [HttpPost]
         [Route("api/Category/Create")]
         public async Task CreateCategory(Models.Category category)
@@ -37,7 +36,7 @@ namespace CorporateBlog.WebApi.Controllers
             await _categoryService.CreateCategoryAsync(model);
         }
 
-        [Authorize(Roles = RoleNames.Admin)]
+        [ExtendedAuthorize(Roles = RoleNames.Admin)]
         [HttpPut]
         [Route("api/Category/Update")]
         public async Task UpdateCategory(Models.Category category)
@@ -46,6 +45,7 @@ namespace CorporateBlog.WebApi.Controllers
             await _categoryService.UpdateCategoryAsync(model);
         }
 
+        [ExtendedAuthorize]
         [HttpGet]
         [Route("api/Category/GetAll")]
         public async Task<IEnumerable<Models.Category>> GetAllCategories()
@@ -55,7 +55,7 @@ namespace CorporateBlog.WebApi.Controllers
             return mappedCategories;
         }
 
-        [Authorize(Roles = RoleNames.Admin)]
+        [ExtendedAuthorize(Roles = RoleNames.Admin)]
         [HttpDelete]
         [Route("api/Category/Delete/{categoryId}")]
         public async Task DeleteCategory(int categoryId)

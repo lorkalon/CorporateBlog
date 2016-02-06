@@ -63,6 +63,7 @@ namespace CorporateBlog.WebApi
             builder.RegisterType<EmailService>().As<IIdentityMessageService>().InstancePerRequest();
             builder.RegisterType<CorporateBlogAuthorizationServerProvider>().InstancePerRequest();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterType<ExtendedAuthorizeAttribute>().As<ExtendedAuthorizeAttribute>().PropertiesAutowired();
         }
 
         private async void CreateDatabase(IDependencyResolver resolver)

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CorporateBlog.WebApi.Controllers
 {
-    public abstract class BaseController:ApiController
+    public abstract class BaseController : ApiController
     {
         private readonly ApplicationUserManager _userManager;
 
@@ -55,6 +55,30 @@ namespace CorporateBlog.WebApi.Controllers
             }
         }
 
+        protected class UnauthorizedResult : IHttpActionResult
+        {
+            private readonly HttpRequestMessage _request;
+            private readonly string _reason;
+
+            public UnauthorizedResult(HttpRequestMessage request, string reason)
+            {
+                _request = request;
+                _reason = reason;
+            }
+
+            public UnauthorizedResult(HttpRequestMessage request)
+            {
+                _request = request;
+                _reason = "Unauthorized";
+            }
+
+            public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+            {
+                var response = _request.CreateResponse(HttpStatusCode.Unauthorized, _reason);
+                return Task.FromResult(response);
+            }
+        }
+
         protected class ConflictResult : IHttpActionResult
         {
             private readonly HttpRequestMessage _request;
@@ -84,5 +108,11 @@ namespace CorporateBlog.WebApi.Controllers
         {
             return new ConflictResult(Request, message);
         }
+
+        protected virtual UnauthorizedResult Unauthorized(string message)
+        {
+            return new UnauthorizedResult(Request, message);
+        }
+
     }
 }
