@@ -22,6 +22,17 @@
                 saved: false
             };
 
+            $scope.newPasswordModel = {
+                oldPassword: null,
+                newPassword: null
+            };
+
+            $scope.alert = {
+                type: null,
+                msg: null,
+                displayed: false
+            };
+
             $scope.uploadPicture = function (file) {
 
                 file.upload = Upload.upload({
@@ -31,6 +42,13 @@
 
                 file.upload.then(function () {
                     $scope.showedAvatar.saved = true;
+                    $scope.alert.type = "success";
+                    $scope.alert.msg = "Avatar's been successfully saved!";
+                    $scope.alert.displayed = true;
+                }, function() {
+                    $scope.alert.type = "error";
+                    $scope.alert.msg = "Internal server error!";
+                    $scope.alert.displayed = true;
                 });
             };
 
@@ -41,6 +59,29 @@
                     accountService.deleteProfilePicture();
                     $scope.avatar = null;
                 }
+            };
+
+            $scope.changePassword = function(model) {
+                accountService.changePassword(model).then(function() {
+                    $scope.newPasswordModel = {
+                        oldPassword: null,
+                        newPassword: null
+                    };
+
+                    $scope.alert.type = "success";
+                    $scope.alert.msg = "Password's been successfully changed!";
+                    $scope.alert.displayed = true;
+                }, function() {
+                    $scope.alert.type = "error";
+                    $scope.alert.msg = "Internal server error!";
+                    $scope.alert.displayed = true;
+                });
+            };
+
+            $scope.closeAlert = function() {
+                $scope.alert.type = null;
+                $scope.alert.msg = null;
+                $scope.alert.displayed = false;
             };
 
             loadMyProfile();

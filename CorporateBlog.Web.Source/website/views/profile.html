@@ -28,24 +28,36 @@
             </div>
 
             <div>
-                <span>UserName:</span> 
+                <span>UserName:</span>
                 <b><span>{{myProfile.userName}}</span></b>
-            </div>  
+            </div>
             <div>
-                <span>Email:</span> 
+                <span>Email:</span>
                 <b><span>{{myProfile.email}}</span></b>
             </div>
-            <!--<div>
-                <span>Name:</span>
-                <b><span>{{myProfile.name}}</span></b>
-            </div>
-            <div>
-                <span>Surname:</span>
-                <b><span>{{myProfile.surname}}</span></b>
-            </div>-->
+
             <div>
                 <span>Role:</span>
                 <b><span>{{myProfile.roleName}}</span></b>
+            </div>
+
+            <div>
+                <form name="changePasswordForm">
+                    <div class="margin">
+                        <span>Old password: </span>
+                        <input type="password" ng-model="newPasswordModel.oldPassword" required ng-minlength="5"/>
+                    </div>
+
+                    <div class="margin">
+                        <span>New password: </span>
+                        <input type="password" ng-model="newPasswordModel.newPassword" required ng-minlength="5"/>
+                    </div>
+
+                    <button class="btn btn-danger" type="submit" ng-show="changePasswordForm.$valid" ng-click="changePassword(newPasswordModel)">Change password</button>
+                </form>
+            </div>
+            <div ng-show="alert.displayed">
+                <alert type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
             </div>
         </blockquote>
     </div>

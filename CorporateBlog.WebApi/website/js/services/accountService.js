@@ -78,6 +78,10 @@
                 return $http.post('/api/Account/ResetPassword', model);
             };
 
+            var changePassword = function (model) {
+                return $http.post('/api/Account/ChangePassword', model);
+            };
+
             return {
                 logIn: logIn,
                 logOut: logOut,
@@ -93,7 +97,8 @@
                 getMyProfileInfo: getMyProfileInfo,
                 deleteProfilePicture: deleteProfilePicture,
                 sendRestoreEmail: sendRestoreEmail,
-                resetPassword: resetPassword
+                resetPassword: resetPassword,
+                changePassword: changePassword
             };
 
         }]);
