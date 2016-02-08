@@ -24,7 +24,7 @@ namespace CorporateBlog.WebApi.Authentication
             }
 
             var identity = actionContext.RequestContext.Principal.Identity as ClaimsIdentity;
-            var role = identity?.FindFirst(ClaimTypes.Role);
+            var role = identity != null ? identity.FindFirst(ClaimTypes.Role) : null;
             if (role == null)
             {
                 return false;
